@@ -1,0 +1,55 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Container from "../components/Container.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import CTABand from "../components/CTABand.astro";
+
+const upcoming = [
+  { date: "[Mar TBD, 2026]", title: "[Spring Mentorship Kickoff]", location: "[City], TX", desc: "[Brief description of the event and who it's for.]" },
+  { date: "[Apr TBD, 2026]", title: "[Leadership Workshop Series]", location: "[City], TX", desc: "[Brief description of the event and who it's for.]" },
+  { date: "[May TBD, 2026]", title: "[Community Enrichment Day]", location: "[City], TX", desc: "[Brief description of the event and who it's for.]" },
+];
+---
+
+<Layout title="Events" description="Upcoming Bee Unique events across Texas — workshops, community days, and mentorship kickoffs.">
+  <section class="honeycomb-bg">
+    <Container class="py-16 sm:py-20 lg:py-24">
+      <Eyebrow>Events</Eyebrow>
+      <h1 class="mt-5 max-w-2xl font-display text-4xl font-semibold leading-tight text-charcoal sm:text-5xl">
+        Come Be Part of the Hive
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-charcoal/75">
+        From workshops to community days, here's where you can find us next.
+      </p>
+    </Container>
+  </section>
+
+  <section class="py-16 sm:py-20">
+    <Container class="space-y-5">
+      {
+        upcoming.map((e) => (
+          <div class="flex flex-col gap-4 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-charcoal/5 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-wider text-teal">{e.date} · {e.location}</p>
+              <p class="mt-1.5 font-display text-xl font-semibold text-charcoal">{e.title}</p>
+              <p class="mt-1 text-sm text-charcoal/65">{e.desc}</p>
+            </div>
+            <a
+              href="/get-involved"
+              class="shrink-0 rounded-full border-2 border-charcoal px-5 py-2 text-center text-sm font-semibold text-charcoal transition-colors hover:bg-charcoal hover:text-white"
+            >
+              RSVP / Learn More
+            </a>
+          </div>
+        ))
+      }
+    </Container>
+  </section>
+
+  <CTABand
+    heading="Want Event Updates First?"
+    body="Join our mailing list in the footer below and never miss an upcoming Bee Unique event."
+    primaryLabel="Get Involved"
+    primaryHref="/get-involved"
+  />
+</Layout>

@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Container from "../components/Container.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import StatCard from "../components/StatCard.astro";
+---
+
+<Layout title="Financial Transparency" description="How Bee Unique uses donations to fund programs for Texas youth.">
+  <section class="py-16 sm:py-20">
+    <Container class="mx-auto max-w-3xl">
+      <Eyebrow>Transparency</Eyebrow>
+      <h1 class="mt-5 font-display text-4xl font-semibold text-charcoal">Financial Transparency</h1>
+      <p class="mt-5 leading-relaxed text-charcoal/75">
+        Bee Unique is committed to being transparent with our donors and community about how funds are used. This
+        page will be updated with confirmed figures as they become available.
+      </p>
+
+      <div class="mt-8 rounded-xl bg-honey/10 p-5 text-sm text-charcoal/75">
+        [Placeholder — replace with real financials once available: EIN, 501(c)(3) determination letter, annual
+        report, and Form 990 if applicable.]
+      </div>
+
+      <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <StatCard value="[EIN pending]" label="Tax ID Number" />
+        <StatCard value="[Pending]" label="501(c)(3) Status" />
+        <StatCard value="[Year]" label="Founded" />
+      </div>
+
+      <div class="mt-10 space-y-6 leading-relaxed text-charcoal/75">
+        <div>
+          <h2 class="font-display text-xl font-semibold text-charcoal">How Funds Are Used</h2>
+          <p class="mt-2">
+            [Add a breakdown once available — e.g., % toward programs, % operations, % fundraising — along with a
+            short explanation of major cost categories like mentor training, program materials, and events.]
+          </p>
+        </div>
+        <div>
+          <h2 class="font-display text-xl font-semibold text-charcoal">Annual Reports</h2>
+          <p class="mt-2">[Link to annual report(s) once published.]</p>
+        </div>
+      </div>
+    </Container>
+  </section>
+</Layout>

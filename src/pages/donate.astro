@@ -1,0 +1,143 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Container from "../components/Container.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import Button from "../components/Button.astro";
+
+const DONATE_URL = "[DONATION-PLATFORM-URL — e.g. Donorbox, Givebutter, or Stripe Donations checkout link]";
+
+const impactTiers = [
+  { amount: "$25", impact: "Provides program supplies for one participant." },
+  { amount: "$100", impact: "Sponsors one youth's spot in a leadership workshop." },
+  { amount: "$250", impact: "Helps sponsor a student through a full mentorship season." },
+  { amount: "$1,000", impact: "Helps fund a community enrichment event." },
+];
+
+const givingOptions = [
+  {
+    title: "One-Time Gift",
+    desc: "Make a single donation of any amount to support current programs.",
+    cta: "Give Once",
+  },
+  {
+    title: "Monthly Giving",
+    desc: "Become a sustaining donor with a recurring monthly gift that helps us plan ahead.",
+    cta: "Give Monthly",
+  },
+  {
+    title: "Corporate Giving",
+    desc: "Match employee donations, sponsor a program, or set up recurring corporate giving.",
+    cta: "Contact Us",
+    href: "/get-involved#partner",
+  },
+  {
+    title: "In-Kind Donations",
+    desc: "Donate supplies, equipment, or professional services directly to our programs.",
+    cta: "See Current Needs",
+    href: "/contact",
+  },
+];
+---
+
+<Layout
+  title="Donate"
+  description="Support Bee Unique's mission to help Texas youth discover their strengths and build confidence. One-time, monthly, and corporate giving options available."
+>
+  <section class="honeycomb-bg">
+    <Container class="py-16 text-center sm:py-20 lg:py-24">
+      <Eyebrow>Donate</Eyebrow>
+      <h1 class="mx-auto mt-5 max-w-2xl font-display text-4xl font-semibold leading-tight text-charcoal sm:text-5xl">
+        Support the Mission
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-charcoal/75">
+        Your gift directly funds mentorship, workshops, and community programs for Texas youth. Here's exactly how it
+        helps.
+      </p>
+    </Container>
+  </section>
+
+  <!-- Impact tiers -->
+  <section class="py-16 sm:py-20">
+    <Container>
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          impactTiers.map((t) => (
+            <a
+              href={DONATE_URL}
+              class="flex flex-col rounded-2xl bg-white p-7 text-center shadow-sm ring-1 ring-charcoal/5 transition-shadow hover:shadow-md"
+            >
+              <p class="font-display text-4xl font-semibold text-honey-dark">{t.amount}</p>
+              <p class="mt-3 flex-1 text-sm leading-relaxed text-charcoal/70">{t.impact}</p>
+            </a>
+          ))
+        }
+      </div>
+      <p class="mt-4 text-center text-xs text-charcoal/40">
+        [Amounts and impact statements are placeholders — confirm against actual program costs before publishing]
+      </p>
+      <div class="mt-8 text-center">
+        <Button href={DONATE_URL} size="lg">Donate Now</Button>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Giving options -->
+  <section class="honeycomb-bg py-16 sm:py-20">
+    <Container>
+      <Eyebrow>Ways to Give</Eyebrow>
+      <h2 class="mt-4 font-display text-3xl font-semibold text-charcoal sm:text-4xl">Choose What Fits You</h2>
+      <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {
+          givingOptions.map((o) => (
+            <div class="flex flex-col rounded-2xl bg-white p-7 shadow-sm ring-1 ring-charcoal/5">
+              <h3 class="font-display text-xl font-semibold text-charcoal">{o.title}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-charcoal/70">{o.desc}</p>
+              <a
+                href={o.href ?? DONATE_URL}
+                class="mt-5 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-honey-dark hover:text-honey"
+              >
+                {o.cta} →
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  <!-- Employer matching + transparency -->
+  <section class="py-16 sm:py-20">
+    <Container class="grid grid-cols-1 gap-10 lg:grid-cols-2">
+      <div class="rounded-2xl bg-teal/10 p-8 sm:p-10">
+        <h2 class="font-display text-2xl font-semibold text-charcoal">Employer Matching Gifts</h2>
+        <p class="mt-4 leading-relaxed text-charcoal/75">
+          Many employers match charitable donations dollar-for-dollar. Check with your HR team to see if your company
+          can double your gift to Bee Unique at no extra cost to you.
+        </p>
+      </div>
+      <div class="rounded-2xl bg-honey/10 p-8 sm:p-10">
+        <h2 class="font-display text-2xl font-semibold text-charcoal">How Your Gift Is Used</h2>
+        <p class="mt-4 leading-relaxed text-charcoal/75">
+          Donations directly fund mentor training, program materials, workshop facilitation, and community events.
+          [Add a simple funding breakdown here once financials are available — e.g., % programs / % operations /
+          % fundraising.]
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Trust & transparency -->
+  <section class="honeycomb-bg py-16 sm:py-20">
+    <Container class="mx-auto max-w-3xl text-center">
+      <Eyebrow>Transparency</Eyebrow>
+      <h2 class="mt-4 font-display text-3xl font-semibold text-charcoal sm:text-4xl">Secure, Transparent Giving</h2>
+      <p class="mt-5 leading-relaxed text-charcoal/75">
+        Donations are processed securely through [donation platform name — e.g. Donorbox / Givebutter / Stripe].
+        Bee Unique is a Texas-based nonprofit; our 501(c)(3) tax-exempt status is [pending confirmation — EIN to be
+        added once available]. Donations may be tax-deductible to the extent allowed by law. Read our full
+        <a href="/financial-transparency" class="font-semibold text-honey-dark hover:text-honey">financial transparency</a>
+        page for more detail.
+      </p>
+    </Container>
+  </section>
+</Layout>

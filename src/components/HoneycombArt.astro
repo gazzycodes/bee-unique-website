@@ -1,0 +1,29 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+
+<svg
+  class={className}
+  viewBox="0 0 400 400"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Decorative honeycomb pattern placeholder for program photography"
+>
+  <rect width="400" height="400" rx="24" fill="var(--color-charcoal)" />
+  <g opacity="0.9">
+    <polygon points="120,60 170,90 170,150 120,180 70,150 70,90" fill="var(--color-honey)" />
+    <polygon points="220,60 270,90 270,150 220,180 170,150 170,90" fill="var(--color-honey-light)" opacity="0.85" />
+    <polygon points="320,60 370,90 370,150 320,180 270,150 270,90" fill="var(--color-teal)" opacity="0.8" />
+    <polygon points="70,150 120,180 120,240 70,270 20,240 20,180" fill="var(--color-teal)" opacity="0.6" />
+    <polygon points="170,150 220,180 220,240 170,270 120,240 120,180" fill="var(--color-cream)" opacity="0.95" />
+    <polygon points="270,150 320,180 320,240 270,270 220,240 220,180" fill="var(--color-honey)" opacity="0.75" />
+    <polygon points="370,150 420,180 420,240 370,270 320,240 320,180" fill="var(--color-honey-light)" opacity="0.5" />
+    <polygon points="120,240 170,270 170,330 120,360 70,330 70,270" fill="var(--color-honey-dark)" opacity="0.7" />
+    <polygon points="220,240 270,270 270,330 220,360 170,330 170,270" fill="var(--color-teal)" opacity="0.85" />
+    <polygon points="320,240 370,270 370,330 320,360 270,330 270,270" fill="var(--color-cream)" opacity="0.4" />
+  </g>
+</svg>

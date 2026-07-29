@@ -1,0 +1,128 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Container from "../components/Container.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import StatCard from "../components/StatCard.astro";
+import ProgramDetail from "../components/ProgramDetail.astro";
+import Testimonial from "../components/Testimonial.astro";
+import CTABand from "../components/CTABand.astro";
+
+const programs = [
+  {
+    name: "Mentorship Circles",
+    summary:
+      "Small-group mentoring that pairs youth with trained, background-checked adult mentors for consistent, one-on-one encouragement, goal-setting, and support.",
+    outcome:
+      "Participants build a trusted relationship with a caring adult and develop confidence, communication skills, and a stronger sense of identity.",
+    facts: [
+      { label: "Serves", value: "Youth ages [8–13]" },
+      { label: "When", value: "[Bi-weekly], [Sept–May]" },
+      { label: "Where", value: "[City], TX and partner sites" },
+      { label: "Duration", value: "[School-year] commitment" },
+      { label: "How to join", value: "Apply via Get Involved page" },
+    ],
+  },
+  {
+    name: "Leadership Workshops",
+    summary:
+      "Hands-on workshops covering public speaking, goal-setting, teamwork, and decision-making — designed to help teens step confidently into leadership roles at school and in their communities.",
+    outcome: "Participants complete the series with a personal leadership project and measurable gains in confidence and communication skills.",
+    facts: [
+      { label: "Serves", value: "Teens ages [14–18]" },
+      { label: "When", value: "[Monthly Saturdays]" },
+      { label: "Where", value: "[City], TX" },
+      { label: "Duration", value: "[6-week] series" },
+      { label: "How to join", value: "Register via Get Involved page" },
+    ],
+  },
+  {
+    name: "Community Enrichment Days",
+    summary:
+      "Family-friendly events across Texas communities that connect youth and families with mentors, local resources, health and wellness partners, and enrichment activities.",
+    outcome: "Families leave connected to ongoing Bee Unique programs and local community resources.",
+    facts: [
+      { label: "Serves", value: "Youth and families, all ages" },
+      { label: "When", value: "[Quarterly]" },
+      { label: "Where", value: "Rotates across Texas communities" },
+      { label: "Duration", value: "Single-day event" },
+      { label: "How to join", value: "See Events page for dates" },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Programs & Impact"
+  description="Explore Bee Unique's mentorship, leadership, and community programs for Texas youth — and the measurable impact they create."
+>
+  <section class="honeycomb-bg">
+    <Container class="py-16 sm:py-20 lg:py-24">
+      <Eyebrow>Programs & Impact</Eyebrow>
+      <h1 class="mt-5 max-w-3xl font-display text-4xl font-semibold leading-tight text-charcoal sm:text-5xl">
+        Real Programs. Real Mentors. Real Impact.
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-charcoal/75">
+        Every Bee Unique program is built around one goal — helping young people discover their strengths and the
+        confidence to use them. Here's how, and who it reaches.
+      </p>
+    </Container>
+  </section>
+
+  <section class="py-16 sm:py-20">
+    <Container class="space-y-16 sm:space-y-20">
+      {programs.map((p, i) => <ProgramDetail {...p} reverse={i % 2 === 1} />)}
+    </Container>
+  </section>
+
+  <!-- Impact stats -->
+  <section class="honeycomb-bg py-16 sm:py-20">
+    <Container>
+      <Eyebrow>By The Numbers</Eyebrow>
+      <h2 class="mt-4 font-display text-3xl font-semibold text-charcoal sm:text-4xl">Measurable Impact</h2>
+      <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <StatCard value="[250+]" label="Youth Served" />
+        <StatCard value="[30+]" label="Workshops Completed" />
+        <StatCard value="[8]" label="Scholarships Awarded" />
+        <StatCard value="[500+]" label="Volunteer Hours" />
+        <StatCard value="[6]" label="Schools Served" />
+        <StatCard value="[120+]" label="Families Supported" />
+        <StatCard value="[12]" label="Community Partners" />
+        <StatCard value="[95%]" label="Parent Satisfaction" />
+      </div>
+      <p class="mt-4 text-xs text-charcoal/40">[Placeholder figures — replace with confirmed program data before publishing]</p>
+    </Container>
+  </section>
+
+  <!-- 2026 goal -->
+  <section class="py-16 sm:py-20">
+    <Container class="mx-auto max-w-3xl rounded-2xl bg-charcoal p-10 text-center text-cream sm:p-14">
+      <Eyebrow tone="dark">Looking Ahead</Eyebrow>
+      <p class="mt-6 font-display text-2xl font-medium leading-relaxed sm:text-3xl">
+        Our 2026 goal is to serve [250] youth across Texas through mentorship, leadership development, enrichment,
+        and community-based programming.
+      </p>
+      <p class="mt-4 text-sm text-cream/70">Your support helps us reach it. See how your gift makes a direct impact.</p>
+    </Container>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="honeycomb-bg py-16 sm:py-20">
+    <Container class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <Testimonial
+        quote="[The leadership workshops helped me speak up in class for the first time. I actually feel like people listen now.]"
+        name="[Participant Name]"
+        role="[Program Participant, age 15]"
+      />
+      <Testimonial
+        quote="[Watching my son's confidence grow through his mentor has meant everything to our family.]"
+        name="[Parent Name]"
+        role="[Parent of a program participant]"
+      />
+    </Container>
+  </section>
+
+  <CTABand
+    heading="Help Us Reach Our 2026 Goal"
+    body="Every mentor, volunteer, and gift moves us closer to serving more Texas youth."
+  />
+</Layout>

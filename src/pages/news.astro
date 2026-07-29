@@ -1,0 +1,42 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Container from "../components/Container.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+
+const posts = [
+  { date: "[Month 2026]", title: "[News post title — e.g. program launch, milestone, or partner announcement]", excerpt: "[Short excerpt summarizing the update.]" },
+  { date: "[Month 2026]", title: "[News post title]", excerpt: "[Short excerpt summarizing the update.]" },
+  { date: "[Month 2026]", title: "[News post title]", excerpt: "[Short excerpt summarizing the update.]" },
+];
+---
+
+<Layout title="News" description="Updates, milestones, and stories from Bee Unique.">
+  <section class="honeycomb-bg">
+    <Container class="py-16 sm:py-20 lg:py-24">
+      <Eyebrow>News</Eyebrow>
+      <h1 class="mt-5 max-w-2xl font-display text-4xl font-semibold leading-tight text-charcoal sm:text-5xl">
+        Stories From the Hive
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-charcoal/75">
+        Updates on our programs, partnerships, and the young people we serve.
+      </p>
+    </Container>
+  </section>
+
+  <section class="py-16 sm:py-20">
+    <Container class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+      {
+        posts.map((p) => (
+          <article class="flex flex-col rounded-2xl bg-white p-6 shadow-sm ring-1 ring-charcoal/5">
+            <p class="text-xs font-bold uppercase tracking-wider text-teal">{p.date}</p>
+            <h2 class="mt-2 font-display text-lg font-semibold text-charcoal">{p.title}</h2>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-charcoal/70">{p.excerpt}</p>
+          </article>
+        ))
+      }
+    </Container>
+    <Container>
+      <p class="mt-4 text-xs text-charcoal/40">[No news posts published yet — add real updates as they happen]</p>
+    </Container>
+  </section>
+</Layout>

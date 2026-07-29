@@ -1,0 +1,19 @@
+---
+interface Props {
+  variant?: "dark" | "light";
+  class?: string;
+}
+const { variant = "dark", class: className = "" } = Astro.props;
+const textColor = variant === "light" ? "text-white" : "text-charcoal";
+---
+
+<a href="/" class={`flex items-center gap-2.5 shrink-0 ${className}`} aria-label="Bee Unique home">
+  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M17 1 L30.86 9 L30.86 25 L17 33 L3.14 25 L3.14 9 Z" fill="var(--color-honey)" />
+    <path d="M17 5 L27.39 11 L27.39 23 L17 29 L6.61 23 L6.61 11 Z" fill="var(--color-cream)" />
+    <circle cx="17" cy="17" r="3.4" fill="var(--color-charcoal)" />
+  </svg>
+  <span class={`font-display font-semibold text-xl leading-none ${textColor}`}>
+    Bee Unique
+  </span>
+</a>
