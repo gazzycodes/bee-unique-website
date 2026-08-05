@@ -43,11 +43,16 @@ Fonts: **Poppins** for display (matches the logo wordmark), **Inter** for body.
 
 ### Logo
 
-The printed logo is a green wordmark over a fading honeycomb field. That field turns to mush below
-about 40px, so `Logo.astro` distils it to two cells — one filled hive cell with a negative-space
-centre, plus a smaller cell offset from it (the one standing apart from the hive). Same honeycomb
-language, still legible at favicon size. `public/favicon.svg` uses the same two shapes; keep them in
-sync. The full printed logo is kept at `public/images/logo-full.png` for print and social profiles.
+`Logo.astro` reproduces the printed mark — a green wordmark against a honeycomb field that fades as
+it recedes — as vector rather than lifting the source PNG, so it stays crisp at any size and can be
+recoloured for dark backgrounds. One solid cell anchors the near corner, then four outlined cells
+step down in opacity.
+
+The stroke weight and opacity ramp are tuned for roughly 36–48px. **Below about 28px the faintest
+cells stop resolving**, so `public/favicon.svg` carries a reduced three-cell version of the same
+geometry instead. If you change one, change both — they should keep reading as one family.
+
+The original printed logo is at `public/images/logo-full.png` for print and social profiles.
 
 ### Shared building blocks
 
