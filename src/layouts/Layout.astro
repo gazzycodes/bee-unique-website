@@ -75,5 +75,28 @@ const ogImage = new URL("/images/og-image.jpg", canonicalURL);
       <slot />
     </main>
     <Footer />
+
+    <script>
+      // Scroll reveal. The `js-reveal` class is what arms the CSS, so if this
+      // script never runs the content simply renders visible — no blank page.
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const targets = document.querySelectorAll(".reveal");
+
+      if (!reduced && "IntersectionObserver" in window && targets.length) {
+        document.documentElement.classList.add("js-reveal");
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("reveal-on");
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
+        );
+        targets.forEach((el) => io.observe(el));
+      }
+    </script>
   </body>
 </html>

@@ -74,8 +74,65 @@ body {
   background-image: linear-gradient(90deg, var(--color-brand) 0%, var(--color-brand-soft) 100%);
 }
 
+/* Soft green bloom behind hero art — cheap depth without an extra image. */
+.brand-glow::before {
+  content: "";
+  position: absolute;
+  inset: -12% -8% auto -8%;
+  height: 70%;
+  border-radius: 999px;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(67, 148, 58, 0.22), transparent 70%);
+  filter: blur(28px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Hexagon photo mask, for the secondary hero image. */
+.hex-clip {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* ── Scroll reveal ──────────────────────────────────────────────────────
+   Elements start slightly down and transparent, then settle when scrolled
+   into view. The `.reveal-on` class is added by a tiny IntersectionObserver
+   in Layout.astro. If JS never runs, or the observer isn't supported, the
+   no-js/fallback rule below leaves content fully visible — content must
+   never depend on script to be readable.                                */
+@media (prefers-reduced-motion: no-preference) {
+  .js-reveal .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .js-reveal .reveal.reveal-on {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Card lift shared by program/way/amount cards. */
+.card-lift {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--color-brand) 45%, transparent);
+  box-shadow: 0 14px 30px -18px rgba(20, 54, 26, 0.45);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .card-lift:hover {
+    transform: none;
   }
 }

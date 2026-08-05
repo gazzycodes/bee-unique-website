@@ -1,7 +1,14 @@
 ---
 /**
- * Bee Unique lockup — honeycomb cluster + stacked wordmark, matching the
- * organisation's logo (green wordmark set against an outlined hex grid).
+ * Bee Unique lockup.
+ *
+ * The printed logo is a green wordmark over a fading honeycomb field. That
+ * field turns to mush below ~40px, so the mark here distils it to two cells:
+ * one filled hive cell with a negative-space centre, and one smaller cell
+ * offset from it — the one standing apart from the hive. Same honeycomb
+ * language, but it still reads at favicon size.
+ *
+ * Wordmark stays stacked on two lines, matching the printed lockup.
  */
 interface Props {
   variant?: "dark" | "light";
@@ -9,23 +16,34 @@ interface Props {
 }
 const { variant = "dark", class: className = "" } = Astro.props;
 
-const wordColor = variant === "light" ? "text-white" : "text-brand-strong";
-const hexOutline = variant === "light" ? "rgba(255,255,255,0.4)" : "#c9cfc7";
-const hexFill = variant === "light" ? "#a7d9a0" : "#43943a";
+const isLight = variant === "light";
+const wordColor = isLight ? "text-white" : "text-brand-strong";
+const cellFill = isLight ? "#a7d9a0" : "var(--color-brand)";
+const cellHole = isLight ? "#14361a" : "#ffffff";
+const satellite = isLight ? "#ffffff" : "var(--color-brand-deep)";
 ---
 
-<a href="/" class={`flex items-center gap-2.5 shrink-0 ${className}`} aria-label="Bee Unique — home">
-  <svg width="36" height="38" viewBox="0 0 38 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="shrink-0">
-    <g stroke={hexOutline} stroke-width="1.4" fill="none">
-      <path d="M12 1.2 L21.4 6.6 L21.4 17.4 L12 22.8 L2.6 17.4 L2.6 6.6 Z" />
-      <path d="M26 9.2 L35.4 14.6 L35.4 25.4 L26 30.8 L16.6 25.4 L16.6 14.6 Z" />
-      <path d="M12 17.2 L21.4 22.6 L21.4 33.4 L12 38.8 L2.6 33.4 L2.6 22.6 Z" />
-    </g>
-    <path d="M12 9.4 L18.6 13.2 L18.6 20.8 L12 24.6 L5.4 20.8 L5.4 13.2 Z" fill={hexFill} />
+<a
+  href="/"
+  class={`group flex items-center gap-2.5 shrink-0 ${className}`}
+  aria-label="Bee Unique — home"
+>
+  <svg
+    width="37"
+    height="40"
+    viewBox="0 0 48 52"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    class="shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5"
+  >
+    <path d="M18 4 L33 12.6 L33 29.8 L18 38.4 L3 29.8 L3 12.6 Z" fill={cellFill} />
+    <path d="M18 13 L25.5 17.3 L25.5 25.9 L18 30.2 L10.5 25.9 L10.5 17.3 Z" fill={cellHole} />
+    <path d="M37 27 L45 31.6 L45 40.8 L37 45.4 L29 40.8 L29 31.6 Z" fill={satellite} />
   </svg>
 
-  <span class={`font-display font-extrabold leading-[0.92] tracking-tight ${wordColor}`}>
-    <span class="block text-[1.1rem]">Bee</span>
-    <span class="block text-[1.1rem]">Unique</span>
+  <span class={`font-display font-extrabold leading-[0.9] tracking-[-0.03em] ${wordColor}`}>
+    <span class="block text-[1.12rem]">Bee</span>
+    <span class="block text-[1.12rem]">Unique</span>
   </span>
 </a>

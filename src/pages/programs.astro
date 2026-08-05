@@ -6,11 +6,21 @@ import ProgramDetail from "../components/ProgramDetail.astro";
 import CTABand from "../components/CTABand.astro";
 import Photo from "../components/Photo.astro";
 import VideoCard from "../components/VideoCard.astro";
-import { programIncludes } from "../site";
+import SectionHeading from "../components/SectionHeading.astro";
+import Icon from "../components/Icon.astro";
+
+const included = [
+  { icon: "campus", text: "Campus visits to top colleges & universities" },
+  { icon: "talk", text: "Real talk with college students & staff" },
+  { icon: "scholarship", text: "Scholarship, financial aid & admissions info" },
+  { icon: "workshop", text: "College readiness workshops" },
+  { icon: "spark", text: "Empowerment sessions + leadership activities" },
+];
 
 const programs = [
   {
     name: "College Tours & Campus Visits",
+    icon: "campus",
     summary:
       "Students travel to top colleges and universities, walk the campuses, sit in on the spaces they'd actually study in, and get honest answers from current students and staff. For many, it's the first time a university stops being an abstraction.",
     outcome:
@@ -27,6 +37,7 @@ const programs = [
   },
   {
     name: "College Readiness Workshops",
+    icon: "workshop",
     summary:
       "Working sessions on admissions requirements, application timelines, financial aid, and scholarship searching — for students and, where possible, their families. The point is to make the process legible early, not to cram it into senior year.",
     outcome:
@@ -40,6 +51,7 @@ const programs = [
   },
   {
     name: "Mentorship & Personalized Support",
+    icon: "mentor",
     summary:
       "Ongoing mentorship and one-to-one guidance that follows a student through the process — reviewing applications, talking through choices, and staying in touch between events.",
     outcome:
@@ -57,6 +69,7 @@ const programs = [
   },
   {
     name: "Scholarships & Resources",
+    icon: "scholarship",
     summary:
       "Bee Unique provides scholarships and the practical resources students need along the way, so a family's budget is never the reason a student misses a trip, a workshop, or an application deadline.",
     outcome: "Fewer financial barriers between a student and the next step they've earned.",
@@ -69,6 +82,7 @@ const programs = [
   },
   {
     name: "Empowerment & Leadership Sessions",
+    icon: "spark",
     summary:
       "Sessions and activities built around confidence, self-advocacy, goal-setting and leadership — the parts of the college journey that aren't on any application form but decide how a student handles it.",
     outcome: "Students who can speak for themselves, set a goal and follow it, and see themselves as capable.",
@@ -81,6 +95,7 @@ const programs = [
   },
   {
     name: "Community Outreach",
+    icon: "community",
     summary:
       "Bee Unique shows up in the community year-round — back-to-school drives with free supplies and haircuts, school and district events, and education conferences that connect families to what's available to them.",
     outcome: "Students and families reached where they already are, with real resources in hand.",
@@ -104,18 +119,17 @@ const programs = [
   <!-- Intro -->
   <section class="honeycomb-bg border-b border-line">
     <Container class="py-16 sm:py-20">
-      <div class="max-w-3xl">
-        <Eyebrow>Programs &amp; Impact</Eyebrow>
-        <h1 class="mt-5 font-display text-4xl font-extrabold leading-[1.08] text-ink sm:text-5xl">
-          Exposure, preparation, and someone in your corner
-        </h1>
-        <p class="mt-6 text-lg leading-relaxed text-ink-soft">
-          Bee Unique provides college readiness, mentorship, scholarships, college tours, community outreach, and
-          educational enrichment at no cost to participating students. Through hands-on experiences and consistent
-          support, we help students expand their exposure, strengthen their confidence, and create a clear pathway
-          toward success.
-        </p>
-      </div>
+      <SectionHeading
+        as="h1"
+        eyebrow="Programs & Impact"
+        title="Exposure, preparation, and someone in your corner"
+        class="max-w-3xl"
+      >
+        Bee Unique provides college readiness, mentorship, scholarships, college tours, community outreach, and
+        educational enrichment at no cost to participating students. Through hands-on experiences and consistent
+        support, we help students expand their exposure, strengthen their confidence, and create a clear pathway
+        toward success.
+      </SectionHeading>
     </Container>
   </section>
 
@@ -124,15 +138,14 @@ const programs = [
     <Container>
       <h2 class="font-display text-2xl font-bold text-ink">Every participant gets</h2>
       <div class="section-divider mt-4"></div>
-      <ul class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ul class="reveal mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {
-          programIncludes.map((item) => (
-            <li class="flex items-start gap-3 rounded-2xl border border-line bg-white p-5">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="mt-0.5 shrink-0 text-brand-strong" aria-hidden="true">
-                <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.6" />
-                <path d="M6 10.2 L8.8 13 L14 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-              <span class="text-sm leading-relaxed text-ink">{item}</span>
+          included.map((item) => (
+            <li class="card-lift flex items-center gap-3.5 rounded-2xl border border-line bg-white p-5">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-tint text-brand-strong">
+                <Icon name={item.icon} size={20} />
+              </span>
+              <span class="text-sm font-medium leading-snug text-ink">{item.text}</span>
             </li>
           ))
         }
@@ -148,7 +161,7 @@ const programs = [
   <!-- Program detail -->
   <section class="honeycomb-bg border-y border-line py-16 sm:py-20">
     <Container class="space-y-16 sm:space-y-20">
-      {programs.map((p, i) => <ProgramDetail {...p} reverse={i % 2 === 1} />)}
+      {programs.map((p, i) => <div class="reveal"><ProgramDetail {...p} reverse={i % 2 === 1} /></div>)}
     </Container>
   </section>
 

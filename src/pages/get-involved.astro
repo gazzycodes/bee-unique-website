@@ -6,29 +6,34 @@ import Button from "../components/Button.astro";
 import FormField from "../components/FormField.astro";
 import CTABand from "../components/CTABand.astro";
 import Photo from "../components/Photo.astro";
+import Icon from "../components/Icon.astro";
 import { site } from "../site";
 
 const ways = [
   {
     title: "Become a mentor",
+    icon: "mentor",
     body: "Give a student consistent guidance through the college process — application reviews, honest conversations, and someone who checks in.",
     anchor: "#mentor",
     cta: "Apply to mentor",
   },
   {
     title: "Volunteer",
+    icon: "volunteer",
     body: "Help run college tours, workshops, and community events. Some roles take an afternoon; others run through a season.",
     anchor: "#volunteer",
     cta: "Volunteer with us",
   },
   {
     title: "Sponsor a program or event",
+    icon: "donate",
     body: "Underwrite a campus visit, a workshop, or a back-to-school drive. Sponsorship is what keeps every program free for students.",
     anchor: "#partner",
     cta: "Sponsor a program",
   },
   {
     title: "Partner with us",
+    icon: "partner",
     body: "Schools, districts, community organisations and companies — bring Bee Unique to the students you already serve.",
     anchor: "#partner",
     cta: "Start a partnership",
@@ -77,13 +82,17 @@ const ways = [
       <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
         {
           ways.map((w) => (
-            <div class="flex flex-col rounded-2xl border border-line bg-white p-7">
-              <h3 class="font-display text-xl font-bold text-ink">{w.title}</h3>
+            <a href={w.anchor} class="card-lift reveal group flex flex-col rounded-2xl border border-line bg-white p-7 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-strong">
+              <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-tint text-brand-strong transition-colors group-hover:bg-brand-strong group-hover:text-white">
+                <Icon name={w.icon} size={24} />
+              </span>
+              <h3 class="mt-5 font-display text-xl font-bold text-ink">{w.title}</h3>
               <p class="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">{w.body}</p>
-              <a href={w.anchor} class="mt-5 text-sm font-semibold text-brand-strong hover:text-brand-deep">
-                {w.cta} →
-              </a>
-            </div>
+              <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-strong">
+                {w.cta}
+                <span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
+              </span>
+            </a>
           ))
         }
       </div>

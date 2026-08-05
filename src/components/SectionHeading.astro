@@ -1,0 +1,49 @@
+---
+import Eyebrow from "./Eyebrow.astro";
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  /** Renders as h1 on the page's lead section, h2 everywhere else. */
+  as?: "h1" | "h2";
+  tone?: "light" | "dark";
+  align?: "left" | "center";
+  class?: string;
+}
+const {
+  eyebrow,
+  title,
+  as: Tag = "h2",
+  tone = "light",
+  align = "left",
+  class: className = "",
+} = Astro.props;
+
+const isDark = tone === "dark";
+const sizes =
+  Tag === "h1"
+    ? "text-4xl leading-[1.06] sm:text-5xl lg:text-[3.4rem]"
+    : "text-3xl leading-[1.12] sm:text-4xl";
+---
+
+<div class:list={[align === "center" ? "text-center" : "", className]}>
+  {eyebrow && <Eyebrow tone={tone}>{eyebrow}</Eyebrow>}
+  <Tag
+    class:list={[
+      "font-display font-extrabold tracking-[-0.02em]",
+      eyebrow ? "mt-5" : "",
+      isDark ? "text-white" : "text-ink",
+      sizes,
+    ]}
+  >
+    {title}
+  </Tag>
+  <div class:list={["section-divider mt-5", align === "center" ? "mx-auto" : ""]}></div>
+  {
+    Astro.slots.has("default") && (
+      <div class:list={["mt-5 text-lg leading-relaxed", isDark ? "text-white/75" : "text-ink-soft"]}>
+        <slot />
+      </div>
+    )
+  }
+</div>

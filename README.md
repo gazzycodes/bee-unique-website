@@ -41,6 +41,25 @@ contrast stays WCAG AA compliant — **read those comments before introducing a 
 
 Fonts: **Poppins** for display (matches the logo wordmark), **Inter** for body.
 
+### Logo
+
+The printed logo is a green wordmark over a fading honeycomb field. That field turns to mush below
+about 40px, so `Logo.astro` distils it to two cells — one filled hive cell with a negative-space
+centre, plus a smaller cell offset from it (the one standing apart from the hive). Same honeycomb
+language, still legible at favicon size. `public/favicon.svg` uses the same two shapes; keep them in
+sync. The full printed logo is kept at `public/images/logo-full.png` for print and social profiles.
+
+### Shared building blocks
+
+- **`SectionHeading.astro`** — eyebrow + heading + rule, with an optional slot for intro copy. Use it
+  instead of hand-rolling heading markup so type scale and spacing stay consistent.
+- **`Icon.astro`** — the whole line-icon set, one stroke weight on one 24px grid. Add new icons to
+  the `PATHS` map rather than pasting inline SVG into pages.
+- **`.card-lift`** — hover lift + green border, disabled under `prefers-reduced-motion`.
+- **`.reveal`** — opt an element into the scroll-reveal animation. The CSS is armed by a `js-reveal`
+  class that the observer in `Layout.astro` adds, so if that script never runs the content renders
+  fully visible. Never gate meaningful content on it.
+
 The `.honeycomb-bg` / `.honeycomb-bg-dark` utilities render a seamless hex-grid texture as an inline
 SVG — no image request. The tile maths is in `global.css`; if you change the tile, keep
 `background-size` in sync with the SVG's `width`/`height` or it will visibly seam.
