@@ -6,12 +6,19 @@ dist/
 # dependencies
 node_modules/
 
+# raw, unoptimised source media (originals live on the design machine).
+# Web-ready versions are committed under public/images and public/video.
+BeeUnique Content/
+
+# local-only helper scripts and transfer scratch space
+push.bat
+_transfer/
+
 # logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-
 
 # environment variables
 .env

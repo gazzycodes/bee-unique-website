@@ -1,19 +1,37 @@
 @import "tailwindcss";
 
 @theme {
-  /* Bee Unique brand palette — one primary, one supporting, one accent */
-  --color-honey: #dd9518;
-  --color-honey-dark: #b87611;
-  --color-honey-light: #f3b94a;
-  --color-charcoal: #22303f;
-  --color-charcoal-light: #3a4d61;
-  --color-teal: #2f8f82;
-  --color-teal-dark: #216e64;
-  --color-cream: #fffaf0;
-  --color-cream-dark: #fbeed4;
-  --color-ink: #201a12;
+  /* ── Bee Unique brand palette ────────────────────────────────────────────
+     Sampled directly from the logo (#43943A) and the program flyer (#0F9429).
+     Green + white + light grey. Each green is annotated with what it is safe
+     to use for, so text contrast stays WCAG AA compliant.                  */
 
-  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  /* Logo green. Decorative use, large headings, icons, borders.
+     White on this = 3.8:1 — large text only, never body copy. */
+  --color-brand: #43943a;
+
+  /* Button fills and small green text on white. White on this = 5.3:1. */
+  --color-brand-strong: #357a2e;
+
+  /* Hover / pressed state. */
+  --color-brand-deep: #2a5f26;
+
+  /* Dark sections: footer, CTA bands. White on this = 13.4:1. */
+  --color-brand-forest: #14361a;
+
+  /* Tinted surface — the pale green paper behind alternating sections. */
+  --color-brand-tint: #edf5eb;
+
+  /* Light green for text and rules sitting on forest-dark backgrounds. */
+  --color-brand-soft: #a7d9a0;
+
+  /* Neutrals, from the flyer's grey blocks. */
+  --color-ink: #1c1f1d; /* body text — 16.6:1 on white */
+  --color-ink-soft: #4a524b; /* secondary text — 8.1:1 on white */
+  --color-line: #dbdbd9; /* hairlines, card borders */
+  --color-mist: #f5f6f4; /* off-white section background */
+
+  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -22,24 +40,42 @@ html {
 }
 
 body {
-  background-color: var(--color-cream);
+  background-color: #ffffff;
   color: var(--color-ink);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
 
 .font-display {
   font-family: var(--font-display);
+  letter-spacing: -0.02em;
 }
 
-/* Subtle honeycomb texture, used as a background accent on select sections */
+/* ── Honeycomb texture ──────────────────────────────────────────────────
+   The outlined hex grid from the logo, as a tileable inline SVG so it can sit
+   behind sections at low opacity without costing an extra image request.  */
 .honeycomb-bg {
-  background-color: var(--color-cream-dark);
-  background-image: radial-gradient(circle at 1px 1px, rgba(34, 48, 63, 0.08) 1px, transparent 0);
-  background-size: 24px 24px;
+  background-color: var(--color-mist);
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='69.282' height='120' viewBox='0 0 69.282 120'><g fill='none' stroke='%2343943a' stroke-opacity='0.22' stroke-width='1.1'><path d='M0,-40 L34.64,-20 L34.64,20 L0,40 L-34.64,20 L-34.64,-20 Z'/><path d='M69.28,-40 L103.92,-20 L103.92,20 L69.28,40 L34.64,20 L34.64,-20 Z'/><path d='M0,80 L34.64,100 L34.64,140 L0,160 L-34.64,140 L-34.64,100 Z'/><path d='M69.28,80 L103.92,100 L103.92,140 L69.28,160 L34.64,140 L34.64,100 Z'/><path d='M34.64,20 L69.28,40 L69.28,80 L34.64,100 L0,80 L0,40 Z'/></g></svg>");
+  background-size: 69.282px 120px;
 }
 
+.honeycomb-bg-dark {
+  background-color: var(--color-brand-forest);
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='69.282' height='120' viewBox='0 0 69.282 120'><g fill='none' stroke='%23a7d9a0' stroke-opacity='0.16' stroke-width='1.1'><path d='M0,-40 L34.64,-20 L34.64,20 L0,40 L-34.64,20 L-34.64,-20 Z'/><path d='M69.28,-40 L103.92,-20 L103.92,20 L69.28,40 L34.64,20 L34.64,-20 Z'/><path d='M0,80 L34.64,100 L34.64,140 L0,160 L-34.64,140 L-34.64,100 Z'/><path d='M69.28,80 L103.92,100 L103.92,140 L69.28,160 L34.64,140 L34.64,100 Z'/><path d='M34.64,20 L69.28,40 L69.28,80 L34.64,100 L0,80 L0,40 Z'/></g></svg>");
+  background-size: 69.282px 120px;
+}
+
+/* Short rule under section eyebrows. */
 .section-divider {
-  height: 6px;
-  background-image: linear-gradient(90deg, var(--color-honey) 0 12px, transparent 12px 24px);
-  background-size: 24px 6px;
+  height: 4px;
+  width: 64px;
+  border-radius: 999px;
+  background-image: linear-gradient(90deg, var(--color-brand) 0%, var(--color-brand-soft) 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

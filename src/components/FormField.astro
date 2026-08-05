@@ -8,15 +8,23 @@ interface Props {
   placeholder?: string;
   class?: string;
 }
-const { label, name, type = "text", required = false, options = [], placeholder = "", class: className = "" } = Astro.props;
+const {
+  label,
+  name,
+  type = "text",
+  required = false,
+  options = [],
+  placeholder = "",
+  class: className = "",
+} = Astro.props;
 
 const fieldClasses =
-  "w-full rounded-lg border border-charcoal/15 bg-white px-4 py-2.5 text-sm text-charcoal placeholder:text-charcoal/35 focus:border-honey focus:outline-none focus:ring-2 focus:ring-honey/30";
+  "w-full rounded-lg border border-line bg-white px-4 py-2.5 text-sm text-ink placeholder:text-ink-soft/50 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30";
 ---
 
 <div class={className}>
-  <label for={name} class="mb-1.5 block text-sm font-semibold text-charcoal">
-    {label}{required && <span class="text-honey-dark"> *</span>}
+  <label for={name} class="mb-1.5 block text-sm font-semibold text-ink">
+    {label}{required && <span class="text-brand-strong"> *</span>}
   </label>
   {
     type === "textarea" ? (

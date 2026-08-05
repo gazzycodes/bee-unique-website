@@ -4,105 +4,153 @@ import Container from "../components/Container.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import Button from "../components/Button.astro";
 import FormField from "../components/FormField.astro";
+import CTABand from "../components/CTABand.astro";
+import Photo from "../components/Photo.astro";
+import { site } from "../site";
 
 const ways = [
-  { title: "Become a Mentor", desc: "Commit a season to one-on-one mentorship.", href: "#mentor" },
-  { title: "Volunteer", desc: "Support events, workshops, and day-to-day needs.", href: "#volunteer" },
-  { title: "Corporate Partnership", desc: "Sponsor programs, host events, or send volunteers.", href: "#partner" },
-  { title: "Host a Workshop", desc: "Share a skill or lead a session for our youth.", href: "#volunteer" },
-  { title: "Donate Supplies", desc: "Provide materials our programs need directly.", href: "/donate#in-kind" },
-  { title: "Attend an Event", desc: "Show up and be part of the hive in person.", href: "/events" },
+  {
+    title: "Become a mentor",
+    body: "Give a student consistent guidance through the college process — application reviews, honest conversations, and someone who checks in.",
+    anchor: "#mentor",
+    cta: "Apply to mentor",
+  },
+  {
+    title: "Volunteer",
+    body: "Help run college tours, workshops, and community events. Some roles take an afternoon; others run through a season.",
+    anchor: "#volunteer",
+    cta: "Volunteer with us",
+  },
+  {
+    title: "Sponsor a program or event",
+    body: "Underwrite a campus visit, a workshop, or a back-to-school drive. Sponsorship is what keeps every program free for students.",
+    anchor: "#partner",
+    cta: "Sponsor a program",
+  },
+  {
+    title: "Partner with us",
+    body: "Schools, districts, community organisations and companies — bring Bee Unique to the students you already serve.",
+    anchor: "#partner",
+    cta: "Start a partnership",
+  },
 ];
 ---
 
 <Layout
   title="Get Involved"
-  description="Join the Hive — volunteer, mentor, partner, or support Bee Unique's programs for Texas youth."
+  description="Volunteer, become a mentor, donate, sponsor a program or event, or partner with Bee Unique. Every contribution helps us reach more students."
 >
-  <section class="honeycomb-bg">
-    <Container class="py-16 sm:py-20 lg:py-24">
-      <Eyebrow>Get Involved</Eyebrow>
-      <h1 class="mt-5 max-w-2xl font-display text-4xl font-semibold leading-tight text-charcoal sm:text-5xl">
-        Join the Hive
-      </h1>
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-charcoal/75">
-        Bee Unique runs on people who show up — mentors, volunteers, partners, and neighbors. Whichever way fits your
-        time and skills, there's a clear next step below.
-      </p>
+  <!-- Intro -->
+  <section class="honeycomb-bg border-b border-line">
+    <Container class="grid grid-cols-1 items-center gap-12 py-16 sm:py-20 lg:grid-cols-2">
+      <div>
+        <Eyebrow>Get Involved</Eyebrow>
+        <h1 class="mt-5 font-display text-4xl font-extrabold leading-[1.08] text-ink sm:text-5xl">
+          Help us create opportunities for the next generation
+        </h1>
+        <p class="mt-6 text-lg leading-relaxed text-ink-soft">
+          Volunteer, become a mentor, donate, sponsor a program or event, or partner with Bee Unique. Every
+          contribution helps us reach more students and provide the resources and experiences they need to thrive.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Button href="#mentor" size="lg">Become a Mentor</Button>
+          <Button href="/donate" variant="outline" size="lg">Donate</Button>
+        </div>
+      </div>
+      <div class="overflow-hidden rounded-3xl border border-line shadow-lg">
+        <Photo
+          name="outreach-table"
+          alt="Students gathered around the Bee Unique information table at a community event"
+          sizes="(min-width: 1024px) 520px, 100vw"
+          loading="eager"
+          class="h-80 w-full object-cover lg:h-[26rem]"
+        />
+      </div>
     </Container>
   </section>
 
-  <!-- Ways to get involved -->
+  <!-- Ways to help -->
   <section class="py-16 sm:py-20">
     <Container>
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <h2 class="font-display text-3xl font-bold text-ink sm:text-4xl">Ways to help</h2>
+      <div class="section-divider mt-5"></div>
+      <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
         {
           ways.map((w) => (
-            <a
-              href={w.href}
-              class="group flex flex-col rounded-2xl bg-white p-7 shadow-sm ring-1 ring-charcoal/5 transition-shadow hover:shadow-md"
-            >
-              <h3 class="font-display text-lg font-semibold text-charcoal">{w.title}</h3>
-              <p class="mt-2 flex-1 text-sm leading-relaxed text-charcoal/70">{w.desc}</p>
-              <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-honey-dark group-hover:text-honey">
-                Get started →
-              </span>
-            </a>
+            <div class="flex flex-col rounded-2xl border border-line bg-white p-7">
+              <h3 class="font-display text-xl font-bold text-ink">{w.title}</h3>
+              <p class="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">{w.body}</p>
+              <a href={w.anchor} class="mt-5 text-sm font-semibold text-brand-strong hover:text-brand-deep">
+                {w.cta} →
+              </a>
+            </div>
           ))
         }
       </div>
     </Container>
   </section>
 
-  <!-- Become a Mentor -->
-  <section id="mentor" class="honeycomb-bg scroll-mt-24 py-16 sm:py-20">
-    <Container class="grid grid-cols-1 gap-12 lg:grid-cols-5">
+  <!-- Mentor -->
+  <section id="mentor" class="honeycomb-bg scroll-mt-24 border-y border-line py-16 sm:py-20">
+    <Container class="grid grid-cols-1 gap-10 lg:grid-cols-5">
       <div class="lg:col-span-2">
-        <Eyebrow>Mentorship</Eyebrow>
-        <h2 class="mt-4 font-display text-3xl font-semibold text-charcoal">Become a Mentor</h2>
-        <p class="mt-4 leading-relaxed text-charcoal/75">
-          Mentors commit to [regular, bi-weekly] meetings with a matched student for a full [school year], supporting
-          their confidence, goals, and personal growth. All mentors complete an application, background check, and
-          orientation before matching.
+        <Eyebrow>Mentors</Eyebrow>
+        <h2 class="mt-4 font-display text-3xl font-bold text-ink">Become a mentor</h2>
+        <p class="mt-4 leading-relaxed text-ink-soft">
+          Mentors are the backbone of Bee Unique. You don't need to be a college counsellor — you need to be reliable,
+          encouraging, and willing to walk a student through a process that nobody walked you through either.
         </p>
-        <ul class="mt-5 space-y-2 text-sm text-charcoal/70">
-          <li>• Commitment: [2–4 hours/month], [Sept–May]</li>
-          <li>• Who you'll support: Youth ages [8–18]</li>
-          <li>• Process: Apply → interview → background check → orientation → match</li>
+        <ul class="mt-6 space-y-3 text-sm text-ink-soft">
+          <li class="flex gap-2.5">
+            <span class="text-brand-strong">•</span> Support a student through applications, deadlines and decisions
+          </li>
+          <li class="flex gap-2.5">
+            <span class="text-brand-strong">•</span> Join college tours, workshops and empowerment sessions
+          </li>
+          <li class="flex gap-2.5">
+            <span class="text-brand-strong">•</span> [Commitment: frequency, season length and screening process to be
+            confirmed]
+          </li>
         </ul>
       </div>
+
       <div class="lg:col-span-3">
         <form
           name="mentor-application"
           method="POST"
           data-netlify="true"
           netlify-honeypot="bot-field"
-          class="grid grid-cols-1 gap-4 rounded-2xl bg-white p-7 shadow-sm ring-1 ring-charcoal/5 sm:grid-cols-2 sm:p-8"
+          action="/thank-you"
+          class="rounded-2xl border border-line bg-white p-7 sm:p-8"
         >
           <input type="hidden" name="form-name" value="mentor-application" />
           <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
-          <FormField label="Full Name" name="name" required />
-          <FormField label="Email" name="email" type="email" required />
-          <FormField label="Phone" name="phone" type="tel" />
-          <FormField label="City, TX" name="city" />
-          <FormField
-            label="Preferred Age Group"
-            name="age-group"
-            type="select"
-            options={["8–10", "11–13", "14–16", "17–18", "No preference"]}
-            class="sm:col-span-2"
-          />
-          <FormField
-            label="Why do you want to mentor?"
-            name="message"
-            type="textarea"
-            class="sm:col-span-2"
-          />
+          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <FormField label="Full name" name="mentor-name" required />
+            <FormField label="Email" name="mentor-email" type="email" required />
+            <FormField label="Phone" name="mentor-phone" type="tel" />
+            <FormField label="City" name="mentor-city" />
+            <FormField
+              label="Availability"
+              name="mentor-availability"
+              type="select"
+              options={["Weekdays", "Weekends", "Evenings", "Flexible"]}
+              class="sm:col-span-2"
+            />
+            <FormField
+              label="Why do you want to mentor?"
+              name="mentor-why"
+              type="textarea"
+              required
+              placeholder="Tell us a little about yourself and what you'd bring to a student."
+              class="sm:col-span-2"
+            />
+          </div>
           <button
             type="submit"
-            class="sm:col-span-2 mt-2 inline-flex items-center justify-center rounded-full bg-honey px-6 py-3 text-sm font-semibold text-charcoal transition-colors hover:bg-honey-dark"
+            class="mt-6 w-full rounded-full bg-brand-strong px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-brand-deep sm:w-auto"
           >
-            Submit Mentor Application
+            Submit application
           </button>
         </form>
       </div>
@@ -111,101 +159,131 @@ const ways = [
 
   <!-- Volunteer -->
   <section id="volunteer" class="scroll-mt-24 py-16 sm:py-20">
-    <Container class="grid grid-cols-1 gap-12 lg:grid-cols-5">
+    <Container class="grid grid-cols-1 gap-10 lg:grid-cols-5">
       <div class="lg:col-span-2">
-        <Eyebrow>Volunteer</Eyebrow>
-        <h2 class="mt-4 font-display text-3xl font-semibold text-charcoal">Volunteer With Us</h2>
-        <p class="mt-4 leading-relaxed text-charcoal/75">
-          Volunteers help with events, workshops, administrative support, and more — one-time or ongoing. Tell us
-          your interests and availability and our team will follow up with the right fit.
+        <Eyebrow>Volunteers</Eyebrow>
+        <h2 class="mt-4 font-display text-3xl font-bold text-ink">Volunteer with us</h2>
+        <p class="mt-4 leading-relaxed text-ink-soft">
+          College tours, workshops, back-to-school drives and community events all take hands. Tell us what you're good
+          at and how much time you have, and we'll find the right fit.
         </p>
       </div>
+
       <div class="lg:col-span-3">
         <form
           name="volunteer-signup"
           method="POST"
           data-netlify="true"
           netlify-honeypot="bot-field"
-          class="grid grid-cols-1 gap-4 rounded-2xl bg-white p-7 shadow-sm ring-1 ring-charcoal/5 sm:grid-cols-2 sm:p-8"
+          action="/thank-you"
+          class="rounded-2xl border border-line bg-white p-7 sm:p-8"
         >
           <input type="hidden" name="form-name" value="volunteer-signup" />
           <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
-          <FormField label="Full Name" name="name" required />
-          <FormField label="Email" name="email" type="email" required />
-          <FormField label="Phone" name="phone" type="tel" />
-          <FormField
-            label="Area of Interest"
-            name="interest"
-            type="select"
-            options={["Events", "Workshops & mentoring support", "Administrative / office", "Hosting a workshop", "Other"]}
-          />
-          <FormField
-            label="Availability"
-            name="availability"
-            type="select"
-            options={["Weekday mornings", "Weekday evenings", "Weekends", "Flexible"]}
-          />
-          <FormField label="Relevant experience (optional)" name="experience" type="textarea" class="sm:col-span-2" />
+          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <FormField label="Full name" name="volunteer-name" required />
+            <FormField label="Email" name="volunteer-email" type="email" required />
+            <FormField label="Phone" name="volunteer-phone" type="tel" />
+            <FormField
+              label="I'd like to help with"
+              name="volunteer-interest"
+              type="select"
+              options={[
+                "College tours & campus visits",
+                "Workshops & readiness sessions",
+                "Community outreach events",
+                "Back-to-school drives",
+                "Administrative & behind the scenes",
+                "Wherever I'm needed",
+              ]}
+            />
+            <FormField
+              label="Anything else we should know?"
+              name="volunteer-notes"
+              type="textarea"
+              class="sm:col-span-2"
+            />
+          </div>
           <button
             type="submit"
-            class="sm:col-span-2 mt-2 inline-flex items-center justify-center rounded-full bg-honey px-6 py-3 text-sm font-semibold text-charcoal transition-colors hover:bg-honey-dark"
+            class="mt-6 w-full rounded-full bg-brand-strong px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-brand-deep sm:w-auto"
           >
-            Submit Volunteer Interest
+            Sign up to volunteer
           </button>
         </form>
       </div>
     </Container>
   </section>
 
-  <!-- Corporate Partnerships -->
-  <section id="partner" class="honeycomb-bg scroll-mt-24 py-16 sm:py-20">
-    <Container class="grid grid-cols-1 gap-12 lg:grid-cols-5">
+  <!-- Partner / sponsor -->
+  <section id="partner" class="honeycomb-bg scroll-mt-24 border-y border-line py-16 sm:py-20">
+    <Container class="grid grid-cols-1 gap-10 lg:grid-cols-5">
       <div class="lg:col-span-2">
-        <Eyebrow>Corporate Partnerships</Eyebrow>
-        <h2 class="mt-4 font-display text-3xl font-semibold text-charcoal">Partner With Bee Unique</h2>
-        <p class="mt-4 leading-relaxed text-charcoal/75">
-          Companies partner with us by sponsoring programs, providing employee volunteers, hosting events, or funding
-          scholarships. We'll work with you to build a partnership that fits your team and your goals.
+        <Eyebrow>Sponsors &amp; Partners</Eyebrow>
+        <h2 class="mt-4 font-display text-3xl font-bold text-ink">Sponsor or partner</h2>
+        <p class="mt-4 leading-relaxed text-ink-soft">
+          Sponsorship is what keeps every Bee Unique program free. Underwrite a campus visit, back a workshop series,
+          or bring the program to your school or district.
+        </p>
+        <p class="mt-4 text-sm text-ink-soft">
+          Prefer to talk it through first? Email{" "}
+          <a href={`mailto:${site.email}`} class="font-semibold text-brand-strong hover:text-brand-deep">
+            {site.email}
+          </a>{" "}
+          or call{" "}
+          <a href={site.phoneHref} class="font-semibold text-brand-strong hover:text-brand-deep">{site.phone}</a>.
         </p>
       </div>
+
       <div class="lg:col-span-3">
         <form
-          name="corporate-partnership"
+          name="partnership"
           method="POST"
           data-netlify="true"
           netlify-honeypot="bot-field"
-          class="grid grid-cols-1 gap-4 rounded-2xl bg-white p-7 shadow-sm ring-1 ring-charcoal/5 sm:grid-cols-2 sm:p-8"
+          action="/thank-you"
+          class="rounded-2xl border border-line bg-white p-7 sm:p-8"
         >
-          <input type="hidden" name="form-name" value="corporate-partnership" />
+          <input type="hidden" name="form-name" value="partnership" />
           <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
-          <FormField label="Company Name" name="company" required />
-          <FormField label="Contact Name" name="name" required />
-          <FormField label="Email" name="email" type="email" required />
-          <FormField
-            label="Interest"
-            name="interest"
-            type="select"
-            options={["Program sponsorship", "Employee volunteering", "Event hosting", "Scholarship funding", "Other"]}
-          />
-          <FormField label="Tell us about your goals" name="message" type="textarea" class="sm:col-span-2" />
+          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <FormField label="Organisation" name="partner-org" required />
+            <FormField label="Contact name" name="partner-name" required />
+            <FormField label="Email" name="partner-email" type="email" required />
+            <FormField label="Phone" name="partner-phone" type="tel" />
+            <FormField
+              label="Type of support"
+              name="partner-type"
+              type="select"
+              options={[
+                "Sponsor a college tour",
+                "Sponsor a workshop or event",
+                "In-kind donation",
+                "School / district partnership",
+                "Employee volunteering",
+                "Something else",
+              ]}
+              class="sm:col-span-2"
+            />
+            <FormField label="Tell us what you have in mind" name="partner-notes" type="textarea" class="sm:col-span-2" />
+          </div>
           <button
             type="submit"
-            class="sm:col-span-2 mt-2 inline-flex items-center justify-center rounded-full bg-honey px-6 py-3 text-sm font-semibold text-charcoal transition-colors hover:bg-honey-dark"
+            class="mt-6 w-full rounded-full bg-brand-strong px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-brand-deep sm:w-auto"
           >
-            Start the Conversation
+            Send enquiry
           </button>
         </form>
       </div>
     </Container>
   </section>
 
-  <section class="py-16 text-center sm:py-20">
-    <Container>
-      <h2 class="font-display text-2xl font-semibold text-charcoal sm:text-3xl">Not Ready to Commit? Stay Connected.</h2>
-      <p class="mx-auto mt-3 max-w-xl text-charcoal/70">
-        Join our mailing list from the footer below to hear about upcoming events and opportunities first.
-      </p>
-      <Button href="/donate" class="mt-6" size="lg">Or Support Us With a Gift</Button>
-    </Container>
-  </section>
+  <CTABand
+    heading="Or give what you can"
+    body="Donations fund the tours, the workshops, and the scholarships — everything that lets Bee Unique say yes to a student for free."
+    primaryLabel="Donate Today"
+    primaryHref="/donate"
+    secondaryLabel="See Our Programs"
+    secondaryHref="/programs"
+  />
 </Layout>

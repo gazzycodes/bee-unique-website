@@ -1,19 +1,31 @@
 ---
+/**
+ * Bee Unique lockup — honeycomb cluster + stacked wordmark, matching the
+ * organisation's logo (green wordmark set against an outlined hex grid).
+ */
 interface Props {
   variant?: "dark" | "light";
   class?: string;
 }
 const { variant = "dark", class: className = "" } = Astro.props;
-const textColor = variant === "light" ? "text-white" : "text-charcoal";
+
+const wordColor = variant === "light" ? "text-white" : "text-brand-strong";
+const hexOutline = variant === "light" ? "rgba(255,255,255,0.4)" : "#c9cfc7";
+const hexFill = variant === "light" ? "#a7d9a0" : "#43943a";
 ---
 
-<a href="/" class={`flex items-center gap-2.5 shrink-0 ${className}`} aria-label="Bee Unique home">
-  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path d="M17 1 L30.86 9 L30.86 25 L17 33 L3.14 25 L3.14 9 Z" fill="var(--color-honey)" />
-    <path d="M17 5 L27.39 11 L27.39 23 L17 29 L6.61 23 L6.61 11 Z" fill="var(--color-cream)" />
-    <circle cx="17" cy="17" r="3.4" fill="var(--color-charcoal)" />
+<a href="/" class={`flex items-center gap-2.5 shrink-0 ${className}`} aria-label="Bee Unique — home">
+  <svg width="36" height="38" viewBox="0 0 38 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="shrink-0">
+    <g stroke={hexOutline} stroke-width="1.4" fill="none">
+      <path d="M12 1.2 L21.4 6.6 L21.4 17.4 L12 22.8 L2.6 17.4 L2.6 6.6 Z" />
+      <path d="M26 9.2 L35.4 14.6 L35.4 25.4 L26 30.8 L16.6 25.4 L16.6 14.6 Z" />
+      <path d="M12 17.2 L21.4 22.6 L21.4 33.4 L12 38.8 L2.6 33.4 L2.6 22.6 Z" />
+    </g>
+    <path d="M12 9.4 L18.6 13.2 L18.6 20.8 L12 24.6 L5.4 20.8 L5.4 13.2 Z" fill={hexFill} />
   </svg>
-  <span class={`font-display font-semibold text-xl leading-none ${textColor}`}>
-    Bee Unique
+
+  <span class={`font-display font-extrabold leading-[0.92] tracking-tight ${wordColor}`}>
+    <span class="block text-[1.1rem]">Bee</span>
+    <span class="block text-[1.1rem]">Unique</span>
   </span>
 </a>

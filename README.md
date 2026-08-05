@@ -1,39 +1,89 @@
 # Bee Unique — Website
 
-Marketing site for **Bee Unique**, a Texas-based youth nonprofit. Built with [Astro](https://astro.build) + [Tailwind CSS](https://tailwindcss.com), deployed as a static site.
+Marketing site for **Bee Unique**, a 501(c)(3) nonprofit that empowers youth through mentorship,
+education, and meaningful opportunities — college readiness, college tours, scholarships and
+community outreach, at no cost to participating students.
 
-## Structure
+Built with [Astro](https://astro.build) + [Tailwind CSS v4](https://tailwindcss.com), deployed as a
+static site on Netlify.
 
-Five main pages plus supporting pages, per the site content plan:
+## Pages
 
 - `/` — Home
 - `/about` — About Us
 - `/programs` — Programs & Impact
-- `/get-involved` — Get Involved (mentor, volunteer, corporate partnership forms)
+- `/get-involved` — Get Involved (mentor, volunteer, sponsor/partner forms)
 - `/donate` — Donate
-- `/events`, `/news`, `/contact`, `/privacy-policy`, `/financial-transparency` — secondary pages, linked from the footer
+- `/events`, `/news`, `/contact`, `/financial-transparency`, `/privacy-policy` — secondary pages
+- `/thank-you` — post-form-submission confirmation
 
-Shared UI lives in `src/components/`; the page shell (header, footer, meta tags) is `src/layouts/Layout.astro`. Brand colors and fonts are defined in `src/styles/global.css` under `@theme`.
+Shared UI lives in `src/components/`; the page shell is `src/layouts/Layout.astro`.
 
-## Placeholder content
+## Brand
 
-This is a working scaffold with **real structure and voice, but placeholder facts** — anything in `[brackets]` needs a real answer before this goes live: age ranges served, city/region names, program schedules, leadership and board names, stats, contact info, EIN/501(c)(3) status, and the donation platform link. See `CONTENT-CHECKLIST.md` for the full list.
+Colours and fonts are defined once in `src/styles/global.css` under `@theme`. The palette is
+sampled from the Bee Unique logo (`#43943A`) and program flyer (`#0F9429`), plus white and the
+flyer's light greys. Each green is annotated in that file with what it's safe to use for so text
+contrast stays WCAG AA compliant — **read those comments before introducing a new green.**
 
-Forms (mentor application, volunteer signup, corporate partnership, contact, newsletter) are wired for **Netlify Forms** — no backend required, but form submissions only work once the site is deployed on Netlify (they won't submit from `npm run dev`).
+| Token                  | Hex       | Use                                                |
+| ---------------------- | --------- | -------------------------------------------------- |
+| `--color-brand`        | `#43943A` | Logo green — decorative, large text, borders        |
+| `--color-brand-strong` | `#357A2E` | Button fills, small green text on white (5.3:1)     |
+| `--color-brand-deep`   | `#2A5F26` | Hover / pressed                                     |
+| `--color-brand-forest` | `#14361A` | Dark sections — footer, CTA bands (13.4:1)          |
+| `--color-brand-tint`   | `#EDF5EB` | Pale green surfaces                                 |
+| `--color-brand-soft`   | `#A7D9A0` | Light green text/rules on forest backgrounds        |
+| `--color-ink`          | `#1C1F1D` | Body text                                           |
+| `--color-ink-soft`     | `#4A524B` | Secondary text                                      |
+| `--color-line`         | `#DBDBD9` | Hairlines, card borders                             |
+| `--color-mist`         | `#F5F6F4` | Off-white section background                        |
+
+Fonts: **Poppins** for display (matches the logo wordmark), **Inter** for body.
+
+The `.honeycomb-bg` / `.honeycomb-bg-dark` utilities render a seamless hex-grid texture as an inline
+SVG — no image request. The tile maths is in `global.css`; if you change the tile, keep
+`background-size` in sync with the SVG's `width`/`height` or it will visibly seam.
+
+## Organisation details
+
+Contact details, founder name, social handles and the donation URL live in **`src/site.ts`** —
+change them there, not in individual pages. Anything still wrapped in `[brackets]` anywhere in the
+codebase is an unconfirmed placeholder; see `CONTENT-CHECKLIST.md`.
+
+## Media
+
+Web-ready images live in `public/images/` as WebP at multiple widths (`<name>-<width>.webp`), with
+video in `public/video/`. The `Photo.astro` component holds a catalog of every image with its
+available widths and intrinsic dimensions, and builds the `srcset` and `width`/`height` attributes
+so nothing shifts while loading.
+
+**To add a new photo:** export WebP at 600/1000/1600px into `public/images/`, then add an entry to
+the `CATALOG` in `src/components/Photo.astro`. Use the `object-[x%_y%]` utility to keep faces in
+frame when a portrait photo sits in a wide box.
+
+Raw originals are **not** in the repo — `BeeUnique Content/` is gitignored to keep clones and
+Netlify builds fast. Keep the originals somewhere backed up.
 
 ## Commands
 
-| Command           | Action                                      |
-| ------------------ | -------------------------------------------- |
-| `npm install`       | Install dependencies                         |
-| `npm run dev`       | Start local dev server at `localhost:4321`   |
-| `npm run build`     | Build production site to `./dist/`           |
-| `npm run preview`   | Preview the production build locally         |
+| Command         | Action                                     |
+| --------------- | ------------------------------------------ |
+| `npm install`   | Install dependencies                       |
+| `npm run dev`   | Dev server at `localhost:4321`             |
+| `npm run build` | Build production site to `./dist/`         |
+| `npm run preview` | Preview the production build locally     |
 
-## Deploying to Netlify
+## Forms
 
-1. Push this repo to GitHub.
-2. In Netlify: **Add new site → Import an existing project**, connect the GitHub repo.
-3. Build command: `npm run build` — Publish directory: `dist` (already set in `netlify.toml`).
-4. Deploy. Netlify auto-detects the forms in the built HTML — no extra config needed.
-5. Every push to the main branch redeploys automatically.
+The mentor, volunteer, partnership, contact and newsletter forms are wired for **Netlify Forms** —
+no backend needed. They only work on the deployed site, not from `npm run dev`. Successful
+submissions redirect to `/thank-you`.
+
+After the first deploy, set up submission notifications in Netlify (**Site configuration → Forms →
+Form notifications**) or nobody will know when someone applies.
+
+## Deploying
+
+The site is connected to Netlify from this GitHub repo. Build command `npm run build`, publish
+directory `dist` — both already set in `netlify.toml`. Every push to `master` redeploys.

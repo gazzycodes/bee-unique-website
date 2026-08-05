@@ -3,141 +3,173 @@ import Layout from "../layouts/Layout.astro";
 import Container from "../components/Container.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import Button from "../components/Button.astro";
+import CTABand from "../components/CTABand.astro";
+import Photo from "../components/Photo.astro";
+import { site } from "../site";
 
-const DONATE_URL = "[DONATION-PLATFORM-URL — e.g. Donorbox, Givebutter, or Stripe Donations checkout link]";
+/**
+ * Until a real donation processor is connected, `site.donateUrl` is still a
+ * [bracketed] placeholder. Rather than shipping buttons that 404, every give
+ * action falls back to Contact and a notice explains how to give in the
+ * meantime. Drop the real checkout link into src/site.ts and this page switches
+ * over on its own — no other edits needed.
+ */
+const donateReady = !site.donateUrl.startsWith("[");
+const DONATE_URL = donateReady ? site.donateUrl : "/contact";
 
-const impactTiers = [
-  { amount: "$25", impact: "Provides program supplies for one participant." },
-  { amount: "$100", impact: "Sponsors one youth's spot in a leadership workshop." },
-  { amount: "$250", impact: "Helps sponsor a student through a full mentorship season." },
-  { amount: "$1,000", impact: "Helps fund a community enrichment event." },
+const amounts = [
+  { amount: "$25", use: "Materials and resources for a student at a readiness workshop." },
+  { amount: "$100", use: "A seat on a college tour — travel, meals and materials included." },
+  { amount: "$250", use: "Supplies for a community outreach or back-to-school event." },
+  { amount: "$1,000", use: "Sponsors a full workshop series for a group of students." },
 ];
 
-const givingOptions = [
+const otherWays = [
   {
-    title: "One-Time Gift",
-    desc: "Make a single donation of any amount to support current programs.",
-    cta: "Give Once",
+    title: "Monthly giving",
+    body: "A recurring gift is what lets us commit to a tour or a workshop series before the money is in hand.",
   },
   {
-    title: "Monthly Giving",
-    desc: "Become a sustaining donor with a recurring monthly gift that helps us plan ahead.",
-    cta: "Give Monthly",
+    title: "Sponsor a program",
+    body: "Underwrite a specific campus visit, workshop or community event as an individual or a company.",
   },
   {
-    title: "Corporate Giving",
-    desc: "Match employee donations, sponsor a program, or set up recurring corporate giving.",
-    cta: "Contact Us",
-    href: "/get-involved#partner",
+    title: "In-kind donations",
+    body: "Backpacks, school supplies, venue space, transport, printing — practical goods we'd otherwise buy.",
   },
   {
-    title: "In-Kind Donations",
-    desc: "Donate supplies, equipment, or professional services directly to our programs.",
-    cta: "See Current Needs",
-    href: "/contact",
+    title: "Employer matching",
+    body: "Many employers match charitable gifts. Check with your HR team and you may double your impact.",
   },
 ];
 ---
 
 <Layout
   title="Donate"
-  description="Support Bee Unique's mission to help Texas youth discover their strengths and build confidence. One-time, monthly, and corporate giving options available."
+  description="Support Bee Unique. Donations fund college tours, readiness workshops, mentorship and scholarships — keeping every program free for participating students."
 >
-  <section class="honeycomb-bg">
-    <Container class="py-16 text-center sm:py-20 lg:py-24">
-      <Eyebrow>Donate</Eyebrow>
-      <h1 class="mx-auto mt-5 max-w-2xl font-display text-4xl font-semibold leading-tight text-charcoal sm:text-5xl">
-        Support the Mission
-      </h1>
-      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-charcoal/75">
-        Your gift directly funds mentorship, workshops, and community programs for Texas youth. Here's exactly how it
-        helps.
-      </p>
-    </Container>
-  </section>
-
-  <!-- Impact tiers -->
-  <section class="py-16 sm:py-20">
-    <Container>
-      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+  <!-- Hero -->
+  <section class="honeycomb-bg border-b border-line">
+    <Container class="grid grid-cols-1 items-center gap-12 py-16 sm:py-20 lg:grid-cols-2">
+      <div>
+        <Eyebrow>Donate</Eyebrow>
+        <h1 class="mt-5 font-display text-4xl font-extrabold leading-[1.08] text-ink sm:text-5xl">
+          Your gift keeps every program free
+        </h1>
+        <p class="mt-6 text-lg leading-relaxed text-ink-soft">
+          Bee Unique provides college readiness, mentorship, scholarships, college tours and community outreach at no
+          cost to participating students. Donations are what make "at no cost" true.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Button href={DONATE_URL} size="lg">{donateReady ? "Give Now" : "Contact Us to Give"}</Button>
+          <Button href="/get-involved" variant="outline" size="lg">Other Ways to Help</Button>
+        </div>
+        <p class="mt-5 text-sm text-ink-soft">
+          Bee Unique is a 501(c)(3) nonprofit organization. Donations are tax-deductible to the extent allowed by law.
+        </p>
         {
-          impactTiers.map((t) => (
-            <a
-              href={DONATE_URL}
-              class="flex flex-col rounded-2xl bg-white p-7 text-center shadow-sm ring-1 ring-charcoal/5 transition-shadow hover:shadow-md"
-            >
-              <p class="font-display text-4xl font-semibold text-honey-dark">{t.amount}</p>
-              <p class="mt-3 flex-1 text-sm leading-relaxed text-charcoal/70">{t.impact}</p>
-            </a>
-          ))
+          !donateReady && (
+            <p class="mt-5 rounded-xl border-l-4 border-brand bg-brand-tint p-4 text-sm leading-relaxed text-ink-soft">
+              <strong class="font-semibold text-brand-deep">Online giving is being set up.</strong> In the meantime,
+              email{" "}
+              <a href={`mailto:${site.email}`} class="font-semibold text-brand-strong hover:text-brand-deep">{site.email}</a>{" "}
+              or call{" "}
+              <a href={site.phoneHref} class="font-semibold text-brand-strong hover:text-brand-deep">{site.phone}</a>{" "}
+              and we'll arrange it.
+            </p>
+          )
         }
       </div>
-      <p class="mt-4 text-center text-xs text-charcoal/40">
-        [Amounts and impact statements are placeholders — confirm against actual program costs before publishing]
-      </p>
-      <div class="mt-8 text-center">
-        <Button href={DONATE_URL} size="lg">Donate Now</Button>
+      <div class="overflow-hidden rounded-3xl border border-line shadow-lg">
+        <Photo
+          name="college-tour-group"
+          alt="Bee Unique students in College Tour shirts during a campus visit"
+          sizes="(min-width: 1024px) 520px, 100vw"
+          loading="eager"
+          class="h-80 w-full object-cover"
+        />
       </div>
     </Container>
   </section>
 
-  <!-- Giving options -->
-  <section class="honeycomb-bg py-16 sm:py-20">
+  <!-- Amounts -->
+  <section class="py-16 sm:py-20">
     <Container>
-      <Eyebrow>Ways to Give</Eyebrow>
-      <h2 class="mt-4 font-display text-3xl font-semibold text-charcoal sm:text-4xl">Choose What Fits You</h2>
-      <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <Eyebrow>Where It Goes</Eyebrow>
+      <h2 class="mt-4 font-display text-3xl font-bold text-ink sm:text-4xl">What a gift covers</h2>
+      <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {
-          givingOptions.map((o) => (
-            <div class="flex flex-col rounded-2xl bg-white p-7 shadow-sm ring-1 ring-charcoal/5">
-              <h3 class="font-display text-xl font-semibold text-charcoal">{o.title}</h3>
-              <p class="mt-2 flex-1 text-sm leading-relaxed text-charcoal/70">{o.desc}</p>
-              <a
-                href={o.href ?? DONATE_URL}
-                class="mt-5 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-honey-dark hover:text-honey"
-              >
-                {o.cta} →
+          amounts.map((a) => (
+            <div class="flex flex-col rounded-2xl border border-line bg-white p-7">
+              <p class="font-display text-3xl font-extrabold text-brand-strong">{a.amount}</p>
+              <p class="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">{a.use}</p>
+              <a href={DONATE_URL} class="mt-5 text-sm font-semibold text-brand-strong hover:text-brand-deep">
+                {donateReady ? `Give ${a.amount}` : "Get in touch"} →
               </a>
             </div>
           ))
         }
       </div>
-    </Container>
-  </section>
-
-  <!-- Employer matching + transparency -->
-  <section class="py-16 sm:py-20">
-    <Container class="grid grid-cols-1 gap-10 lg:grid-cols-2">
-      <div class="rounded-2xl bg-teal/10 p-8 sm:p-10">
-        <h2 class="font-display text-2xl font-semibold text-charcoal">Employer Matching Gifts</h2>
-        <p class="mt-4 leading-relaxed text-charcoal/75">
-          Many employers match charitable donations dollar-for-dollar. Check with your HR team to see if your company
-          can double your gift to Bee Unique at no extra cost to you.
-        </p>
-      </div>
-      <div class="rounded-2xl bg-honey/10 p-8 sm:p-10">
-        <h2 class="font-display text-2xl font-semibold text-charcoal">How Your Gift Is Used</h2>
-        <p class="mt-4 leading-relaxed text-charcoal/75">
-          Donations directly fund mentor training, program materials, workshop facilitation, and community events.
-          [Add a simple funding breakdown here once financials are available — e.g., % programs / % operations /
-          % fundraising.]
-        </p>
-      </div>
-    </Container>
-  </section>
-
-  <!-- Trust & transparency -->
-  <section class="honeycomb-bg py-16 sm:py-20">
-    <Container class="mx-auto max-w-3xl text-center">
-      <Eyebrow>Transparency</Eyebrow>
-      <h2 class="mt-4 font-display text-3xl font-semibold text-charcoal sm:text-4xl">Secure, Transparent Giving</h2>
-      <p class="mt-5 leading-relaxed text-charcoal/75">
-        Donations are processed securely through [donation platform name — e.g. Donorbox / Givebutter / Stripe].
-        Bee Unique is a Texas-based nonprofit; our 501(c)(3) tax-exempt status is [pending confirmation — EIN to be
-        added once available]. Donations may be tax-deductible to the extent allowed by law. Read our full
-        <a href="/financial-transparency" class="font-semibold text-honey-dark hover:text-honey">financial transparency</a>
-        page for more detail.
+      <p class="mt-4 text-xs text-ink-soft">
+        [Amounts and their described impact are illustrative — confirm against actual program costs before publishing.]
       </p>
     </Container>
   </section>
+
+  <!-- Other ways -->
+  <section class="honeycomb-bg border-y border-line py-16 sm:py-20">
+    <Container>
+      <Eyebrow>More Ways to Give</Eyebrow>
+      <h2 class="mt-4 font-display text-3xl font-bold text-ink sm:text-4xl">Beyond a one-time gift</h2>
+      <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {
+          otherWays.map((w) => (
+            <div class="rounded-2xl border border-line bg-white p-7">
+              <h3 class="font-display text-xl font-bold text-ink">{w.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-ink-soft">{w.body}</p>
+            </div>
+          ))
+        }
+      </div>
+      <div class="mt-8 rounded-2xl border-l-4 border-brand bg-white p-7">
+        <p class="text-sm leading-relaxed text-ink-soft">
+          Want to give another way, or discuss a larger gift? Email{" "}
+          <a href={`mailto:${site.email}`} class="font-semibold text-brand-strong hover:text-brand-deep">{site.email}</a>{" "}
+          or call{" "}
+          <a href={site.phoneHref} class="font-semibold text-brand-strong hover:text-brand-deep">{site.phone}</a>.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Trust -->
+  <section class="py-16 sm:py-20">
+    <Container class="mx-auto max-w-3xl">
+      <h2 class="font-display text-2xl font-bold text-ink">How your donation is handled</h2>
+      <div class="section-divider mt-4"></div>
+      <div class="mt-6 space-y-4 leading-relaxed text-ink-soft">
+        <p>
+          Donations are processed securely through [donation platform name]. Bee Unique is a 501(c)(3) nonprofit
+          organization; EIN {site.ein}. Donations are tax-deductible to the extent allowed by law, and you'll receive a
+          receipt for your records.
+        </p>
+        <p>
+          We publish what we can stand behind. Our financial information is available on the{" "}
+          <a href="/financial-transparency" class="font-semibold text-brand-strong hover:text-brand-deep">
+            financial transparency
+          </a>{" "}
+          page.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <CTABand
+    heading="Give a student the trip that changes the plan"
+    body="A campus visit, a workshop, a mentor who checks in. Your gift is what puts a student in the room."
+    primaryLabel={donateReady ? "Give Now" : "Contact Us to Give"}
+    primaryHref={DONATE_URL}
+    secondaryLabel="Get Involved"
+    secondaryHref="/get-involved"
+  />
 </Layout>

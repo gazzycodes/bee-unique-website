@@ -4,18 +4,26 @@ import Container from "../components/Container.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import PersonCard from "../components/PersonCard.astro";
 import CTABand from "../components/CTABand.astro";
+import Photo from "../components/Photo.astro";
+import { site } from "../site";
 
 const values = [
-  { title: "Community", desc: "We grow stronger when we work together — like a hive, no single person carries the mission alone." },
-  { title: "Purpose", desc: "Every young person deserves to understand their strengths and how those strengths can serve others." },
-  { title: "Growth", desc: "Confidence and skill are built through consistent support, not a single event." },
-  { title: "Contribution", desc: "We believe young people don't just need help — they have something valuable to give back." },
-];
-
-const leadership = [
-  { name: "[Founder Name]", role: "Founder & Executive Director" },
-  { name: "[Name]", role: "Program Director" },
-  { name: "[Name]", role: "Community Partnerships" },
+  {
+    title: "Exposure",
+    desc: "You can't aim for something you've never seen. We put students on real campuses, in real conversations, early.",
+  },
+  {
+    title: "Preparation",
+    desc: "Admissions, financial aid, scholarships — we make the process legible long before senior year.",
+  },
+  {
+    title: "Consistency",
+    desc: "Mentorship that stays. A single event changes a day; ongoing support changes a trajectory.",
+  },
+  {
+    title: "Access",
+    desc: "Every program is free. Cost should never decide which students get to prepare for their future.",
+  },
 ];
 
 const board = [
@@ -24,33 +32,40 @@ const board = [
   { name: "[Board Member Name]", role: "Secretary" },
   { name: "[Board Member Name]", role: "Board Member" },
 ];
-
-const partners = ["[Partner Org]", "[Partner Org]", "[Local School District]", "[Community Center]", "[Partner Org]", "[Corporate Sponsor]"];
 ---
 
 <Layout
   title="About Us"
-  description="Learn the story, mission, and people behind Bee Unique — a Texas-based nonprofit helping youth discover their strengths and build confidence."
+  description="Bee Unique is a 501(c)(3) nonprofit dedicated to empowering youth through mentorship, education, and meaningful opportunities — helping students pursue higher education and career goals with confidence."
 >
   <!-- Story -->
-  <section class="honeycomb-bg">
-    <Container class="grid grid-cols-1 gap-12 py-16 sm:py-20 lg:grid-cols-2 lg:py-24">
+  <section class="honeycomb-bg border-b border-line">
+    <Container class="grid grid-cols-1 items-center gap-12 py-16 sm:py-20 lg:grid-cols-2 lg:py-24">
       <div>
-        <Eyebrow>Our Story</Eyebrow>
-        <h1 class="mt-5 font-display text-4xl font-semibold leading-tight text-charcoal sm:text-5xl">
-          Why Bee Unique Exists
+        <Eyebrow>About Bee Unique</Eyebrow>
+        <h1 class="mt-5 font-display text-4xl font-extrabold leading-[1.08] text-ink sm:text-5xl">
+          Helping students see what's possible — then get there
         </h1>
+        <div class="mt-6 space-y-5 text-lg leading-relaxed text-ink-soft">
+          <p>
+            Bee Unique is a 501(c)(3) nonprofit organization dedicated to empowering youth through mentorship,
+            education, and meaningful opportunities. Our mission is to help students recognize their potential,
+            prepare for their future, and confidently pursue higher education and career goals.
+          </p>
+          <p>
+            Like a hive, we believe no one builds something meaningful alone. Mentors, families, schools, volunteers
+            and partners each bring something unique — and together that's what makes the whole hive stronger.
+          </p>
+        </div>
       </div>
-      <div class="space-y-5 text-lg leading-relaxed text-charcoal/75">
-        <p>
-          [Bee Unique started when our founder saw a gap: young people across Texas with real potential, but without
-          consistent mentorship, encouragement, or a community that helped them see their own strengths. Bee Unique
-          was built to close that gap — one relationship, one workshop, one community at a time.]
-        </p>
-        <p>
-          Like a hive, we believe no one builds something meaningful alone. Every mentor, volunteer, partner, and
-          family that joins Bee Unique brings something unique — together, that's what makes the whole hive stronger.
-        </p>
+      <div class="mx-auto w-full max-w-sm overflow-hidden rounded-3xl border border-line shadow-lg lg:max-w-none">
+        <Photo
+          name="founder-banner"
+          alt={`${site.founder}, ${site.founderRole} of Bee Unique, at a program information table beside the Bee Unique banner`}
+          sizes="(min-width: 1024px) 480px, 100vw"
+          loading="eager"
+          class="w-full object-cover"
+        />
       </div>
     </Container>
   </section>
@@ -58,34 +73,38 @@ const partners = ["[Partner Org]", "[Partner Org]", "[Local School District]", "
   <!-- Mission / Vision -->
   <section class="py-16 sm:py-20">
     <Container class="grid grid-cols-1 gap-6 md:grid-cols-2">
-      <div class="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-charcoal/5 sm:p-10">
-        <h2 class="font-display text-2xl font-semibold text-charcoal">Our Mission</h2>
-        <p class="mt-4 leading-relaxed text-charcoal/75">
-          To help Texas youth ages [8–18] discover their strengths, build confidence, and develop the skills needed
-          to thrive in school, leadership, and life through mentorship, enrichment, and community partnerships.
+      <div class="rounded-2xl border border-line bg-white p-8 sm:p-10">
+        <h2 class="font-display text-2xl font-bold text-ink">Our Mission</h2>
+        <div class="section-divider mt-4"></div>
+        <p class="mt-4 leading-relaxed text-ink-soft">
+          To expose, educate, and equip students with the tools they need for a successful college journey. We provide
+          ongoing mentorship, personalized support, and key resources to help students get accepted and prepared for
+          college life.
         </p>
       </div>
-      <div class="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-charcoal/5 sm:p-10">
-        <h2 class="font-display text-2xl font-semibold text-charcoal">Our Vision</h2>
-        <p class="mt-4 leading-relaxed text-charcoal/75">
-          A Texas where every young person has access to a mentor, a community, and the confidence to recognize what
-          makes them unique — and the opportunity to use it.
+      <div class="rounded-2xl border border-line bg-brand-tint p-8 sm:p-10">
+        <h2 class="font-display text-2xl font-bold text-ink">Our Vision</h2>
+        <div class="section-divider mt-4"></div>
+        <p class="mt-4 leading-relaxed text-ink-soft">
+          A future where every student has a mentor in their corner, a clear pathway to higher education, and the
+          confidence to recognise what makes them unique — and the opportunity to use it.
         </p>
       </div>
     </Container>
   </section>
 
   <!-- Values -->
-  <section class="honeycomb-bg py-16 sm:py-20">
+  <section class="honeycomb-bg border-y border-line py-16 sm:py-20">
     <Container>
       <Eyebrow>What We Stand On</Eyebrow>
-      <h2 class="mt-4 font-display text-3xl font-semibold text-charcoal sm:text-4xl">Our Core Values</h2>
+      <h2 class="mt-4 font-display text-3xl font-bold text-ink sm:text-4xl">Our core values</h2>
       <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {
-          values.map((v) => (
-            <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-charcoal/5">
-              <h3 class="font-display text-lg font-semibold text-honey-dark">{v.title}</h3>
-              <p class="mt-2 text-sm leading-relaxed text-charcoal/70">{v.desc}</p>
+          values.map((v, i) => (
+            <div class="rounded-2xl border border-line bg-white p-6">
+              <span class="font-display text-sm font-bold text-brand">0{i + 1}</span>
+              <h3 class="mt-2 font-display text-lg font-bold text-ink">{v.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ink-soft">{v.desc}</p>
             </div>
           ))
         }
@@ -93,36 +112,39 @@ const partners = ["[Partner Org]", "[Partner Org]", "[Local School District]", "
     </Container>
   </section>
 
-  <!-- Who we serve / why Texas -->
+  <!-- Who we serve -->
   <section class="py-16 sm:py-20">
     <Container class="grid grid-cols-1 gap-10 lg:grid-cols-2">
       <div>
-        <h2 class="font-display text-2xl font-semibold text-charcoal">Who We Serve</h2>
-        <p class="mt-4 leading-relaxed text-charcoal/75">
-          We serve youth ages [8–18] and their families in [service-area cities/regions], with a focus on
-          communities where access to consistent mentorship and enrichment programming is limited.
+        <h2 class="font-display text-2xl font-bold text-ink">Who We Serve</h2>
+        <div class="section-divider mt-4"></div>
+        <p class="mt-4 leading-relaxed text-ink-soft">
+          We work with students across {site.serviceArea} who are preparing for life after high school — with a focus
+          on communities where access to consistent mentorship, college exposure and admissions guidance is limited.
+          Participation is free.
         </p>
       </div>
       <div>
-        <h2 class="font-display text-2xl font-semibold text-charcoal">Why This Work Matters Across Texas</h2>
-        <p class="mt-4 leading-relaxed text-charcoal/75">
-          [Texas is home to some of the fastest-growing youth populations in the country, and demand for
-          mentorship and enrichment programming continues to outpace availability.] Bee Unique exists to help close
-          that gap, one community at a time.
+        <h2 class="font-display text-2xl font-bold text-ink">Why It Matters</h2>
+        <div class="section-divider mt-4"></div>
+        <p class="mt-4 leading-relaxed text-ink-soft">
+          Most students don't miss out on college because they lack ability. They miss out because nobody walked them
+          through the deadlines, the aid forms, or what a campus actually feels like. Bee Unique exists to close that
+          gap — one student, one campus visit, one conversation at a time.
         </p>
       </div>
     </Container>
   </section>
 
-  <!-- Leadership message -->
-  <section class="honeycomb-bg py-16 sm:py-20">
+  <!-- Founder message -->
+  <section class="honeycomb-bg-dark py-16 sm:py-20">
     <Container class="mx-auto max-w-3xl text-center">
-      <Eyebrow>From Our Founder</Eyebrow>
-      <blockquote class="mt-6 font-display text-2xl font-medium leading-relaxed text-charcoal sm:text-3xl">
-        "[We started Bee Unique because every young person we met had something special to offer — they just needed
-        someone to help them see it. That's still what drives us today.]"
+      <Eyebrow tone="dark">From Our Founder</Eyebrow>
+      <blockquote class="mt-6 font-display text-2xl font-semibold leading-relaxed text-white sm:text-3xl">
+        “[Placeholder — a short quote from {site.founder} on why she started Bee Unique and what she wants students to
+        walk away with.]”
       </blockquote>
-      <p class="mt-6 text-sm font-semibold text-charcoal/60">[Founder Name], Founder & Executive Director</p>
+      <p class="mt-6 text-sm font-semibold text-brand-soft">{site.founder}, {site.founderRole}</p>
     </Container>
   </section>
 
@@ -130,12 +152,30 @@ const partners = ["[Partner Org]", "[Partner Org]", "[Local School District]", "
   <section class="py-16 sm:py-20">
     <Container>
       <Eyebrow>Our People</Eyebrow>
-      <h2 class="mt-4 font-display text-3xl font-semibold text-charcoal sm:text-4xl">Leadership Team</h2>
-      <div class="mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3">
-        {leadership.map((p) => <PersonCard {...p} />)}
+      <h2 class="mt-4 font-display text-3xl font-bold text-ink sm:text-4xl">Leadership</h2>
+      <div class="mt-10 grid grid-cols-1 items-center gap-8 rounded-2xl border border-line bg-mist p-7 sm:grid-cols-3 sm:p-9">
+        <div class="overflow-hidden rounded-2xl border border-line">
+          <Photo
+            name="founder-booth"
+            alt={`${site.founder}, ${site.founderRole} of Bee Unique`}
+            sizes="(min-width: 640px) 300px, 100vw"
+            class="aspect-[4/5] w-full object-cover object-[65%_32%]"
+          />
+        </div>
+        <div class="sm:col-span-2">
+          <p class="font-display text-2xl font-bold text-ink">{site.founder}</p>
+          <p class="mt-1 text-sm font-semibold text-brand-strong">{site.founderRole}</p>
+          <p class="mt-4 leading-relaxed text-ink-soft">
+            [Short bio for {site.founder} — background, why she founded Bee Unique, and what she does day to day.]
+          </p>
+          <p class="mt-4 text-sm text-ink-soft">
+            [Additional leadership and program staff to be added as the team grows.]
+          </p>
+        </div>
       </div>
 
-      <h2 class="mt-16 font-display text-3xl font-semibold text-charcoal sm:text-4xl">Board of Directors</h2>
+      <h2 class="mt-16 font-display text-3xl font-bold text-ink sm:text-4xl">Board of Directors</h2>
+      <p class="mt-2 text-sm text-ink-soft">[Board names and titles to be confirmed before publishing.]</p>
       <div class="mt-10 grid grid-cols-2 gap-8 sm:grid-cols-4">
         {board.map((p) => <PersonCard {...p} />)}
       </div>
@@ -143,26 +183,33 @@ const partners = ["[Partner Org]", "[Partner Org]", "[Local School District]", "
   </section>
 
   <!-- Partners -->
-  <section class="honeycomb-bg py-16 sm:py-20">
-    <Container>
-      <Eyebrow>Working Together</Eyebrow>
-      <h2 class="mt-4 font-display text-3xl font-semibold text-charcoal sm:text-4xl">Community Partners</h2>
-      <div class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
-        {
-          partners.map((p) => (
-            <div class="flex h-20 items-center justify-center rounded-xl bg-white px-4 text-center text-sm font-semibold text-charcoal/50 shadow-sm ring-1 ring-charcoal/5">
-              {p}
-            </div>
-          ))
-        }
+  <section class="honeycomb-bg border-t border-line py-16 sm:py-20">
+    <Container class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
+      <div>
+        <Eyebrow>Working Together</Eyebrow>
+        <h2 class="mt-4 font-display text-3xl font-bold text-ink sm:text-4xl">Schools, sponsors &amp; partners</h2>
+        <p class="mt-4 leading-relaxed text-ink-soft">
+          Bee Unique works alongside schools, districts, community organisations and local sponsors to reach students
+          where they already are — at school events, education conferences and community days.
+        </p>
+        <p class="mt-4 text-sm text-ink-soft">
+          [Partner and sponsor names and logos to be added with written permission.]
+        </p>
       </div>
-      <p class="mt-4 text-xs text-charcoal/40">[Partner logos to be added with permission]</p>
+      <div class="overflow-hidden rounded-3xl border border-line">
+        <Photo
+          name="elevate-youth"
+          alt="Bee Unique presenting at the Elevate Youth Bastrop County education conference"
+          sizes="(min-width: 1024px) 480px, 100vw"
+          class="h-72 w-full object-cover object-[55%_58%]"
+        />
+      </div>
     </Container>
   </section>
 
   <CTABand
-    heading="Meet the People Behind the Mission"
-    body="Want to be part of the hive? Explore ways to volunteer, mentor, or partner with Bee Unique."
+    heading="Be part of the hive"
+    body="Volunteer, become a mentor, donate, sponsor a program or event, or partner with Bee Unique. Every contribution helps us reach more students."
     primaryLabel="Get Involved"
     primaryHref="/get-involved"
   />

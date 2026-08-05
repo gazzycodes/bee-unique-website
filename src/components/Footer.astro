@@ -1,5 +1,6 @@
 ---
 import Logo from "./Logo.astro";
+import { site } from "../site";
 
 const currentYear = new Date().getFullYear();
 
@@ -19,28 +20,31 @@ const more = [
 ];
 ---
 
-<footer class="bg-charcoal text-cream">
-  <div class="mx-auto max-w-7xl px-5 sm:px-8 py-14">
+<footer class="honeycomb-bg-dark text-white">
+  <div class="mx-auto max-w-7xl px-5 py-14 sm:px-8">
     <div class="grid grid-cols-1 gap-10 lg:grid-cols-12">
       <div class="lg:col-span-4">
         <Logo variant="light" />
-        <p class="mt-4 max-w-xs text-sm leading-relaxed text-cream/70">
-          Helping Texas youth discover their strengths, build confidence, and become who they were created to be.
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-white/70">
+          Empowering youth through mentorship, education, and meaningful opportunities — so every student can
+          recognise their potential and confidently pursue higher education and career goals.
         </p>
         <ul class="mt-5 flex items-center gap-3">
           {
-            [
-              { label: "Facebook", href: "https://facebook.com/[BEE_UNIQUE_HANDLE]" },
-              { label: "Instagram", href: "https://instagram.com/[BEE_UNIQUE_HANDLE]" },
-              { label: "LinkedIn", href: "https://linkedin.com/company/[BEE_UNIQUE_HANDLE]" },
-            ].map((social) => (
+            site.socials.map((social) => (
               <li>
                 <a
                   href={social.href}
-                  class="flex h-9 w-9 items-center justify-center rounded-full border border-cream/25 text-xs font-semibold text-cream/80 transition-colors hover:border-honey hover:text-honey"
-                  aria-label={social.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 rounded-full border border-white/25 px-4 py-2 text-xs font-semibold text-white/85 transition-colors hover:border-brand-soft hover:text-brand-soft"
                 >
-                  {social.label.slice(0, 2)}
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" stroke-width="1.8" />
+                    <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8" />
+                    <circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" />
+                  </svg>
+                  {social.handle}
                 </a>
               </li>
             ))
@@ -49,41 +53,33 @@ const more = [
       </div>
 
       <div class="lg:col-span-2">
-        <h3 class="font-display text-sm font-semibold uppercase tracking-wider text-honey-light">Explore</h3>
-        <ul class="mt-4 space-y-2.5 text-sm text-cream/75">
-          {explore.map((l) => (
-            <li><a href={l.href} class="hover:text-white">{l.label}</a></li>
-          ))}
+        <h2 class="font-display text-sm font-bold uppercase tracking-[0.12em] text-brand-soft">Explore</h2>
+        <ul class="mt-4 space-y-2.5 text-sm text-white/75">
+          {explore.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
         </ul>
       </div>
 
       <div class="lg:col-span-2">
-        <h3 class="font-display text-sm font-semibold uppercase tracking-wider text-honey-light">More</h3>
-        <ul class="mt-4 space-y-2.5 text-sm text-cream/75">
-          {more.map((l) => (
-            <li><a href={l.href} class="hover:text-white">{l.label}</a></li>
-          ))}
+        <h2 class="font-display text-sm font-bold uppercase tracking-[0.12em] text-brand-soft">More</h2>
+        <ul class="mt-4 space-y-2.5 text-sm text-white/75">
+          {more.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
         </ul>
       </div>
 
       <div class="lg:col-span-4">
-        <h3 class="font-display text-sm font-semibold uppercase tracking-wider text-honey-light">Stay Connected</h3>
-        <address class="mt-4 space-y-1.5 text-sm not-italic text-cream/75">
-          <p>Serving communities across Texas</p>
-          <p><a href="mailto:[INFO@BEEUNIQUE.ORG]" class="hover:text-white">[info@beeunique.org]</a></p>
-          <p><a href="tel:[555-555-5555]" class="hover:text-white">[(555) 555-5555]</a></p>
+        <h2 class="font-display text-sm font-bold uppercase tracking-[0.12em] text-brand-soft">Stay Connected</h2>
+        <address class="mt-4 space-y-1.5 text-sm not-italic text-white/75">
+          <p>Serving students across {site.serviceArea}</p>
+          <p><a href={`mailto:${site.email}`} class="hover:text-white">{site.email}</a></p>
+          <p><a href={site.phoneHref} class="hover:text-white">{site.phone}</a></p>
         </address>
 
-        <form
-          name="newsletter"
-          method="POST"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
-          class="mt-5"
-        >
+        <form name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="mt-5">
           <input type="hidden" name="form-name" value="newsletter" />
           <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
-          <label for="footer-email" class="text-sm font-semibold text-cream/90">Join the Hive — get program updates</label>
+          <label for="footer-email" class="text-sm font-semibold text-white/90">
+            Join the hive — get program updates
+          </label>
           <div class="mt-2 flex gap-2">
             <input
               id="footer-email"
@@ -91,11 +87,11 @@ const more = [
               name="email"
               required
               placeholder="you@example.com"
-              class="min-w-0 flex-1 rounded-full border border-cream/25 bg-charcoal-light/50 px-4 py-2.5 text-sm text-cream placeholder:text-cream/40 focus:border-honey focus:outline-none"
+              class="min-w-0 flex-1 rounded-full border border-white/25 bg-white/10 px-4 py-2.5 text-sm text-white placeholder:text-white/45 focus:border-brand-soft focus:outline-none"
             />
             <button
               type="submit"
-              class="shrink-0 rounded-full bg-honey px-5 py-2.5 text-sm font-semibold text-charcoal transition-colors hover:bg-honey-dark"
+              class="shrink-0 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-brand-forest transition-colors hover:bg-brand-soft"
             >
               Sign Up
             </button>
@@ -104,10 +100,10 @@ const more = [
       </div>
     </div>
 
-    <div class="mt-12 border-t border-cream/15 pt-6 text-xs text-cream/60">
+    <div class="mt-12 border-t border-white/15 pt-6 text-xs text-white/60">
       <p>
-        Bee Unique is a Texas-based 501(c)(3) nonprofit organization. [EIN / tax-exempt status pending confirmation].
-        Donations may be tax-deductible to the extent allowed by law.
+        Bee Unique is a 501(c)(3) nonprofit organization. Donations are tax-deductible to the extent allowed by law.
+        EIN {site.ein}.
       </p>
       <p class="mt-2">© {currentYear} Bee Unique. All rights reserved.</p>
     </div>

@@ -1,4 +1,6 @@
 ---
+import Photo from "./Photo.astro";
+
 interface Fact {
   label: string;
   value: string;
@@ -8,27 +10,56 @@ interface Props {
   summary: string;
   facts: Fact[];
   outcome: string;
+  photo?: string;
+  photoAlt?: string;
+  /** Tailwind object-position utility, e.g. "object-[50%_25%]", to keep faces in frame. */
+  photoFocus?: string;
+  /** Wrapper classes for the photo — narrow the box for portrait sources so they
+      aren't upscaled into an extreme crop. */
+  photoBox?: string;
   reverse?: boolean;
 }
-const { name, summary, facts, outcome, reverse = false } = Astro.props;
+const {
+  name,
+  summary,
+  facts,
+  outcome,
+  photo,
+  photoAlt = "",
+  photoFocus = "object-center",
+  photoBox = "h-64 sm:h-80",
+  reverse = false,
+} = Astro.props;
 ---
 
 <div class="grid grid-cols-1 gap-8 lg:grid-cols-5 lg:items-start">
   <div class:list={["lg:col-span-3", reverse ? "lg:order-2" : "lg:order-1"]}>
-    <h3 class="font-display text-2xl font-semibold text-charcoal sm:text-3xl">{name}</h3>
-    <p class="mt-4 leading-relaxed text-charcoal/75">{summary}</p>
-    <div class="mt-6 rounded-xl bg-teal/10 p-5">
-      <p class="text-xs font-bold uppercase tracking-wider text-teal-dark">Expected Outcome</p>
-      <p class="mt-1.5 text-sm leading-relaxed text-charcoal/75">{outcome}</p>
+    <h3 class="font-display text-2xl font-bold text-ink sm:text-3xl">{name}</h3>
+    <p class="mt-4 leading-relaxed text-ink-soft">{summary}</p>
+    <div class="mt-6 rounded-xl border-l-4 border-brand bg-brand-tint p-5">
+      <p class="text-xs font-bold uppercase tracking-[0.12em] text-brand-deep">What students walk away with</p>
+      <p class="mt-1.5 text-sm leading-relaxed text-ink-soft">{outcome}</p>
     </div>
+    {
+      photo && (
+        <div class={`mt-6 overflow-hidden rounded-2xl border border-line ${photoBox}`}>
+          <Photo
+            name={photo}
+            alt={photoAlt}
+            sizes="(min-width: 1024px) 640px, 100vw"
+            class={`h-full w-full object-cover ${photoFocus}`}
+          />
+        </div>
+      )
+    }
   </div>
   <div class:list={["lg:col-span-2", reverse ? "lg:order-1" : "lg:order-2"]}>
-    <dl class="divide-y divide-charcoal/10 rounded-2xl bg-white shadow-sm ring-1 ring-charcoal/5">
+    <dl class="divide-y divide-line rounded-2xl border border-line bg-white">
       {
         facts.map((f) => (
           <div class="flex justify-between gap-4 px-5 py-3.5 text-sm">
-            <dt class="font-semibold text-charcoal/60">{f.label}</dt>
-            <dd class="text-right text-charcoal">{f.value}</dd>
+            <dt class="font-semibold text-ink-soft">{f.label}</dt>
+            <dd class="text-right text-ink">{f.value}</dd>
           </div>
         ))
       }

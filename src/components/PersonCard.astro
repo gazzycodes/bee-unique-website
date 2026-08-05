@@ -1,18 +1,31 @@
 ---
+import Photo from "./Photo.astro";
+
 interface Props {
   name: string;
   role: string;
+  photo?: string;
+  /** Tailwind object-position utility to keep the face centred in the circle. */
+  photoFocus?: string;
 }
-const { name, role } = Astro.props;
+const { name, role, photo, photoFocus = "object-center" } = Astro.props;
 ---
 
 <div class="text-center">
-  <div class="mx-auto flex h-28 w-28 items-center justify-center rounded-full bg-cream-dark ring-1 ring-charcoal/10">
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="8" r="4" stroke="var(--color-charcoal-light)" stroke-width="1.5" />
-      <path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="var(--color-charcoal-light)" stroke-width="1.5" stroke-linecap="round" />
-    </svg>
+  <div class="mx-auto h-28 w-28 overflow-hidden rounded-full border border-line bg-mist">
+    {
+      photo ? (
+        <Photo name={photo} alt={`${name}, ${role}`} sizes="112px" class={`h-full w-full object-cover ${photoFocus}`} />
+      ) : (
+        <div class="flex h-full w-full items-center justify-center" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="8" r="4" stroke="var(--color-brand)" stroke-width="1.5" />
+            <path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="var(--color-brand)" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </div>
+      )
+    }
   </div>
-  <p class="mt-4 font-display text-base font-semibold text-charcoal">{name}</p>
-  <p class="text-sm text-charcoal/60">{role}</p>
+  <p class="mt-4 font-display text-base font-bold text-ink">{name}</p>
+  <p class="text-sm text-ink-soft">{role}</p>
 </div>

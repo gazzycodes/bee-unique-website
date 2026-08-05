@@ -1,0 +1,28 @@
+---
+/**
+ * Muted, looping clip used as a photo-style tile. Autoplays only where the
+ * browser allows silent autoplay; everywhere else the poster shows and the
+ * native controls let people play it.
+ */
+interface Props {
+  src: string;
+  poster: string;
+  label: string;
+  class?: string;
+}
+const { src, poster, label, class: className = "" } = Astro.props;
+---
+
+<figure class={`overflow-hidden rounded-2xl border border-line bg-ink ${className}`}>
+  <video
+    class="h-full w-full object-cover"
+    src={src}
+    poster={poster}
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="none"
+    controls
+    aria-label={label}></video>
+</figure>

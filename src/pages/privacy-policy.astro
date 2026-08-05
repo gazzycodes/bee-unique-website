@@ -2,47 +2,75 @@
 import Layout from "../layouts/Layout.astro";
 import Container from "../components/Container.astro";
 import Eyebrow from "../components/Eyebrow.astro";
+import { site } from "../site";
+
+const sections = [
+  {
+    heading: "What we collect",
+    body: "When you submit a form on this site — mentor application, volunteer signup, partnership enquiry, contact form or newsletter signup — we collect the information you enter: typically name, email address, phone number, and whatever you write in the message field. We do not run advertising trackers on this site.",
+  },
+  {
+    heading: "How we use it",
+    body: "We use your information to respond to you, to process an application, and — if you signed up — to send program updates. We do not sell your information. We do not share it with third parties except the service providers that host this site and deliver our email, and only so far as they need it to do that job.",
+  },
+  {
+    heading: "Children's information",
+    body: "[This section must be reviewed by legal counsel before launch.] Bee Unique works with students, some of whom are under 18. Where a program requires information about a minor, we collect it from a parent or guardian and use it only to run the program that information was given for. Parents and guardians may request to see, correct, or delete their child's information at any time by contacting us.",
+  },
+  {
+    heading: "Form submissions and hosting",
+    body: "This site is hosted on Netlify, and form submissions are processed through Netlify Forms. Netlify processes submission data on our behalf and stores it on its infrastructure, subject to Netlify's own privacy terms.",
+  },
+  {
+    heading: "How long we keep it",
+    body: "[Confirm and state a retention period — e.g. form submissions kept for X years, mailing list held until you unsubscribe.]",
+  },
+  {
+    heading: "Your choices",
+    body: "You can unsubscribe from our mailing list at any time using the link in any email we send. You can ask us to correct or delete information we hold about you by contacting us at the address below.",
+  },
+];
 ---
 
-<Layout title="Privacy Policy" description="Bee Unique's privacy policy.">
+<Layout title="Privacy Policy" description="How Bee Unique collects, uses and protects information submitted through this website.">
+  <section class="honeycomb-bg border-b border-line">
+    <Container class="py-14 sm:py-16">
+      <Eyebrow>Legal</Eyebrow>
+      <h1 class="mt-5 font-display text-4xl font-extrabold text-ink sm:text-5xl">Privacy policy</h1>
+      <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">
+        Plain-language explanation of what this site collects and what we do with it.
+      </p>
+    </Container>
+  </section>
+
   <section class="py-16 sm:py-20">
     <Container class="mx-auto max-w-3xl">
-      <Eyebrow>Legal</Eyebrow>
-      <h1 class="mt-5 font-display text-4xl font-semibold text-charcoal">Privacy Policy</h1>
-      <p class="mt-3 text-sm text-charcoal/50">Last updated: [Month Day, Year]</p>
-
-      <div class="mt-8 rounded-xl bg-honey/10 p-5 text-sm text-charcoal/75">
-        [Draft placeholder — have this policy reviewed by legal counsel before publishing, and update all bracketed
-        fields with your actual practices.]
+      <div class="rounded-2xl border-l-4 border-brand bg-brand-tint p-6">
+        <p class="text-sm font-semibold text-brand-deep">
+          Draft — this policy must be reviewed by legal counsel before the site goes live, particularly the section on
+          children's information.
+        </p>
       </div>
 
-      <div class="mt-8 space-y-8 leading-relaxed text-charcoal/75">
+      <div class="mt-10 space-y-10">
+        {
+          sections.map((s) => (
+            <div>
+              <h2 class="font-display text-xl font-bold text-ink">{s.heading}</h2>
+              <div class="section-divider mt-3" />
+              <p class="mt-4 leading-relaxed text-ink-soft">{s.body}</p>
+            </div>
+          ))
+        }
+
         <div>
-          <h2 class="font-display text-xl font-semibold text-charcoal">Information We Collect</h2>
-          <p class="mt-2">
-            We may collect information you provide directly, such as your name, email address, and phone number,
-            when you fill out a form on this site (e.g., volunteering, mentorship applications, contact, or
-            newsletter sign-up).
-          </p>
-        </div>
-        <div>
-          <h2 class="font-display text-xl font-semibold text-charcoal">How We Use Information</h2>
-          <p class="mt-2">
-            We use the information collected to respond to inquiries, process applications, send program or event
-            updates you've opted into, and improve our programs. We do not sell your personal information.
-          </p>
-        </div>
-        <div>
-          <h2 class="font-display text-xl font-semibold text-charcoal">Children's Privacy</h2>
-          <p class="mt-2">
-            [Describe how information about program participants under 18 is collected, used, and protected,
-            including any parental/guardian consent process.]
-          </p>
-        </div>
-        <div>
-          <h2 class="font-display text-xl font-semibold text-charcoal">Contact Us</h2>
-          <p class="mt-2">
-            Questions about this policy can be directed to <a href="mailto:[info@beeunique.org]" class="font-semibold text-honey-dark">[info@beeunique.org]</a>.
+          <h2 class="font-display text-xl font-bold text-ink">Contact us</h2>
+          <div class="section-divider mt-3"></div>
+          <p class="mt-4 leading-relaxed text-ink-soft">
+            Questions about this policy, or a request about your information? Email{" "}
+            <a href={`mailto:${site.email}`} class="font-semibold text-brand-strong hover:text-brand-deep">{site.email}</a>{" "}
+            or call{" "}
+            <a href={site.phoneHref} class="font-semibold text-brand-strong hover:text-brand-deep">{site.phone}</a>.
           </p>
         </div>
       </div>

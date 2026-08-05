@@ -1,0 +1,26 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Container from "../components/Container.astro";
+import Button from "../components/Button.astro";
+import { site } from "../site";
+---
+
+<Layout title="Thank You" description="Thanks for getting in touch with Bee Unique — we'll be in contact soon.">
+  <section class="honeycomb-bg border-b border-line">
+    <Container class="mx-auto max-w-2xl py-24 text-center sm:py-32">
+      <svg width="56" height="56" viewBox="0 0 20 20" fill="none" class="mx-auto text-brand-strong" aria-hidden="true">
+        <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.4" />
+        <path d="M6 10.2 L8.8 13 L14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <h1 class="mt-6 font-display text-4xl font-extrabold text-ink sm:text-5xl">Thank you</h1>
+      <p class="mt-4 text-lg leading-relaxed text-ink-soft">
+        We've got your message and someone from Bee Unique will be in touch. If it's urgent, call
+        <a href={site.phoneHref} class="font-semibold text-brand-strong hover:text-brand-deep">{site.phone}</a>.
+      </p>
+      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <Button href="/" size="lg">Back to Home</Button>
+        <Button href="/programs" variant="outline" size="lg">Explore Programs</Button>
+      </div>
+    </Container>
+  </section>
+</Layout>

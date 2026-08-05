@@ -2,50 +2,96 @@
 import Layout from "../layouts/Layout.astro";
 import Container from "../components/Container.astro";
 import Eyebrow from "../components/Eyebrow.astro";
-import StatCard from "../components/StatCard.astro";
 import ProgramDetail from "../components/ProgramDetail.astro";
-import Testimonial from "../components/Testimonial.astro";
 import CTABand from "../components/CTABand.astro";
+import Photo from "../components/Photo.astro";
+import VideoCard from "../components/VideoCard.astro";
+import { programIncludes } from "../site";
 
 const programs = [
   {
-    name: "Mentorship Circles",
+    name: "College Tours & Campus Visits",
     summary:
-      "Small-group mentoring that pairs youth with trained, background-checked adult mentors for consistent, one-on-one encouragement, goal-setting, and support.",
+      "Students travel to top colleges and universities, walk the campuses, sit in on the spaces they'd actually study in, and get honest answers from current students and staff. For many, it's the first time a university stops being an abstraction.",
     outcome:
-      "Participants build a trusted relationship with a caring adult and develop confidence, communication skills, and a stronger sense of identity.",
+      "A concrete sense of where they could go, what campus life is like, and which schools actually fit them — plus the questions they didn't know to ask.",
+    photo: "college-tour-campus",
+    photoAlt: "Bee Unique students on a college tour outside a university stadium entrance",
+    photoFocus: "object-[50%_55%]",
     facts: [
-      { label: "Serves", value: "Youth ages [8–13]" },
-      { label: "When", value: "[Bi-weekly], [Sept–May]" },
-      { label: "Where", value: "[City], TX and partner sites" },
-      { label: "Duration", value: "[School-year] commitment" },
-      { label: "How to join", value: "Apply via Get Involved page" },
+      { label: "Format", value: "Group campus visits" },
+      { label: "Includes", value: "Travel, meals & materials" },
+      { label: "Cost to students", value: "Free" },
+      { label: "How to join", value: "Register via Get Involved" },
     ],
   },
   {
-    name: "Leadership Workshops",
+    name: "College Readiness Workshops",
     summary:
-      "Hands-on workshops covering public speaking, goal-setting, teamwork, and decision-making — designed to help teens step confidently into leadership roles at school and in their communities.",
-    outcome: "Participants complete the series with a personal leadership project and measurable gains in confidence and communication skills.",
+      "Working sessions on admissions requirements, application timelines, financial aid, and scholarship searching — for students and, where possible, their families. The point is to make the process legible early, not to cram it into senior year.",
+    outcome:
+      "A student who knows the deadlines, understands what aid they qualify for, and has a plan rather than a panic.",
     facts: [
-      { label: "Serves", value: "Teens ages [14–18]" },
-      { label: "When", value: "[Monthly Saturdays]" },
-      { label: "Where", value: "[City], TX" },
-      { label: "Duration", value: "[6-week] series" },
-      { label: "How to join", value: "Register via Get Involved page" },
+      { label: "Format", value: "Workshops & group sessions" },
+      { label: "Covers", value: "Admissions, aid, scholarships" },
+      { label: "Cost to students", value: "Free" },
+      { label: "How to join", value: "Register via Get Involved" },
     ],
   },
   {
-    name: "Community Enrichment Days",
+    name: "Mentorship & Personalized Support",
     summary:
-      "Family-friendly events across Texas communities that connect youth and families with mentors, local resources, health and wellness partners, and enrichment activities.",
-    outcome: "Families leave connected to ongoing Bee Unique programs and local community resources.",
+      "Ongoing mentorship and one-to-one guidance that follows a student through the process — reviewing applications, talking through choices, and staying in touch between events.",
+    outcome:
+      "A trusted adult in a student's corner, and the confidence that comes from having someone who knows their goals and checks in on them.",
+    photo: "team-portrait",
+    photoAlt: "Two members of the Bee Unique team at a community education event",
+    photoFocus: "object-[50%_30%]",
+    photoBox: "max-w-sm aspect-[4/5]",
     facts: [
-      { label: "Serves", value: "Youth and families, all ages" },
-      { label: "When", value: "[Quarterly]" },
-      { label: "Where", value: "Rotates across Texas communities" },
-      { label: "Duration", value: "Single-day event" },
-      { label: "How to join", value: "See Events page for dates" },
+      { label: "Format", value: "One-to-one & small group" },
+      { label: "Commitment", value: "Ongoing through the journey" },
+      { label: "Cost to students", value: "Free" },
+      { label: "Become a mentor", value: "Apply via Get Involved" },
+    ],
+  },
+  {
+    name: "Scholarships & Resources",
+    summary:
+      "Bee Unique provides scholarships and the practical resources students need along the way, so a family's budget is never the reason a student misses a trip, a workshop, or an application deadline.",
+    outcome: "Fewer financial barriers between a student and the next step they've earned.",
+    facts: [
+      { label: "Provided", value: "Scholarships & resources" },
+      { label: "Applies to", value: "Program participants" },
+      { label: "Cost to students", value: "Free" },
+      { label: "Details", value: "[Award amounts & criteria to confirm]" },
+    ],
+  },
+  {
+    name: "Empowerment & Leadership Sessions",
+    summary:
+      "Sessions and activities built around confidence, self-advocacy, goal-setting and leadership — the parts of the college journey that aren't on any application form but decide how a student handles it.",
+    outcome: "Students who can speak for themselves, set a goal and follow it, and see themselves as capable.",
+    facts: [
+      { label: "Format", value: "Empowerment sessions & activities" },
+      { label: "Focus", value: "Confidence & leadership" },
+      { label: "Cost to students", value: "Free" },
+      { label: "How to join", value: "Register via Get Involved" },
+    ],
+  },
+  {
+    name: "Community Outreach",
+    summary:
+      "Bee Unique shows up in the community year-round — back-to-school drives with free supplies and haircuts, school and district events, and education conferences that connect families to what's available to them.",
+    outcome: "Students and families reached where they already are, with real resources in hand.",
+    photo: "outreach-table",
+    photoAlt: "Students gathered around the Bee Unique information table at a school event",
+    photoFocus: "object-[50%_38%]",
+    facts: [
+      { label: "Format", value: "Community events & drives" },
+      { label: "Examples", value: "Back2School, school events" },
+      { label: "Cost to families", value: "Free" },
+      { label: "Sponsor an event", value: "Contact us" },
     ],
   },
 ];
@@ -53,76 +99,110 @@ const programs = [
 
 <Layout
   title="Programs & Impact"
-  description="Explore Bee Unique's mentorship, leadership, and community programs for Texas youth — and the measurable impact they create."
+  description="Bee Unique provides college readiness, mentorship, scholarships, college tours, community outreach, and educational enrichment at no cost to participating students."
 >
-  <section class="honeycomb-bg">
-    <Container class="py-16 sm:py-20 lg:py-24">
-      <Eyebrow>Programs & Impact</Eyebrow>
-      <h1 class="mt-5 max-w-3xl font-display text-4xl font-semibold leading-tight text-charcoal sm:text-5xl">
-        Real Programs. Real Mentors. Real Impact.
-      </h1>
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-charcoal/75">
-        Every Bee Unique program is built around one goal — helping young people discover their strengths and the
-        confidence to use them. Here's how, and who it reaches.
-      </p>
+  <!-- Intro -->
+  <section class="honeycomb-bg border-b border-line">
+    <Container class="py-16 sm:py-20">
+      <div class="max-w-3xl">
+        <Eyebrow>Programs &amp; Impact</Eyebrow>
+        <h1 class="mt-5 font-display text-4xl font-extrabold leading-[1.08] text-ink sm:text-5xl">
+          Exposure, preparation, and someone in your corner
+        </h1>
+        <p class="mt-6 text-lg leading-relaxed text-ink-soft">
+          Bee Unique provides college readiness, mentorship, scholarships, college tours, community outreach, and
+          educational enrichment at no cost to participating students. Through hands-on experiences and consistent
+          support, we help students expand their exposure, strengthen their confidence, and create a clear pathway
+          toward success.
+        </p>
+      </div>
     </Container>
   </section>
 
-  <section class="py-16 sm:py-20">
+  <!-- What's included summary -->
+  <section class="py-14 sm:py-16">
+    <Container>
+      <h2 class="font-display text-2xl font-bold text-ink">Every participant gets</h2>
+      <div class="section-divider mt-4"></div>
+      <ul class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          programIncludes.map((item) => (
+            <li class="flex items-start gap-3 rounded-2xl border border-line bg-white p-5">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="mt-0.5 shrink-0 text-brand-strong" aria-hidden="true">
+                <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.6" />
+                <path d="M6 10.2 L8.8 13 L14 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span class="text-sm leading-relaxed text-ink">{item}</span>
+            </li>
+          ))
+        }
+        <li class="flex items-start gap-3 rounded-2xl border-l-4 border-brand bg-brand-tint p-5">
+          <span class="text-sm font-semibold leading-relaxed text-brand-deep">
+            Scholarships &amp; resources provided — at no cost to students
+          </span>
+        </li>
+      </ul>
+    </Container>
+  </section>
+
+  <!-- Program detail -->
+  <section class="honeycomb-bg border-y border-line py-16 sm:py-20">
     <Container class="space-y-16 sm:space-y-20">
       {programs.map((p, i) => <ProgramDetail {...p} reverse={i % 2 === 1} />)}
     </Container>
   </section>
 
-  <!-- Impact stats -->
-  <section class="honeycomb-bg py-16 sm:py-20">
-    <Container>
-      <Eyebrow>By The Numbers</Eyebrow>
-      <h2 class="mt-4 font-display text-3xl font-semibold text-charcoal sm:text-4xl">Measurable Impact</h2>
-      <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <StatCard value="[250+]" label="Youth Served" />
-        <StatCard value="[30+]" label="Workshops Completed" />
-        <StatCard value="[8]" label="Scholarships Awarded" />
-        <StatCard value="[500+]" label="Volunteer Hours" />
-        <StatCard value="[6]" label="Schools Served" />
-        <StatCard value="[120+]" label="Families Supported" />
-        <StatCard value="[12]" label="Community Partners" />
-        <StatCard value="[95%]" label="Parent Satisfaction" />
-      </div>
-      <p class="mt-4 text-xs text-charcoal/40">[Placeholder figures — replace with confirmed program data before publishing]</p>
-    </Container>
-  </section>
-
-  <!-- 2026 goal -->
+  <!-- Impact -->
   <section class="py-16 sm:py-20">
-    <Container class="mx-auto max-w-3xl rounded-2xl bg-charcoal p-10 text-center text-cream sm:p-14">
-      <Eyebrow tone="dark">Looking Ahead</Eyebrow>
-      <p class="mt-6 font-display text-2xl font-medium leading-relaxed sm:text-3xl">
-        Our 2026 goal is to serve [250] youth across Texas through mentorship, leadership development, enrichment,
-        and community-based programming.
-      </p>
-      <p class="mt-4 text-sm text-cream/70">Your support helps us reach it. See how your gift makes a direct impact.</p>
-    </Container>
-  </section>
+    <Container>
+      <div class="max-w-2xl">
+        <Eyebrow>Our Impact</Eyebrow>
+        <h2 class="mt-4 font-display text-3xl font-bold text-ink sm:text-4xl">What impact looks like</h2>
+        <p class="mt-4 leading-relaxed text-ink-soft">
+          We publish numbers only once we can stand behind them. In the meantime, here's the work itself — students on
+          campuses, families at community events, and a team that keeps showing up.
+        </p>
+        <p class="mt-3 text-sm text-ink-soft">
+          [Verified impact figures — students served, tours hosted, scholarships awarded — to be added here.]
+        </p>
+      </div>
 
-  <!-- Testimonials -->
-  <section class="honeycomb-bg py-16 sm:py-20">
-    <Container class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-      <Testimonial
-        quote="[The leadership workshops helped me speak up in class for the first time. I actually feel like people listen now.]"
-        name="[Participant Name]"
-        role="[Program Participant, age 15]"
-      />
-      <Testimonial
-        quote="[Watching my son's confidence grow through his mentor has meant everything to our family.]"
-        name="[Parent Name]"
-        role="[Parent of a program participant]"
-      />
+      <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="overflow-hidden rounded-2xl border border-line sm:col-span-2">
+          <Photo
+            name="college-tour-group"
+            alt="Bee Unique students in College Tour shirts gathered at a campus visit"
+            sizes="(min-width: 640px) 50vw, 100vw"
+            class="h-64 w-full object-cover"
+          />
+        </div>
+        <VideoCard
+          src="/video/back2school.mp4"
+          poster="/images/back2school-poster.webp"
+          label="Bee Unique Back2School community event — free supplies and haircuts"
+          class="h-64"
+        />
+        <div class="overflow-hidden rounded-2xl border border-line">
+          <Photo
+            name="team-portrait"
+            alt="Two members of the Bee Unique team at a community education event"
+            sizes="(min-width: 640px) 25vw, 100vw"
+            class="h-64 w-full object-cover"
+          />
+        </div>
+      </div>
+
+      <div class="mt-10 rounded-2xl border border-line bg-mist p-8">
+        <p class="text-sm font-semibold uppercase tracking-[0.12em] text-brand-deep">Testimonials</p>
+        <p class="mt-3 leading-relaxed text-ink-soft">
+          [Participant and parent testimonials to be added here, with written permission.]
+        </p>
+      </div>
     </Container>
   </section>
 
   <CTABand
-    heading="Help Us Reach Our 2026 Goal"
-    body="Every mentor, volunteer, and gift moves us closer to serving more Texas youth."
+    heading="Help us reach more students"
+    body="Every program Bee Unique runs is free to the students who need it. Sponsoring a tour, mentoring a student, or giving what you can is what keeps it that way."
   />
 </Layout>

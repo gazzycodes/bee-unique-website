@@ -2,42 +2,62 @@
 import Layout from "../layouts/Layout.astro";
 import Container from "../components/Container.astro";
 import Eyebrow from "../components/Eyebrow.astro";
-import StatCard from "../components/StatCard.astro";
+import { site } from "../site";
+
+const items = [
+  {
+    title: "Tax-exempt status",
+    body: `Bee Unique is a 501(c)(3) nonprofit organization. EIN ${site.ein}. [Upload the IRS determination letter and link it here.]`,
+  },
+  {
+    title: "Annual filings",
+    body: "[Link the most recent IRS Form 990 or 990-N here once filed. If the organisation files the 990-N postcard, say so — it's a legitimate filing for smaller nonprofits and worth explaining.]",
+  },
+  {
+    title: "How funds are used",
+    body: "[Publish the split between programs, operations and fundraising once financials are prepared. Do not estimate this figure.]",
+  },
+  {
+    title: "Annual report",
+    body: "[Link the annual report or impact summary here when available.]",
+  },
+];
 ---
 
-<Layout title="Financial Transparency" description="How Bee Unique uses donations to fund programs for Texas youth.">
+<Layout
+  title="Financial Transparency"
+  description="Bee Unique's tax-exempt status, filings, and how donated funds are used."
+>
+  <section class="honeycomb-bg border-b border-line">
+    <Container class="py-14 sm:py-16">
+      <Eyebrow>Accountability</Eyebrow>
+      <h1 class="mt-5 font-display text-4xl font-extrabold text-ink sm:text-5xl">Financial transparency</h1>
+      <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">
+        If someone gives us money, they're entitled to know where it goes. This page is where that information lives.
+      </p>
+    </Container>
+  </section>
+
   <section class="py-16 sm:py-20">
     <Container class="mx-auto max-w-3xl">
-      <Eyebrow>Transparency</Eyebrow>
-      <h1 class="mt-5 font-display text-4xl font-semibold text-charcoal">Financial Transparency</h1>
-      <p class="mt-5 leading-relaxed text-charcoal/75">
-        Bee Unique is committed to being transparent with our donors and community about how funds are used. This
-        page will be updated with confirmed figures as they become available.
-      </p>
+      <dl class="divide-y divide-line rounded-2xl border border-line bg-white">
+        {
+          items.map((i) => (
+            <div class="px-7 py-6">
+              <dt class="font-display text-lg font-bold text-ink">{i.title}</dt>
+              <dd class="mt-2 text-sm leading-relaxed text-ink-soft">{i.body}</dd>
+            </div>
+          ))
+        }
+      </dl>
 
-      <div class="mt-8 rounded-xl bg-honey/10 p-5 text-sm text-charcoal/75">
-        [Placeholder — replace with real financials once available: EIN, 501(c)(3) determination letter, annual
-        report, and Form 990 if applicable.]
-      </div>
-
-      <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <StatCard value="[EIN pending]" label="Tax ID Number" />
-        <StatCard value="[Pending]" label="501(c)(3) Status" />
-        <StatCard value="[Year]" label="Founded" />
-      </div>
-
-      <div class="mt-10 space-y-6 leading-relaxed text-charcoal/75">
-        <div>
-          <h2 class="font-display text-xl font-semibold text-charcoal">How Funds Are Used</h2>
-          <p class="mt-2">
-            [Add a breakdown once available — e.g., % toward programs, % operations, % fundraising — along with a
-            short explanation of major cost categories like mentor training, program materials, and events.]
-          </p>
-        </div>
-        <div>
-          <h2 class="font-display text-xl font-semibold text-charcoal">Annual Reports</h2>
-          <p class="mt-2">[Link to annual report(s) once published.]</p>
-        </div>
+      <div class="mt-8 rounded-2xl border-l-4 border-brand bg-brand-tint p-7">
+        <p class="text-sm leading-relaxed text-ink-soft">
+          Questions about our finances or a specific gift? Email{" "}
+          <a href={`mailto:${site.email}`} class="font-semibold text-brand-strong hover:text-brand-deep">{site.email}</a>{" "}
+          or call{" "}
+          <a href={site.phoneHref} class="font-semibold text-brand-strong hover:text-brand-deep">{site.phone}</a>.
+        </p>
       </div>
     </Container>
   </section>

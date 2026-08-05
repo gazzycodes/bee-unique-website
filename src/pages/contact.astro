@@ -3,38 +3,61 @@ import Layout from "../layouts/Layout.astro";
 import Container from "../components/Container.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import FormField from "../components/FormField.astro";
+import { site } from "../site";
 ---
 
-<Layout title="Contact" description="Get in touch with Bee Unique — questions about programs, partnerships, or how to get involved.">
-  <section class="honeycomb-bg">
-    <Container class="py-16 sm:py-20 lg:py-24">
+<Layout
+  title="Contact"
+  description="Get in touch with Bee Unique about programs, mentoring, volunteering, sponsorship or partnerships."
+>
+  <section class="honeycomb-bg border-b border-line">
+    <Container class="py-14 sm:py-16">
       <Eyebrow>Contact</Eyebrow>
-      <h1 class="mt-5 max-w-2xl font-display text-4xl font-semibold leading-tight text-charcoal sm:text-5xl">
-        We'd Love to Hear From You
-      </h1>
+      <h1 class="mt-5 font-display text-4xl font-extrabold text-ink sm:text-5xl">Get in touch</h1>
+      <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">
+        Questions about a program, mentoring, volunteering or sponsorship? Reach out — we read everything that comes
+        in.
+      </p>
     </Container>
   </section>
 
   <section class="py-16 sm:py-20">
     <Container class="grid grid-cols-1 gap-12 lg:grid-cols-5">
       <div class="lg:col-span-2">
-        <h2 class="font-display text-2xl font-semibold text-charcoal">Reach Us Directly</h2>
-        <dl class="mt-6 space-y-4 text-sm text-charcoal/75">
+        <h2 class="font-display text-2xl font-bold text-ink">Reach us directly</h2>
+        <div class="section-divider mt-4"></div>
+        <dl class="mt-6 space-y-5 text-sm">
           <div>
-            <dt class="font-semibold text-charcoal">Email</dt>
-            <dd><a href="mailto:[info@beeunique.org]" class="hover:text-honey-dark">[info@beeunique.org]</a></dd>
+            <dt class="font-semibold text-ink">Email</dt>
+            <dd class="mt-1">
+              <a href={`mailto:${site.email}`} class="text-brand-strong hover:text-brand-deep">{site.email}</a>
+            </dd>
           </div>
           <div>
-            <dt class="font-semibold text-charcoal">Phone</dt>
-            <dd><a href="tel:[555-555-5555]" class="hover:text-honey-dark">[(555) 555-5555]</a></dd>
+            <dt class="font-semibold text-ink">Phone</dt>
+            <dd class="mt-1">
+              <a href={site.phoneHref} class="text-brand-strong hover:text-brand-deep">{site.phone}</a>
+            </dd>
           </div>
           <div>
-            <dt class="font-semibold text-charcoal">Service Area</dt>
-            <dd>[City / region], Texas</dd>
+            <dt class="font-semibold text-ink">Instagram</dt>
+            {
+              site.socials.map((s) => (
+                <dd class="mt-1">
+                  <a href={s.href} target="_blank" rel="noopener noreferrer" class="text-brand-strong hover:text-brand-deep">
+                    {s.handle}
+                  </a>
+                </dd>
+              ))
+            }
           </div>
           <div>
-            <dt class="font-semibold text-charcoal">Mailing Address</dt>
-            <dd>[Street Address], [City], TX [ZIP]</dd>
+            <dt class="font-semibold text-ink">Service area</dt>
+            <dd class="mt-1 text-ink-soft">{site.serviceArea}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-ink">Mailing address</dt>
+            <dd class="mt-1 text-ink-soft">[Street address, city, TX ZIP]</dd>
           </div>
         </dl>
       </div>
@@ -45,25 +68,37 @@ import FormField from "../components/FormField.astro";
           method="POST"
           data-netlify="true"
           netlify-honeypot="bot-field"
-          class="grid grid-cols-1 gap-4 rounded-2xl bg-white p-7 shadow-sm ring-1 ring-charcoal/5 sm:grid-cols-2 sm:p-8"
+          action="/thank-you"
+          class="rounded-2xl border border-line bg-white p-7 sm:p-8"
         >
           <input type="hidden" name="form-name" value="contact" />
           <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
-          <FormField label="Full Name" name="name" required />
-          <FormField label="Email" name="email" type="email" required />
-          <FormField
-            label="Reason for Contact"
-            name="reason"
-            type="select"
-            options={["Program question", "Volunteering", "Partnership", "Media inquiry", "Other"]}
-            class="sm:col-span-2"
-          />
-          <FormField label="Message" name="message" type="textarea" required class="sm:col-span-2" />
+          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <FormField label="Name" name="contact-name" required />
+            <FormField label="Email" name="contact-email" type="email" required />
+            <FormField
+              label="What's this about?"
+              name="contact-topic"
+              type="select"
+              required
+              options={[
+                "Program question",
+                "Enrolling a student",
+                "Mentoring",
+                "Volunteering",
+                "Sponsorship or partnership",
+                "Media enquiry",
+                "Other",
+              ]}
+              class="sm:col-span-2"
+            />
+            <FormField label="Message" name="contact-message" type="textarea" required class="sm:col-span-2" />
+          </div>
           <button
             type="submit"
-            class="sm:col-span-2 mt-2 inline-flex items-center justify-center rounded-full bg-honey px-6 py-3 text-sm font-semibold text-charcoal transition-colors hover:bg-honey-dark"
+            class="mt-6 w-full rounded-full bg-brand-strong px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-brand-deep sm:w-auto"
           >
-            Send Message
+            Send message
           </button>
         </form>
       </div>

@@ -1,0 +1,55 @@
+---
+/**
+ * Responsive photo. All program photography lives in /public/images as WebP at
+ * one or more widths, named `<name>-<width>.webp`. This builds the srcset and
+ * always sets intrinsic width/height so the layout never shifts while loading.
+ */
+const CATALOG: Record<string, { widths: number[]; w: number; h: number }> = {
+  "college-tour-group": { widths: [600, 1000, 1600], w: 1600, h: 1200 },
+  "college-tour-campus": { widths: [600, 1000, 1600], w: 1600, h: 1200 },
+  "founder-banner": { widths: [600, 1000, 1600], w: 1600, h: 2400 },
+  "outreach-table": { widths: [600, 1000, 1600], w: 1600, h: 2133 },
+  "program-flyer": { widths: [800, 1200], w: 1200, h: 1553 },
+  "founder-booth": { widths: [600], w: 585, h: 1073 },
+  "student-outreach": { widths: [600], w: 594, h: 1073 },
+  "team-portrait": { widths: [600], w: 585, h: 1023 },
+  "elevate-youth": { widths: [600], w: 594, h: 1023 },
+};
+
+interface Props {
+  name: keyof typeof CATALOG | string;
+  alt: string;
+  sizes?: string;
+  class?: string;
+  loading?: "lazy" | "eager";
+  fetchpriority?: "high" | "auto";
+}
+
+const {
+  name,
+  alt,
+  sizes = "100vw",
+  class: className = "",
+  loading = "lazy",
+  fetchpriority = "auto",
+} = Astro.props;
+
+const entry = CATALOG[name];
+if (!entry) throw new Error(`Photo: unknown image "${name}". Add it to the CATALOG in Photo.astro.`);
+
+const srcset = entry.widths.map((w) => `/images/${name}-${w}.webp ${w}w`).join(", ");
+const largest = entry.widths[entry.widths.length - 1];
+---
+
+<img
+  src={`/images/${name}-${largest}.webp`}
+  srcset={srcset}
+  sizes={sizes}
+  width={entry.w}
+  height={entry.h}
+  alt={alt}
+  loading={loading}
+  decoding="async"
+  fetchpriority={fetchpriority}
+  class={className}
+/>
