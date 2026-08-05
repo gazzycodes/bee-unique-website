@@ -8,7 +8,14 @@ export const site = {
   name: "Bee Unique",
   tagline: "Bee-lieve & Achieve",
   strapline: "Your Gateway to Success",
-  url: "https://beeunique.org",
+  /**
+   * Used for canonical URLs and the og:image absolute path. This MUST be the
+   * domain the site is actually served from — beeunique.org does not resolve,
+   * so pointing canonicals there would tell search engines the real pages are
+   * duplicates of a dead address, and link previews would show a broken image.
+   * Update this the day a custom domain goes live on Netlify.
+   */
+  url: "https://bee-unique.netlify.app",
 
   email: "mgrantbeeunique@gmail.com",
   phone: "(832) 455-7427",

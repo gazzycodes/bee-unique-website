@@ -40,8 +40,11 @@ Taken from the program flyer, pull-up banner and event signage:
 - [ ] Confirm the Instagram handle — the flyer shows `@beeunique`, event signage shows `@beeunique27`.
       The site currently links `@beeunique27`.
 - [ ] Any other social accounts (Facebook, LinkedIn, TikTok) — add to `site.socials` in `src/site.ts`
-- [ ] Real domain — canonical URLs and `og:image` currently assume `https://beeunique.org`
-      (`src/site.ts` → `url`)
+- [ ] **Custom domain.** The site is live at `bee-unique.netlify.app`, and `src/site.ts` → `url` is
+      set to match so canonical URLs and link previews are correct. `beeunique.org` is not
+      registered/pointed anywhere as of this writing. When a real domain is connected in Netlify,
+      change `url` in the same commit — a canonical pointing at a domain that doesn't resolve tells
+      search engines the live pages are duplicates of nothing.
 
 ## About page
 
