@@ -3,6 +3,10 @@
  * Muted, looping clip used as a photo-style tile. Autoplays only where the
  * browser allows silent autoplay; everywhere else the poster shows and the
  * native controls let people play it.
+ *
+ * `controls` stays on deliberately: these clips run longer than five seconds,
+ * and WCAG 2.2.2 requires a way to stop auto-playing motion. The inline script
+ * below additionally honours prefers-reduced-motion by not autoplaying at all.
  */
 interface Props {
   src: string;
@@ -26,3 +30,13 @@ const { src, poster, label, class: className = "" } = Astro.props;
     controls
     aria-label={label}></video>
 </figure>
+
+<script>
+  // Respect the OS "reduce motion" setting — pause anything that auto-started.
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll<HTMLVideoElement>("video[autoplay]").forEach((v) => {
+      v.autoplay = false;
+      v.pause();
+    });
+  }
+</script>
