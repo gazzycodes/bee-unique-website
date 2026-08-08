@@ -7,7 +7,7 @@
      to use for, so text contrast stays WCAG AA compliant.                  */
 
   /* Logo green. Decorative use, large headings, icons, borders.
-     White on this = 3.8:1 — large text only, never body copy. */
+     White on this = 3.8:1, so large text only, never body copy. */
   --color-brand: #43943a;
 
   /* Button fills and small green text on white. White on this = 5.3:1. */
@@ -19,15 +19,15 @@
   /* Dark sections: footer, CTA bands. White on this = 13.4:1. */
   --color-brand-forest: #14361a;
 
-  /* Tinted surface — the pale green paper behind alternating sections. */
+  /* Tinted surface: the pale green paper behind alternating sections. */
   --color-brand-tint: #edf5eb;
 
   /* Light green for text and rules sitting on forest-dark backgrounds. */
   --color-brand-soft: #a7d9a0;
 
   /* Neutrals, from the flyer's grey blocks. */
-  --color-ink: #1c1f1d; /* body text — 16.6:1 on white */
-  --color-ink-soft: #4a524b; /* secondary text — 8.1:1 on white */
+  --color-ink: #1c1f1d; /* body text, 16.6:1 on white */
+  --color-ink-soft: #4a524b; /* secondary text, 8.1:1 on white */
   --color-line: #dbdbd9; /* hairlines, card borders */
   --color-mist: #f5f6f4; /* off-white section background */
 
@@ -74,7 +74,7 @@ body {
   background-image: linear-gradient(90deg, var(--color-brand) 0%, var(--color-brand-soft) 100%);
 }
 
-/* Soft green bloom behind hero art — cheap depth without an extra image. */
+/* Soft green bloom behind hero art: cheap depth without an extra image. */
 .brand-glow::before {
   content: "";
   position: absolute;
@@ -96,7 +96,7 @@ body {
    Elements start slightly down and transparent, then settle when scrolled
    into view. The `.reveal-on` class is added by a tiny IntersectionObserver
    in Layout.astro. If JS never runs, or the observer isn't supported, the
-   no-js/fallback rule below leaves content fully visible — content must
+   no-js/fallback rule below leaves content fully visible. Content must
    never depend on script to be readable.                                */
 @media (prefers-reduced-motion: no-preference) {
   .js-reveal .reveal {

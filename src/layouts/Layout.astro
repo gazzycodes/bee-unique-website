@@ -22,7 +22,8 @@ const ogImage = new URL("/images/og-image.jpg", canonicalURL);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#43943a" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="canonical" href={canonicalURL} />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
@@ -56,7 +57,7 @@ const ogImage = new URL("/images/og-image.jpg", canonicalURL);
         telephone: site.phone,
         slogan: site.strapline,
         description:
-          "Bee Unique is a 501(c)(3) nonprofit empowering youth through mentorship, education, and meaningful opportunities — college readiness, college tours, scholarships and community outreach at no cost to students.",
+          "Bee Unique is a 501(c)(3) nonprofit empowering youth through mentorship, education, and meaningful opportunities: college readiness, college tours, scholarships and community outreach at no cost to students.",
         areaServed: site.serviceArea,
         founder: { "@type": "Person", name: site.founder },
         sameAs: site.socials.map((s) => s.href),
@@ -78,7 +79,7 @@ const ogImage = new URL("/images/og-image.jpg", canonicalURL);
 
     <script>
       // Scroll reveal. The `js-reveal` class is what arms the CSS, so if this
-      // script never runs the content simply renders visible — no blank page.
+      // script never runs the content simply renders visible, never a blank page.
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const targets = document.querySelectorAll(".reveal");
 

@@ -32,7 +32,7 @@ const { src, poster, label, class: className = "" } = Astro.props;
 </figure>
 
 <script>
-  // Respect the OS "reduce motion" setting — pause anything that auto-started.
+  // Respect the OS "reduce motion" setting: pause anything that auto-started.
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     document.querySelectorAll<HTMLVideoElement>("video[autoplay]").forEach((v) => {
       v.autoplay = false;

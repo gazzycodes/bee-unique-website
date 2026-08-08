@@ -1,13 +1,16 @@
 <!--
-  Reduced version of the Logo.astro mark. The full lockup fades across five
-  cells; at 16px the faintest two disappear into the background and the mark
-  reads as noise, so this keeps the solid cell plus two ghosts and drops the
-  rest. Same geometry, so the two still read as one family.
+  Reduced version of the Logo.astro mark.
+
+  The full lockup fades across five cells. At 16px the faintest two disappear
+  into the background and the mark reads as noise, so this keeps three cells:
+  one solid and two ghosts stepping down, in the same honeycomb geometry so the
+  two still read as one family. Composition is centred on the 48x48 viewBox so
+  it does not drift left when a browser crops to a square.
 -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 54 54" width="54" height="54">
-  <g fill="none" stroke="#43943a" stroke-width="2.4" stroke-linejoin="round">
-    <path d="M14 28 L24.4 34 L24.4 46 L14 52 L3.6 46 L3.6 34 Z" opacity="0.7"/>
-    <path d="M27 15 L37.4 21 L37.4 33 L27 39 L16.6 33 L16.6 21 Z" opacity="0.42"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <g fill="none" stroke="#43943a" stroke-width="2.6" stroke-linejoin="round">
+    <path d="M33 21.4 L42 26.6 L42 37 L33 42.2 L24 37 L24 26.6 Z" opacity="0.42"/>
+    <path d="M15 21.4 L24 26.6 L24 37 L15 42.2 L6 37 L6 26.6 Z" opacity="0.7"/>
   </g>
-  <path d="M14 2 L24.4 8 L24.4 20 L14 26 L3.6 20 L3.6 8 Z" fill="#43943a"/>
+  <path d="M24 5.8 L33 11 L33 21.4 L24 26.6 L15 21.4 L15 11 Z" fill="#43943a"/>
 </svg>

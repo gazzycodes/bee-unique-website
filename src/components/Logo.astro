@@ -1,6 +1,6 @@
 ---
 /**
- * Bee Unique lockup — the fading honeycomb field from the printed logo.
+ * Bee Unique lockup, built from the fading honeycomb field in the printed logo.
  *
  * The printed mark sets a green wordmark against a hex grid that fades out as
  * it recedes. This reproduces that: one solid cell anchoring the near corner,
@@ -24,7 +24,7 @@ const isLight = variant === "light";
 const wordColor = isLight ? "text-white" : "text-brand-strong";
 const ink = isLight ? "#a7d9a0" : "#43943a";
 
-/** Near corner first, then receding — opacity carries the depth. */
+/** Near corner first, then receding. Opacity carries the depth. */
 const cells = [
   { d: "M14 2 L24.4 8 L24.4 20 L14 26 L3.6 20 L3.6 8 Z", o: 1 },
   { d: "M14 28 L24.4 34 L24.4 46 L14 52 L3.6 46 L3.6 34 Z", o: 0.75 },
@@ -37,7 +37,7 @@ const cells = [
 <a
   href="/"
   class={`group flex items-center gap-3 shrink-0 ${className}`}
-  aria-label="Bee Unique — home"
+  aria-label="Bee Unique home"
 >
   <svg
     width="40"

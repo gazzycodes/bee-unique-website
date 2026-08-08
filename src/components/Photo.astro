@@ -14,10 +14,13 @@ const CATALOG: Record<string, { widths: number[]; w: number; h: number }> = {
   "student-outreach": { widths: [600], w: 594, h: 1073 },
   "team-portrait": { widths: [600], w: 585, h: 1023 },
   "elevate-youth": { widths: [600], w: 594, h: 1023 },
+  "monique-portrait": { widths: [600, 1000], w: 1000, h: 1511 },
+  "students-selfie": { widths: [600, 800, 1200], w: 1200, h: 1599 },
+  "backpack-giveaway": { widths: [600, 1000], w: 1000, h: 1245 },
 };
 
 interface Props {
-  name: keyof typeof CATALOG | string;
+  name: string;
   alt: string;
   sizes?: string;
   class?: string;

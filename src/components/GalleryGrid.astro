@@ -1,0 +1,168 @@
+---
+import Photo from "./Photo.astro";
+import { gallery, galleryCategories } from "../gallery";
+
+/**
+ * The full media wall. Every tile is a button that opens the shared Lightbox,
+ * and the category chips filter in place without a page load.
+ *
+ * With JS off the chips do nothing and every tile is still a visible image, so
+ * the section degrades to a plain photo grid rather than to an empty box.
+ */
+interface Props {
+  /** Show only the first N items, with a button revealing the rest. */
+  initial?: number;
+  /** Hide the category chips for compact embeds on secondary pages. */
+  showFilters?: boolean;
+  class?: string;
+}
+const { initial = 8, showFilters = true, class: className = "" } = Astro.props;
+---
+
+<div class={className}>
+  <!-- Filters -->
+  <div class:list={["flex flex-wrap gap-2", showFilters ? "" : "hidden"]} role="group" aria-label="Filter media by category">
+    {
+      galleryCategories.map((cat, i) => (
+        <button
+          type="button"
+          data-gallery-filter={cat}
+          aria-pressed={i === 0 ? "true" : "false"}
+          class:list={[
+            "rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.1em] transition-colors",
+            i === 0
+              ? "border-brand-strong bg-brand-strong text-white"
+              : "border-line bg-white text-ink-soft hover:border-brand hover:text-brand-strong",
+          ]}
+        >
+          {cat}
+        </button>
+      ))
+    }
+  </div>
+
+  <ul id="gallery-grid" class="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+    {
+      gallery.map((item, i) => (
+        <li
+          data-gallery-item
+          data-category={item.category}
+          class:list={["group", i >= initial ? "hidden" : ""]}
+          data-overflow={i >= initial ? "true" : "false"}
+        >
+          <button
+            type="button"
+            data-lightbox={item.id}
+            class="relative block aspect-square w-full overflow-hidden rounded-2xl border border-line bg-mist focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-strong"
+            aria-label={`Open: ${item.caption}`}
+          >
+            {item.kind === "video" ? (
+              <img
+                src={item.poster}
+                alt={item.alt}
+                loading="lazy"
+                decoding="async"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            ) : (
+              <Photo
+                name={item.src}
+                alt={item.alt}
+                sizes="(min-width: 1024px) 25vw, 50vw"
+                class={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${item.focus ?? "object-center"}`}
+              />
+            )}
+
+            {/* Play badge for clips, magnifier for stills */}
+            <span class="pointer-events-none absolute bottom-2.5 left-2.5 inline-flex items-center gap-1.5 rounded-full bg-brand-forest/75 px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
+              {item.kind === "video" ? (
+                <>
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
+                    <path d="M3 1.6v8.8L10.4 6z" />
+                  </svg>
+                  Watch
+                </>
+              ) : (
+                <>
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <circle cx="5.2" cy="5.2" r="3.6" />
+                    <path d="M8 8l2.5 2.5" stroke-linecap="round" />
+                  </svg>
+                  View
+                </>
+              )}
+            </span>
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+
+  {
+    gallery.length > initial && (
+      <div class="mt-8 text-center">
+        <button
+          id="gallery-more"
+          type="button"
+          class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-brand-strong px-8 py-3 text-sm font-semibold text-brand-strong transition-colors hover:bg-brand-strong hover:text-white"
+        >
+          Show all {gallery.length} photos and clips
+        </button>
+      </div>
+    )
+  }
+</div>
+
+<script>
+  const grid = document.getElementById("gallery-grid");
+  if (grid) {
+    const tiles = Array.from(grid.querySelectorAll<HTMLElement>("[data-gallery-item]"));
+    const filters = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-gallery-filter]"));
+    const moreBtn = document.getElementById("gallery-more");
+    let expanded = false;
+    let active = "All";
+
+    function apply() {
+      tiles.forEach((tile) => {
+        const matches = active === "All" || tile.dataset.category === active;
+        // While collapsed, still respect the initial cut, but only within the
+        // items that pass the current filter.
+        tile.hidden = false;
+        tile.classList.toggle("hidden", !matches);
+      });
+
+      if (!expanded && active === "All") {
+        tiles.forEach((tile) => {
+          if (tile.dataset.overflow === "true") tile.classList.add("hidden");
+        });
+      }
+
+      if (moreBtn) {
+        const hiddenByCollapse = !expanded && active === "All";
+        moreBtn.classList.toggle("hidden", !hiddenByCollapse);
+      }
+    }
+
+    filters.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        active = btn.dataset.galleryFilter ?? "All";
+        filters.forEach((b) => {
+          const on = b === btn;
+          b.setAttribute("aria-pressed", String(on));
+          b.classList.toggle("border-brand-strong", on);
+          b.classList.toggle("bg-brand-strong", on);
+          b.classList.toggle("text-white", on);
+          b.classList.toggle("border-line", !on);
+          b.classList.toggle("bg-white", !on);
+          b.classList.toggle("text-ink-soft", !on);
+        });
+        apply();
+      });
+    });
+
+    moreBtn?.addEventListener("click", () => {
+      expanded = true;
+      apply();
+    });
+  }
+</script>

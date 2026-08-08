@@ -2,10 +2,15 @@
 import Layout from "../layouts/Layout.astro";
 import Container from "../components/Container.astro";
 import Eyebrow from "../components/Eyebrow.astro";
+import SectionHeading from "../components/SectionHeading.astro";
 import PersonCard from "../components/PersonCard.astro";
 import CTABand from "../components/CTABand.astro";
 import Photo from "../components/Photo.astro";
-import { site } from "../site";
+import Icon from "../components/Icon.astro";
+import VideoCard from "../components/VideoCard.astro";
+import SponsorBand from "../components/SponsorBand.astro";
+import Lightbox from "../components/Lightbox.astro";
+import { site, sponsors } from "../site";
 
 const values = [
   {
@@ -14,7 +19,7 @@ const values = [
   },
   {
     title: "Preparation",
-    desc: "Admissions, financial aid, scholarships — we make the process legible long before senior year.",
+    desc: "Admissions, financial aid, scholarships. We make the process legible long before senior year.",
   },
   {
     title: "Consistency",
@@ -26,37 +31,35 @@ const values = [
   },
 ];
 
+/** Two seats confirmed. Names still to come from Monique. */
 const board = [
-  { name: "[Board Member Name]", role: "Board Chair" },
-  { name: "[Board Member Name]", role: "Treasurer" },
-  { name: "[Board Member Name]", role: "Secretary" },
-  { name: "[Board Member Name]", role: "Board Member" },
+  { name: "[Board Member Name]", role: "[Board role]" },
+  { name: "[Board Member Name]", role: "[Board role]" },
 ];
+
+const featuredSponsor = sponsors.find((s) => s.featured) ?? sponsors[0];
 ---
 
 <Layout
   title="About Us"
-  description="Bee Unique is a 501(c)(3) nonprofit dedicated to empowering youth through mentorship, education, and meaningful opportunities — helping students pursue higher education and career goals with confidence."
+  description="Bee Unique is a 501(c)(3) nonprofit founded in April 2020 by Monique Grant, empowering youth through mentorship, education, and meaningful opportunities."
 >
   <!-- Story -->
   <section class="honeycomb-bg border-b border-line">
     <Container class="grid grid-cols-1 items-center gap-12 py-16 sm:py-20 lg:grid-cols-2 lg:py-24">
       <div>
-        <Eyebrow>About Bee Unique</Eyebrow>
-        <h1 class="mt-5 font-display text-4xl font-extrabold leading-[1.08] text-ink sm:text-5xl">
-          Helping students see what's possible — then get there
-        </h1>
-        <div class="mt-6 space-y-5 text-lg leading-relaxed text-ink-soft">
+        <SectionHeading as="h1" eyebrow="About Bee Unique" title="Helping students see what's possible, then get there">
           <p>
             Bee Unique is a 501(c)(3) nonprofit organization dedicated to empowering youth through mentorship,
             education, and meaningful opportunities. Our mission is to help students recognize their potential,
             prepare for their future, and confidently pursue higher education and career goals.
           </p>
-          <p>
-            Like a hive, we believe no one builds something meaningful alone. Mentors, families, schools, volunteers
-            and partners each bring something unique — and together that's what makes the whole hive stronger.
+          <p class="mt-5">
+            Founded in {site.founded} by {site.founder}, Bee Unique works like a hive. Mentors, families, schools,
+            volunteers and partners each bring something unique, and together that's what makes the whole hive
+            stronger.
           </p>
-        </div>
+        </SectionHeading>
       </div>
       <div class="mx-auto w-full max-w-sm overflow-hidden rounded-3xl border border-line shadow-lg lg:max-w-none">
         <Photo
@@ -70,10 +73,12 @@ const board = [
     </Container>
   </section>
 
+  <SponsorBand />
+
   <!-- Mission / Vision -->
   <section class="py-16 sm:py-20">
     <Container class="grid grid-cols-1 gap-6 md:grid-cols-2">
-      <div class="rounded-2xl border border-line bg-white p-8 sm:p-10">
+      <div class="reveal rounded-2xl border border-line bg-white p-8 sm:p-10">
         <h2 class="font-display text-2xl font-bold text-ink">Our Mission</h2>
         <div class="section-divider mt-4"></div>
         <p class="mt-4 leading-relaxed text-ink-soft">
@@ -82,12 +87,12 @@ const board = [
           college life.
         </p>
       </div>
-      <div class="rounded-2xl border border-line bg-brand-tint p-8 sm:p-10">
+      <div class="reveal rounded-2xl border border-line bg-brand-tint p-8 sm:p-10">
         <h2 class="font-display text-2xl font-bold text-ink">Our Vision</h2>
         <div class="section-divider mt-4"></div>
         <p class="mt-4 leading-relaxed text-ink-soft">
           A future where every student has a mentor in their corner, a clear pathway to higher education, and the
-          confidence to recognise what makes them unique — and the opportunity to use it.
+          confidence to recognise what makes them unique, plus the opportunity to use it.
         </p>
       </div>
     </Container>
@@ -96,9 +101,8 @@ const board = [
   <!-- Values -->
   <section class="honeycomb-bg border-y border-line py-16 sm:py-20">
     <Container>
-      <Eyebrow>What We Stand On</Eyebrow>
-      <h2 class="mt-4 font-display text-3xl font-bold text-ink sm:text-4xl">Our core values</h2>
-      <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <SectionHeading eyebrow="What We Stand On" title="Our core values" class="reveal" />
+      <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {
           values.map((v, i) => (
             <div class="card-lift reveal rounded-2xl border border-line bg-white p-6">
@@ -115,94 +119,152 @@ const board = [
   <!-- Who we serve -->
   <section class="py-16 sm:py-20">
     <Container class="grid grid-cols-1 gap-10 lg:grid-cols-2">
-      <div>
+      <div class="reveal">
         <h2 class="font-display text-2xl font-bold text-ink">Who We Serve</h2>
         <div class="section-divider mt-4"></div>
         <p class="mt-4 leading-relaxed text-ink-soft">
-          We work with students across {site.serviceArea} who are preparing for life after high school — with a focus
+          We work with students across {site.serviceArea} who are preparing for life after high school, with a focus
           on communities where access to consistent mentorship, college exposure and admissions guidance is limited.
           Participation is free.
         </p>
       </div>
-      <div>
+      <div class="reveal">
         <h2 class="font-display text-2xl font-bold text-ink">Why It Matters</h2>
         <div class="section-divider mt-4"></div>
         <p class="mt-4 leading-relaxed text-ink-soft">
           Most students don't miss out on college because they lack ability. They miss out because nobody walked them
           through the deadlines, the aid forms, or what a campus actually feels like. Bee Unique exists to close that
-          gap — one student, one campus visit, one conversation at a time.
+          gap, one student, one campus visit, one conversation at a time.
         </p>
       </div>
     </Container>
   </section>
 
-  <!-- Founder message -->
+  <!-- Founder quote -->
   <section class="honeycomb-bg-dark py-16 sm:py-20">
     <Container class="mx-auto max-w-3xl text-center">
       <Eyebrow tone="dark">From Our Founder</Eyebrow>
-      <blockquote class="mt-6 font-display text-2xl font-semibold leading-relaxed text-white sm:text-3xl">
-        “[Placeholder — a short quote from {site.founder} on why she started Bee Unique and what she wants students to
-        walk away with.]”
+      <blockquote class="mt-7 font-display text-2xl font-semibold leading-relaxed text-white sm:text-[2rem] sm:leading-snug">
+        &ldquo;Opening doors, expanding possibilities, and empowering the next generation.&rdquo;
       </blockquote>
-      <p class="mt-6 text-sm font-semibold text-brand-soft">{site.founder}, {site.founderRole}</p>
+      <p class="mt-7 text-sm font-semibold text-brand-soft">{site.founder}, {site.founderRole}</p>
     </Container>
   </section>
 
-  <!-- Leadership & Board -->
+  <!-- Leadership -->
   <section class="py-16 sm:py-20">
     <Container>
-      <Eyebrow>Our People</Eyebrow>
-      <h2 class="mt-4 font-display text-3xl font-bold text-ink sm:text-4xl">Leadership</h2>
-      <div class="mt-10 grid grid-cols-1 items-center gap-8 rounded-2xl border border-line bg-mist p-7 sm:grid-cols-3 sm:p-9">
-        <div class="overflow-hidden rounded-2xl border border-line">
+      <SectionHeading eyebrow="Our People" title="Leadership" class="reveal" />
+
+      <div class="reveal mt-12 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-14">
+        <div class="mx-auto w-full max-w-sm overflow-hidden rounded-3xl border border-line shadow-lg lg:mx-0">
           <Photo
-            name="founder-booth"
+            name="monique-portrait"
             alt={`${site.founder}, ${site.founderRole} of Bee Unique`}
-            sizes="(min-width: 640px) 300px, 100vw"
-            class="aspect-[4/5] w-full object-cover object-[65%_32%]"
+            sizes="(min-width: 1024px) 350px, 100vw"
+            class="aspect-[3/4] w-full object-cover object-[50%_22%]"
           />
         </div>
-        <div class="sm:col-span-2">
-          <p class="font-display text-2xl font-bold text-ink">{site.founder}</p>
-          <p class="mt-1 text-sm font-semibold text-brand-strong">{site.founderRole}</p>
-          <p class="mt-4 leading-relaxed text-ink-soft">
-            [Short bio for {site.founder} — background, why she founded Bee Unique, and what she does day to day.]
+
+        <div>
+          <h3 class="font-display text-3xl font-bold text-ink">{site.founder}</h3>
+          <p class="mt-1.5 text-sm font-bold uppercase tracking-[0.12em] text-brand-strong">
+            {site.founderRole}, Bee Unique
           </p>
-          <p class="mt-4 text-sm text-ink-soft">
-            [Additional leadership and program staff to be added as the team grows.]
-          </p>
+          <div class="section-divider mt-5"></div>
+
+          <div class="mt-6 space-y-5 leading-relaxed text-ink-soft">
+            <p>
+              Monique Grant is the Founder and CEO of Bee Unique, a nonprofit organization she founded in April 2020
+              with a vision to empower and create greater opportunities for youth. Through mentorship, education,
+              college and career readiness, scholarships, and community outreach, Bee Unique provides students with
+              the resources, exposure, and support needed to confidently pursue their goals and purpose.
+            </p>
+            <p>
+              Beyond her leadership, Monique is a woman of faith and a proud mother and daughter who believes deeply
+              in service, purpose, and giving back. Her passion for pouring into the next generation is rooted in her
+              belief that every young person deserves the opportunity to dream beyond their circumstances, recognize
+              their unique potential, and build a successful future.
+            </p>
+          </div>
         </div>
       </div>
 
-      <h2 class="mt-16 font-display text-3xl font-bold text-ink sm:text-4xl">Board of Directors</h2>
-      <p class="mt-2 text-sm text-ink-soft">[Board names and titles to be confirmed before publishing.]</p>
-      <div class="mt-10 grid grid-cols-2 gap-8 sm:grid-cols-4">
+      <h3 class="mt-16 font-display text-2xl font-bold text-ink sm:text-3xl">Board of Directors</h3>
+      <div class="section-divider mt-4"></div>
+      <p class="mt-4 text-sm text-ink-soft">[Board member names and titles to be confirmed before publishing.]</p>
+      <div class="reveal mt-10 grid grid-cols-2 gap-8 sm:max-w-md">
         {board.map((p) => <PersonCard {...p} />)}
       </div>
     </Container>
   </section>
 
-  <!-- Partners -->
-  <section class="honeycomb-bg border-t border-line py-16 sm:py-20">
-    <Container class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
-      <div>
-        <Eyebrow>Working Together</Eyebrow>
-        <h2 class="mt-4 font-display text-3xl font-bold text-ink sm:text-4xl">Schools, sponsors &amp; partners</h2>
-        <p class="mt-4 leading-relaxed text-ink-soft">
-          Bee Unique works alongside schools, districts, community organisations and local sponsors to reach students
-          where they already are — at school events, education conferences and community days.
-        </p>
-        <p class="mt-4 text-sm text-ink-soft">
-          [Partner and sponsor names and logos to be added with written permission.]
-        </p>
-      </div>
-      <div class="overflow-hidden rounded-3xl border border-line">
-        <Photo
-          name="elevate-youth"
-          alt="Bee Unique presenting at the Elevate Youth Bastrop County education conference"
-          sizes="(min-width: 1024px) 480px, 100vw"
-          class="h-72 w-full object-cover object-[55%_58%]"
-        />
+  <!-- Supporters -->
+  <section id="supporters" class="honeycomb-bg scroll-mt-24 border-y border-line py-16 sm:py-24">
+    <Container>
+      <SectionHeading eyebrow="Working Together" title="Our supporters" class="reveal max-w-2xl">
+        Sponsorship is what keeps every Bee Unique program free. These are the organizations backing the work.
+      </SectionHeading>
+
+      <div class="mt-12 grid grid-cols-1 items-center gap-10 lg:grid-cols-[1fr_minmax(0,20rem)] lg:gap-14">
+        <div class="reveal">
+          {
+            featuredSponsor && (
+              <div class="rounded-3xl border-l-4 border-brand bg-white p-8 shadow-lg shadow-brand/10 sm:p-10">
+                <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-tint text-brand-strong">
+                  <Icon name="partner" size={24} />
+                </span>
+                <p class="mt-5 font-display text-3xl font-extrabold text-ink sm:text-4xl">{featuredSponsor.name}</p>
+                {featuredSponsor.detail && (
+                  <p class="mt-1 text-sm font-semibold uppercase tracking-[0.12em] text-brand-strong">
+                    {featuredSponsor.detail}
+                  </p>
+                )}
+                <div class="mt-6 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                  <p class="font-display text-5xl font-extrabold text-brand-strong">{featuredSponsor.amount}</p>
+                  <p class="text-sm text-ink-soft">
+                    granted to the <strong class="font-semibold text-ink">{featuredSponsor.forProgram}</strong> on{" "}
+                    {featuredSponsor.date}
+                  </p>
+                </div>
+                <p class="mt-6 leading-relaxed text-ink-soft">
+                  That grant is what puts students on buses to real campuses. It pays for the travel, the meals, the
+                  materials and the staff time behind every tour, so families pay nothing.
+                </p>
+              </div>
+            )
+          }
+
+          <div class="mt-6 rounded-2xl border border-line bg-white p-7">
+            <h3 class="font-display text-lg font-bold text-ink">Schools, sponsors and community partners</h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink-soft">
+              Bee Unique works alongside schools, districts, fraternities, community organizations and local sponsors
+              to reach students where they already are, at school events, education conferences and community days.
+            </p>
+            <p class="mt-3 text-sm text-ink-soft">
+              [Additional partner and sponsor names and logos to be added with written permission.]
+            </p>
+            <a
+              href="/get-involved#partner"
+              class="group mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-strong hover:text-brand-deep"
+            >
+              Become a sponsor
+              <span class="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="reveal mx-auto w-full max-w-xs lg:max-w-none">
+          <VideoCard
+            src="/video/sponsor-cheque.mp4"
+            poster="/images/sponsor-cheque-poster.webp"
+            label="Bastrop County Cares presenting a $35,000 cheque to Bee Unique for the Bee-lieve and Achieve Tour"
+            class="aspect-[9/16]"
+          />
+          <p class="mt-3 text-center text-xs text-ink-soft lg:text-left">
+            Bastrop County Cares presenting the {featuredSponsor?.forProgram} grant, {featuredSponsor?.date}.
+          </p>
+        </div>
       </div>
     </Container>
   </section>
@@ -213,4 +275,6 @@ const board = [
     primaryLabel="Get Involved"
     primaryHref="/get-involved"
   />
+
+  <Lightbox />
 </Layout>

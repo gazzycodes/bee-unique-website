@@ -7,9 +7,13 @@ import SectionHeading from "../components/SectionHeading.astro";
 import ProgramCard from "../components/ProgramCard.astro";
 import CTABand from "../components/CTABand.astro";
 import Photo from "../components/Photo.astro";
-import VideoCard from "../components/VideoCard.astro";
 import Icon from "../components/Icon.astro";
-import { site } from "../site";
+import HeroMosaic from "../components/HeroMosaic.astro";
+import SponsorBand from "../components/SponsorBand.astro";
+import GalleryGrid from "../components/GalleryGrid.astro";
+import Testimonials from "../components/Testimonials.astro";
+import Lightbox from "../components/Lightbox.astro";
+import { site, programIncludes } from "../site";
 
 const programs = [
   {
@@ -24,14 +28,14 @@ const programs = [
     audience: "Preparation",
     icon: "workshop" as const,
     description:
-      "Practical sessions on admissions, financial aid, and scholarships — so students and families know the steps long before senior year.",
+      "Practical sessions on admissions, financial aid, and scholarships, so students and families know the steps long before senior year.",
   },
   {
     name: "Mentorship & Personalized Support",
     audience: "Consistency",
     icon: "mentor" as const,
     description:
-      "Ongoing mentorship and one-to-one guidance that stays with a student through the whole process, not just a single event.",
+      "Ongoing mentorship and one to one guidance that stays with a student through the whole process, not just a single event.",
   },
 ];
 
@@ -47,14 +51,14 @@ const trust = [
   { icon: "donate" as const, label: "Free for students", detail: "Every program, no cost" },
   { icon: "campus" as const, label: "Real campuses", detail: "Not a brochure" },
   { icon: "scholarship" as const, label: "Scholarships", detail: "And resources provided" },
-  { icon: "mentor" as const, label: "Ongoing support", detail: "Not a one-off event" },
+  { icon: "mentor" as const, label: "Ongoing support", detail: "Not a one off event" },
 ];
 
 const steps = [
   {
     n: "01",
     title: "Get on a campus",
-    body: "We take students to see universities in person — the halls, the dorms, the people. Ambition needs something concrete to attach itself to.",
+    body: "We take students to see universities in person: the halls, the dorms, the people. Ambition needs something concrete to attach itself to.",
   },
   {
     n: "02",
@@ -71,19 +75,19 @@ const steps = [
 
 <Layout
   title="Home"
-  description="Bee Unique is a 501(c)(3) nonprofit empowering youth through mentorship, education, and meaningful opportunities — college readiness, college tours, scholarships and community outreach, at no cost to students."
+  description="Bee Unique is a 501(c)(3) nonprofit empowering youth through mentorship, education, and meaningful opportunities: college readiness, college tours, scholarships and community outreach, at no cost to students."
 >
   <!-- ── Hero ───────────────────────────────────────────────────────── -->
   <section class="honeycomb-bg relative overflow-hidden border-b border-line">
-    <Container class="relative grid grid-cols-1 items-center gap-14 py-16 sm:py-20 lg:grid-cols-[1.05fr_1fr] lg:py-24">
+    <Container class="relative grid grid-cols-1 items-center gap-12 py-14 sm:py-20 lg:grid-cols-[1.02fr_1fr] lg:py-24">
       <div class="relative z-10">
-        <Eyebrow>501(c)(3) Nonprofit · {site.serviceArea}</Eyebrow>
+        <Eyebrow>501(c)(3) Nonprofit &middot; {site.serviceArea}</Eyebrow>
         <h1 class="mt-5 font-display text-[2.6rem] font-extrabold leading-[1.02] tracking-[-0.03em] text-ink sm:text-6xl lg:text-[4.2rem]">
           Bee-lieve<br />
           <span class="text-brand-strong">&amp;</span> Achieve
         </h1>
         <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
-          Bee Unique empowers youth through mentorship, education, and meaningful opportunities — helping students
+          Bee Unique empowers youth through mentorship, education, and meaningful opportunities, helping students
           recognize their potential, prepare for their future, and confidently pursue higher education and career
           goals.
         </p>
@@ -97,36 +101,11 @@ const steps = [
         </p>
       </div>
 
-      <!-- Photo cluster: main frame with a hex-masked second shot overlapping. -->
-      <div class="brand-glow relative mx-auto w-full max-w-lg lg:max-w-none">
-        <div class="relative z-10 overflow-hidden rounded-[1.75rem] border border-line bg-white shadow-2xl shadow-brand/15">
-          <Photo
-            name="college-tour-group"
-            alt="Bee Unique students in College Tour shirts gathered together during a campus visit"
-            sizes="(min-width: 1024px) 560px, 100vw"
-            loading="eager"
-            fetchpriority="high"
-            class="aspect-[4/3] w-full object-cover"
-          />
-        </div>
-
-        <div class="absolute -bottom-10 -left-7 z-20 hidden h-40 w-[8.75rem] drop-shadow-xl sm:block lg:-bottom-12 lg:-left-16 lg:h-48 lg:w-[10.5rem]">
-          <div class="hex-clip h-full w-full bg-white p-[5px]">
-            <Photo
-              name="founder-booth"
-              alt={`${site.founder}, ${site.founderRole} of Bee Unique, at a program event`}
-              sizes="180px"
-              class="hex-clip h-full w-full scale-[1.35] object-cover object-[72%_30%]"
-            />
-          </div>
-        </div>
-
-        <div class="absolute -right-2 -top-5 z-20 hidden rounded-2xl border border-line bg-white px-5 py-3 shadow-lg sm:block lg:-right-6">
-          <p class="font-display text-sm font-bold text-brand-strong">{site.strapline}</p>
-        </div>
-      </div>
+      <HeroMosaic />
     </Container>
   </section>
+
+  <SponsorBand />
 
   <!-- ── Trust strip ────────────────────────────────────────────────── -->
   <section class="border-b border-line bg-white">
@@ -159,7 +138,7 @@ const steps = [
         </p>
         <p class="mt-5 text-lg leading-relaxed text-ink-soft">
           We provide ongoing mentorship, personalized support, and key resources to help students get accepted and
-          prepared for college life. Don't wait until senior year to plan your future — now is the time to dream,
+          prepared for college life. Don't wait until senior year to plan your future. Now is the time to dream,
           prepare, and achieve.
         </p>
       </div>
@@ -176,7 +155,7 @@ const steps = [
           class="reveal group inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-brand-strong hover:text-brand-deep"
         >
           View all programs
-          <span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
+          <span class="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
         </a>
       </div>
       <div class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -188,7 +167,11 @@ const steps = [
   <!-- ── How it works ───────────────────────────────────────────────── -->
   <section class="py-16 sm:py-24">
     <Container>
-      <SectionHeading eyebrow="How It Works" title="Exposure, then preparation, then someone who stays" class="reveal max-w-2xl" />
+      <SectionHeading
+        eyebrow="How It Works"
+        title="Exposure, then preparation, then someone who stays"
+        class="reveal max-w-2xl"
+      />
       <ol class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
         {
           steps.map((s) => (
@@ -233,7 +216,7 @@ const steps = [
         <div class="mx-auto max-w-md overflow-hidden rounded-[1.75rem] border border-line shadow-xl shadow-brand/10">
           <Photo
             name="program-flyer"
-            alt="Bee Unique program flyer: Bee-lieve and Achieve — Join the Bee Unique Program, your gateway to success"
+            alt="Bee Unique program flyer: Bee-lieve and Achieve, Join the Bee Unique Program, your gateway to success"
             sizes="(min-width: 1024px) 440px, 100vw"
             class="w-full"
           />
@@ -246,59 +229,19 @@ const steps = [
   <section class="py-16 sm:py-24">
     <Container>
       <SectionHeading eyebrow="In the Community" title="Moments from the hive" class="reveal max-w-2xl">
-        College tours, readiness workshops, community outreach and back-to-school drives — here's what the work
-        actually looks like.
+        College tours, readiness workshops, community outreach and back to school drives. Tap any photo or clip to
+        see it full size.
       </SectionHeading>
+      <GalleryGrid class="reveal mt-12" initial={8} />
+    </Container>
+  </section>
 
-      <!-- Every tile is one square unit tall; wide tiles span two columns at 2:1,
-           so all rows line up regardless of the source photo's orientation. -->
-      <div class="reveal mt-12 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
-        <div class="col-span-2 aspect-[2/1] overflow-hidden rounded-2xl border border-line">
-          <Photo
-            name="college-tour-campus"
-            alt="Bee Unique students on a college tour, gathered outside a university stadium entrance"
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-          />
-        </div>
-        <div class="aspect-square overflow-hidden rounded-2xl border border-line">
-          <Photo
-            name="founder-booth"
-            alt="Bee Unique founder Monique Grant beside the program banner at a community event"
-            sizes="(min-width: 1024px) 25vw, 50vw"
-            class="h-full w-full object-cover object-[65%_38%] transition-transform duration-500 hover:scale-105"
-          />
-        </div>
-        <VideoCard
-          src="/video/elevate-youth.mp4"
-          poster="/images/elevate-youth-poster.webp"
-          label="Bee Unique at the Elevate Youth education conference"
-          class="aspect-square"
-        />
-        <div class="aspect-square overflow-hidden rounded-2xl border border-line">
-          <Photo
-            name="team-portrait"
-            alt="Two members of the Bee Unique team at a community education event"
-            sizes="(min-width: 1024px) 25vw, 50vw"
-            class="h-full w-full object-cover object-[50%_28%] transition-transform duration-500 hover:scale-105"
-          />
-        </div>
-        <div class="aspect-square overflow-hidden rounded-2xl border border-line">
-          <Photo
-            name="student-outreach"
-            alt="A Bee Unique volunteer registering a student at an information table"
-            sizes="(min-width: 1024px) 25vw, 50vw"
-            class="h-full w-full object-cover object-[45%_52%] transition-transform duration-500 hover:scale-105"
-          />
-        </div>
-        <div class="col-span-2 aspect-[2/1] overflow-hidden rounded-2xl border border-line">
-          <Photo
-            name="outreach-table"
-            alt="Students gathered around the Bee Unique information table at a school event"
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            class="h-full w-full object-cover object-[50%_40%] transition-transform duration-500 hover:scale-105"
-          />
-        </div>
+  <!-- ── Testimonials ───────────────────────────────────────────────── -->
+  <section class="honeycomb-bg border-y border-line py-16 sm:py-24">
+    <Container>
+      <SectionHeading eyebrow="In Their Words" title="What families say" align="center" class="reveal mb-12" />
+      <div class="reveal">
+        <Testimonials />
       </div>
     </Container>
   </section>
@@ -309,4 +252,6 @@ const steps = [
     primaryLabel="Get Involved"
     primaryHref="/get-involved"
   />
+
+  <Lightbox />
 </Layout>

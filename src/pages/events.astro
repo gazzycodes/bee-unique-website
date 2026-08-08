@@ -7,7 +7,7 @@ import Photo from "../components/Photo.astro";
 import VideoCard from "../components/VideoCard.astro";
 import { site } from "../site";
 
-/** Upcoming events — replace with real dates and locations as they're confirmed. */
+/** Upcoming events. Replace with real dates and locations as they're confirmed. */
 const upcoming: { date: string; title: string; location: string; detail: string }[] = [];
 
 const past = [
@@ -29,7 +29,7 @@ const past = [
     },
   },
   {
-    title: "Elevate Youth — Bastrop County",
+    title: "Elevate Youth, Bastrop County",
     detail:
       "Bee Unique joined educators and community organisations at a regional conference on building pathways to success for students.",
     media: { type: "photo", name: "elevate-youth", alt: "Elevate Youth Bastrop County conference presentation" },
@@ -39,7 +39,7 @@ const past = [
 
 <Layout
   title="Events"
-  description="College tours, readiness workshops and community events from Bee Unique — what's coming up and what we've been part of."
+  description="College tours, readiness workshops and community events from Bee Unique. What's coming up and what we've been part of."
 >
   <section class="honeycomb-bg border-b border-line">
     <Container class="py-14 sm:py-16">
@@ -76,7 +76,7 @@ const past = [
                   {s.handle}
                 </a>
               ))}
-              on Instagram — dates go up there first. To ask about a specific program, email{" "}
+              on Instagram, where dates go up first. To ask about a specific program, email{" "}
               <a href={`mailto:${site.email}`} class="font-semibold text-brand-strong hover:text-brand-deep">
                 {site.email}
               </a>

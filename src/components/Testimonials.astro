@@ -1,0 +1,172 @@
+---
+import { testimonials, site } from "../site";
+
+/**
+ * Testimonial carousel.
+ *
+ * While `testimonials` in site.ts is empty this renders an invitation to share
+ * a story instead of a row of placeholder quotes. Nothing on this site claims a
+ * person said something they did not say. Add entries to the array and the
+ * carousel appears with no other change.
+ *
+ * Auto-advance is paused on hover, on focus, and whenever the visitor prefers
+ * reduced motion. Slides are a list, so a screen reader can read straight
+ * through all of them regardless of which one is visible.
+ */
+const hasAny = testimonials.length > 0;
+---
+
+{
+  hasAny ? (
+    <div
+      id="testimonial-carousel"
+      class="relative mx-auto max-w-3xl"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="What families say about Bee Unique"
+    >
+      <ul class="relative">
+        {testimonials.map((t, i) => (
+          <li
+            data-slide={i}
+            class:list={[
+              "transition-opacity duration-500",
+              i === 0 ? "" : "pointer-events-none absolute inset-0 opacity-0",
+            ]}
+            aria-hidden={i === 0 ? "false" : "true"}
+          >
+            <figure class="honeycomb-bg-dark rounded-2xl p-8 text-center text-white sm:p-12">
+              <svg width="34" height="26" viewBox="0 0 32 24" fill="none" class="mx-auto text-brand-soft" aria-hidden="true">
+                <path
+                  d="M13.6 24V15.36C13.6 9.28 17.44 4.16 24 0L27.2 3.84C22.88 6.72 20.64 9.6 20.64 12.8H26.56V24H13.6ZM0 24V15.36C0 9.28 3.84 4.16 10.4 0L13.6 3.84C9.28 6.72 7.04 9.6 7.04 12.8H12.96V24H0Z"
+                  fill="currentColor"
+                />
+              </svg>
+              <blockquote class="mt-5 font-display text-xl font-medium leading-relaxed sm:text-2xl">
+                {t.quote}
+              </blockquote>
+              <figcaption class="mt-6 text-sm text-white/70">
+                <span class="font-semibold text-white">{t.name}</span>, {t.role}
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+
+      {testimonials.length > 1 && (
+        <div class="mt-6 flex items-center justify-center gap-4">
+          <button
+            id="testimonial-prev"
+            type="button"
+            class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink-soft transition-colors hover:border-brand hover:text-brand-strong"
+            aria-label="Previous testimonial"
+          >
+            <svg width="17" height="17" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M12.5 3.5 6 10l6.5 6.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+
+          <div class="flex gap-2" role="tablist" aria-label="Choose a testimonial">
+            {testimonials.map((_, i) => (
+              <button
+                type="button"
+                data-dot={i}
+                role="tab"
+                aria-selected={i === 0 ? "true" : "false"}
+                aria-label={`Testimonial ${i + 1}`}
+                class:list={[
+                  "h-2.5 rounded-full transition-all",
+                  i === 0 ? "w-7 bg-brand-strong" : "w-2.5 bg-line hover:bg-brand",
+                ]}
+              />
+            ))}
+          </div>
+
+          <button
+            id="testimonial-next"
+            type="button"
+            class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink-soft transition-colors hover:border-brand hover:text-brand-strong"
+            aria-label="Next testimonial"
+          >
+            <svg width="17" height="17" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M7.5 3.5 14 10l-6.5 6.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+      )}
+    </div>
+  ) : (
+    <div class="mx-auto max-w-3xl rounded-2xl border border-line bg-mist p-8 text-center sm:p-10">
+      <h3 class="font-display text-xl font-bold text-ink">Were you part of a Bee Unique program?</h3>
+      <p class="mx-auto mt-3 max-w-xl leading-relaxed text-ink-soft">
+        We would rather leave this space empty than fill it with words nobody said. If Bee Unique made a difference
+        for your student or your family, tell us and we will share it here with your permission.
+      </p>
+      <a
+        href="/contact"
+        class="mt-6 inline-flex items-center justify-center rounded-full bg-brand-strong px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-deep"
+      >
+        Share your story
+      </a>
+      <p class="mt-4 text-xs text-ink-soft">
+        Or email <a href={`mailto:${site.email}`} class="font-semibold text-brand-strong hover:text-brand-deep">{site.email}</a>
+      </p>
+    </div>
+  )
+}
+
+<script>
+  // Always shipped, always inert unless the carousel is actually rendered.
+  // Astro hoists script tags at build time, so keeping this outside the
+  // conditional avoids relying on hoisting-from-inside-an-expression working.
+  const root = document.getElementById("testimonial-carousel");
+  const slides = root ? Array.from(root.querySelectorAll<HTMLElement>("[data-slide]")) : [];
+
+  if (root && slides.length > 1) {
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-dot]"));
+    let index = 0;
+    let timer: ReturnType<typeof setInterval> | null = null;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const show = (next: number) => {
+      index = (next + slides.length) % slides.length;
+      slides.forEach((s, i) => {
+        const on = i === index;
+        s.classList.toggle("pointer-events-none", !on);
+        s.classList.toggle("absolute", !on);
+        s.classList.toggle("inset-0", !on);
+        s.classList.toggle("opacity-0", !on);
+        s.setAttribute("aria-hidden", String(!on));
+      });
+      dots.forEach((d, i) => {
+        const on = i === index;
+        d.setAttribute("aria-selected", String(on));
+        d.classList.toggle("w-7", on);
+        d.classList.toggle("bg-brand-strong", on);
+        d.classList.toggle("w-2.5", !on);
+        d.classList.toggle("bg-line", !on);
+      });
+    };
+
+    const stop = () => {
+      if (timer) clearInterval(timer);
+      timer = null;
+    };
+    const start = () => {
+      if (reduced || timer) return;
+      timer = setInterval(() => show(index + 1), 7000);
+    };
+
+    root.querySelector("#testimonial-next")?.addEventListener("click", () => { show(index + 1); stop(); });
+    root.querySelector("#testimonial-prev")?.addEventListener("click", () => { show(index - 1); stop(); });
+    dots.forEach((d, i) => d.addEventListener("click", () => { show(i); stop(); }));
+
+    // Auto-advance is a courtesy, not a hijack: it stops the moment someone
+    // is reading with a pointer or a keyboard, and never starts under
+    // prefers-reduced-motion.
+    root.addEventListener("mouseenter", stop);
+    root.addEventListener("mouseleave", start);
+    root.addEventListener("focusin", stop);
+    start();
+  }
+</script>

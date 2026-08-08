@@ -1,0 +1,52 @@
+---
+import Container from "./Container.astro";
+import { sponsors } from "../site";
+
+/**
+ * Compact supporter strip, placed high on every page rather than buried above
+ * the footer. Most visitors never reach the bottom of a page, and a named
+ * funder with a real figure is the strongest trust signal this organisation
+ * has, so it earns a spot near the top.
+ *
+ * Reads from `sponsors` in site.ts. Only documented supporters go in that list.
+ */
+interface Props {
+  /** Where "see the detail" points. Defaults to the About page section. */
+  href?: string;
+  class?: string;
+}
+const { href = "/about#supporters", class: className = "" } = Astro.props;
+
+const featured = sponsors.find((s) => s.featured) ?? sponsors[0];
+const others = sponsors.filter((s) => s !== featured);
+---
+
+<section class={`border-b border-line bg-brand-tint/60 ${className}`} aria-label="Our supporters">
+  <Container class="flex flex-col items-start gap-4 py-5 sm:flex-row sm:items-center sm:gap-8">
+    <p class="shrink-0 text-xs font-bold uppercase tracking-[0.14em] text-brand-deep">Proudly supported by</p>
+
+    <div class="flex flex-1 flex-wrap items-center gap-x-6 gap-y-2">
+      {
+        featured && (
+          <p class="font-display text-base font-bold text-ink">
+            {featured.name}
+            {featured.amount && (
+              <span class="ml-2 rounded-full bg-brand-strong px-2.5 py-0.5 align-middle text-xs font-bold text-white">
+                {featured.amount}
+              </span>
+            )}
+          </p>
+        )
+      }
+      {others.map((s) => <p class="font-display text-base font-bold text-ink/70">{s.name}</p>)}
+    </div>
+
+    <a
+      href={href}
+      class="group inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-brand-strong hover:text-brand-deep"
+    >
+      See our supporters
+      <span class="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
+    </a>
+  </Container>
+</section>

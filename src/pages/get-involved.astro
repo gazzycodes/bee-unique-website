@@ -7,13 +7,14 @@ import FormField from "../components/FormField.astro";
 import CTABand from "../components/CTABand.astro";
 import Photo from "../components/Photo.astro";
 import Icon from "../components/Icon.astro";
+import SponsorBand from "../components/SponsorBand.astro";
 import { site } from "../site";
 
 const ways = [
   {
     title: "Become a mentor",
     icon: "mentor",
-    body: "Give a student consistent guidance through the college process — application reviews, honest conversations, and someone who checks in.",
+    body: "Give a student consistent guidance through the college process: application reviews, honest conversations, and someone who checks in.",
     anchor: "#mentor",
     cta: "Apply to mentor",
   },
@@ -34,7 +35,7 @@ const ways = [
   {
     title: "Partner with us",
     icon: "partner",
-    body: "Schools, districts, community organisations and companies — bring Bee Unique to the students you already serve.",
+    body: "Schools, districts, community organizations and companies. Bring Bee Unique to the students you already serve.",
     anchor: "#partner",
     cta: "Start a partnership",
   },
@@ -74,6 +75,8 @@ const ways = [
     </Container>
   </section>
 
+  <SponsorBand />
+
   <!-- Ways to help -->
   <section class="py-16 sm:py-20">
     <Container>
@@ -106,7 +109,7 @@ const ways = [
         <Eyebrow>Mentors</Eyebrow>
         <h2 class="mt-4 font-display text-3xl font-bold text-ink">Become a mentor</h2>
         <p class="mt-4 leading-relaxed text-ink-soft">
-          Mentors are the backbone of Bee Unique. You don't need to be a college counsellor — you need to be reliable,
+          Mentors are the backbone of Bee Unique. You don't need to be a college counselor. You need to be reliable,
           encouraging, and willing to walk a student through a process that nobody walked you through either.
         </p>
         <ul class="mt-6 space-y-3 text-sm text-ink-soft">
@@ -289,7 +292,7 @@ const ways = [
 
   <CTABand
     heading="Or give what you can"
-    body="Donations fund the tours, the workshops, and the scholarships — everything that lets Bee Unique say yes to a student for free."
+    body="Donations fund the tours, the workshops, and the scholarships. Everything that lets Bee Unique say yes to a student for free."
     primaryLabel="Donate Today"
     primaryHref="/donate"
     secondaryLabel="See Our Programs"

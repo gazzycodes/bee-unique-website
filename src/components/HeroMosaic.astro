@@ -1,0 +1,174 @@
+---
+import Photo from "./Photo.astro";
+
+/**
+ * Honeycomb photo mosaic for the home hero.
+ *
+ * Seven hex cells in a true flower tessellation: one centre cell with six
+ * neighbours sharing its edges. Positions are absolute percentages worked out
+ * from the hex maths rather than eyeballed on a grid, so the cells actually
+ * interlock instead of floating near each other.
+ *
+ * For a pointy-top hexagon of width W, height is W * 2/sqrt(3), the horizontal
+ * neighbour sits at +W and the diagonal neighbours at (+/- W/2, +/- 0.75H).
+ * With W = 33% the whole flower is 99% wide and 95% tall, centred in a square.
+ *
+ * Every cell opens the shared lightbox. The slow float is CSS only, staggered
+ * per cell, and switched off entirely under prefers-reduced-motion.
+ */
+const W = 33; // hex width, % of container
+const H = 38.105; // W * 2 / sqrt(3)
+
+const cells = [
+  {
+    id: "students-selfie",
+    src: "students-selfie",
+    alt: "Monique Grant with a group of smiling Bee Unique students on a college tour",
+    focus: "object-[50%_34%]",
+    left: 33.5,
+    top: 30.95,
+    delay: "0s",
+    z: 20,
+    eager: true,
+  },
+  {
+    id: "college-tour-campus",
+    src: "college-tour-campus",
+    alt: "Bee Unique students outside a university stadium on a college tour",
+    focus: "object-[50%_58%]",
+    left: 17,
+    top: 2.37,
+    delay: "-1.4s",
+    z: 10,
+    eager: true,
+  },
+  {
+    id: "monique-portrait",
+    src: "monique-portrait",
+    alt: "Monique Grant, Founder and CEO of Bee Unique",
+    focus: "object-[50%_16%]",
+    left: 50,
+    top: 2.37,
+    delay: "-2.8s",
+    z: 10,
+    eager: true,
+  },
+  {
+    id: "college-tour-group",
+    src: "college-tour-group",
+    alt: "Bee Unique students in college tour shirts in front of a university backdrop",
+    focus: "object-[50%_45%]",
+    left: 0.5,
+    top: 30.95,
+    delay: "-4.2s",
+    z: 10,
+  },
+  {
+    id: "outreach-table",
+    src: "outreach-table",
+    alt: "Students at the Bee Unique information table at a school event",
+    focus: "object-[50%_40%]",
+    left: 66.5,
+    top: 30.95,
+    delay: "-2.1s",
+    z: 10,
+  },
+  {
+    id: "backpack-giveaway",
+    src: "backpack-giveaway",
+    alt: "A student receiving a new backpack at a Bee Unique giveaway",
+    focus: "object-[50%_30%]",
+    left: 17,
+    top: 59.53,
+    delay: "-3.5s",
+    z: 10,
+  },
+  {
+    id: "team-portrait",
+    src: "team-portrait",
+    alt: "Two members of the Bee Unique team at an education conference",
+    focus: "object-[50%_26%]",
+    left: 50,
+    top: 59.53,
+    delay: "-0.7s",
+    z: 10,
+  },
+];
+---
+
+<div class="brand-glow relative mx-auto w-full max-w-[26rem] sm:max-w-[30rem] lg:max-w-[34rem]">
+  <div class="hero-mosaic relative aspect-square w-full">
+    {
+      cells.map((c) => (
+        <button
+          type="button"
+          data-lightbox={c.id}
+          style={`left:${c.left}%;top:${c.top}%;width:${W}%;height:${H}%;--d:${c.delay};z-index:${c.z}`}
+          class="mosaic-cell group absolute focus-visible:outline-none"
+          aria-label={`Open photo: ${c.alt}`}
+        >
+          <span class="hex-clip block h-full w-full bg-white p-[2.5px] shadow-lg transition-shadow duration-300 group-hover:shadow-2xl group-focus-visible:bg-brand-strong">
+            <Photo
+              name={c.src}
+              alt={c.alt}
+              sizes="(min-width: 1024px) 190px, 30vw"
+              loading={c.eager ? "eager" : "lazy"}
+              fetchpriority={c.id === "students-selfie" ? "high" : "auto"}
+              class={`hex-clip h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 ${c.focus}`}
+            />
+          </span>
+        </button>
+      ))
+    }
+  </div>
+
+  <p class="mt-4 flex items-center justify-center gap-2 text-xs font-semibold text-ink-soft lg:justify-start">
+    <svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+      <circle cx="5.2" cy="5.2" r="3.6"></circle>
+      <path d="M8 8l2.5 2.5" stroke-linecap="round"></path>
+    </svg>
+    Tap any cell to open the gallery
+  </p>
+</div>
+
+<style>
+  .mosaic-cell {
+    animation: mosaic-float 10s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+    will-change: transform;
+  }
+
+  /* Freeze the whole comb while someone is aiming at it. A target that never
+     stops moving is awkward with a mouse and genuinely hard with limited motor
+     control, so the drift is decoration that gets out of the way on approach. */
+  .hero-mosaic:hover .mosaic-cell,
+  .hero-mosaic:focus-within .mosaic-cell {
+    animation-play-state: paused;
+  }
+
+  @keyframes mosaic-float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -6px, 0);
+    }
+  }
+
+  /* Keyboard focus needs to be visible through the hex clip, so ring the cell
+     rather than relying on an outline the clip-path would cut off. */
+  .mosaic-cell:focus-visible {
+    animation: none;
+  }
+  .mosaic-cell:focus-visible span {
+    background: var(--color-brand-strong);
+    padding: 5px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mosaic-cell {
+      animation: none;
+    }
+  }
+</style>
