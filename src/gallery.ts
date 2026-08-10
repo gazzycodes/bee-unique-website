@@ -129,15 +129,6 @@ export const gallery: GalleryItem[] = [
     caption: "Elevate Youth Bastrop County, building pathways to success for local students.",
     category: "Events",
   },
-  {
-    id: "founder-banner",
-    kind: "photo",
-    src: "founder-banner",
-    alt: "Monique Grant at a Bee Unique information table beside the program banner",
-    caption: "Recruiting students for the next college readiness cohort.",
-    category: "Our Team",
-    focus: "object-[50%_30%]",
-  },
 ];
 
 export const galleryCategories = [
