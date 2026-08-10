@@ -1,0 +1,35 @@
+---
+import Container from "./Container.astro";
+import SectionHeading from "./SectionHeading.astro";
+import StatCard from "./StatCard.astro";
+import { impactStats } from "../site";
+
+/**
+ * Verified impact numbers, in a StatCard grid.
+ *
+ * Renders nothing at all, including the heading, while `impactStats` in
+ * site.ts is empty. That is the point: this component makes it a one line
+ * change in site.ts to put real numbers on Home, Programs and About at once,
+ * without ever risking a placeholder or an estimate reaching a visitor. See
+ * CONTENT-CHECKLIST.md → Programs and impact.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+
+{
+  impactStats.length > 0 && (
+    <section class={`py-16 sm:py-20 ${className}`}>
+      <Container>
+        <SectionHeading eyebrow="Our Impact" title="The reach so far" align="center" class="reveal mx-auto mb-12" />
+        <div class="reveal grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {impactStats.map((s) => (
+            <StatCard value={s.value} label={s.label} />
+          ))}
+        </div>
+      </Container>
+    </section>
+  )
+}

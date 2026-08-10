@@ -3,10 +3,17 @@ import Container from "./Container.astro";
 import { sponsors } from "../site";
 
 /**
- * Compact supporter strip, placed high on every page rather than buried above
- * the footer. Most visitors never reach the bottom of a page, and a named
- * funder with a real figure is the strongest trust signal this organisation
- * has, so it earns a spot near the top.
+ * Supporter strip, placed high on every page rather than buried above the
+ * footer. Most visitors never reach the bottom of a page, and a named funder
+ * with a real figure is the strongest trust signal this organisation has, so
+ * it earns a spot right under the hero.
+ *
+ * No sponsor logo image files exist yet (see CONTENT-CHECKLIST.md, Sponsors),
+ * so each sponsor gets a monogram badge instead of a plain text line. It is
+ * an honest placeholder, a lettermark, not a real logo, but it reads as a
+ * credibility strip rather than a sentence. Swap in the actual mark the day
+ * a sponsor sends written permission and a logo file: give the badge an
+ * `<img>` instead of the initials span and nothing else here has to change.
  *
  * Reads from `sponsors` in site.ts. Only documented supporters go in that list.
  */
@@ -17,36 +24,47 @@ interface Props {
 }
 const { href = "/about#supporters", class: className = "" } = Astro.props;
 
-const featured = sponsors.find((s) => s.featured) ?? sponsors[0];
-const others = sponsors.filter((s) => s !== featured);
+const initials = (name: string) =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 3)
+    .toUpperCase();
 ---
 
 <section class={`border-b border-line bg-brand-tint/60 ${className}`} aria-label="Our supporters">
-  <Container class="flex flex-col items-start gap-4 py-5 sm:flex-row sm:items-center sm:gap-8">
-    <p class="shrink-0 text-xs font-bold uppercase tracking-[0.14em] text-brand-deep">Proudly supported by</p>
+  <Container class="py-5 sm:py-6">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
+      <p class="shrink-0 text-xs font-bold uppercase tracking-[0.14em] text-brand-deep">Proudly supported by</p>
 
-    <div class="flex flex-1 flex-wrap items-center gap-x-6 gap-y-2">
-      {
-        featured && (
-          <p class="font-display text-base font-bold text-ink">
-            {featured.name}
-            {featured.amount && (
-              <span class="ml-2 rounded-full bg-brand-strong px-2.5 py-0.5 align-middle text-xs font-bold text-white">
-                {featured.amount}
+      <div class="flex flex-1 flex-wrap items-center gap-3">
+        {
+          sponsors.map((s) => (
+            <div class="flex items-center gap-3 rounded-2xl border border-line bg-white px-4 py-2.5 shadow-sm">
+              <span
+                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-strong text-xs font-extrabold text-white"
+                aria-hidden="true"
+              >
+                {initials(s.name)}
               </span>
-            )}
-          </p>
-        )
-      }
-      {others.map((s) => <p class="font-display text-base font-bold text-ink/70">{s.name}</p>)}
-    </div>
+              <div class="leading-tight">
+                <p class="font-display text-sm font-bold text-ink">{s.name}</p>
+                {s.amount && <p class="text-xs font-semibold text-brand-strong">{s.amount} granted</p>}
+              </div>
+            </div>
+          ))
+        }
+      </div>
 
-    <a
-      href={href}
-      class="group inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-brand-strong hover:text-brand-deep"
-    >
-      See our supporters
-      <span class="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
-    </a>
+      <a
+        href={href}
+        class="group inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-brand-strong hover:text-brand-deep"
+      >
+        See our supporters
+        <span class="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
+      </a>
+    </div>
   </Container>
 </section>

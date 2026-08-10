@@ -9,6 +9,7 @@ import Photo from "../components/Photo.astro";
 import Icon from "../components/Icon.astro";
 import VideoCard from "../components/VideoCard.astro";
 import SponsorBand from "../components/SponsorBand.astro";
+import ImpactStats from "../components/ImpactStats.astro";
 import Lightbox from "../components/Lightbox.astro";
 import { site, sponsors } from "../site";
 
@@ -31,10 +32,10 @@ const values = [
   },
 ];
 
-/** Two seats confirmed. Names still to come from Monique. */
+/** Names confirmed by Gazzy, Aug 2026. Titles still to come from Monique. */
 const board = [
-  { name: "[Board Member Name]", role: "[Board role]" },
-  { name: "[Board Member Name]", role: "[Board role]" },
+  { name: "Gloria Grant", role: "Board Member" },
+  { name: "Jonathan Johnson", role: "Board Member" },
 ];
 
 const featuredSponsor = sponsors.find((s) => s.featured) ?? sponsors[0];
@@ -97,6 +98,8 @@ const featuredSponsor = sponsors.find((s) => s.featured) ?? sponsors[0];
       </div>
     </Container>
   </section>
+
+  <ImpactStats class="border-y border-line" />
 
   <!-- Values -->
   <section class="honeycomb-bg border-y border-line py-16 sm:py-20">
@@ -192,7 +195,7 @@ const featuredSponsor = sponsors.find((s) => s.featured) ?? sponsors[0];
 
       <h3 class="mt-16 font-display text-2xl font-bold text-ink sm:text-3xl">Board of Directors</h3>
       <div class="section-divider mt-4"></div>
-      <p class="mt-4 text-sm text-ink-soft">[Board member names and titles to be confirmed before publishing.]</p>
+      <p class="mt-4 text-sm text-ink-soft">[Board titles to be confirmed before publishing.]</p>
       <div class="reveal mt-10 grid grid-cols-2 gap-8 sm:max-w-md">
         {board.map((p) => <PersonCard {...p} />)}
       </div>

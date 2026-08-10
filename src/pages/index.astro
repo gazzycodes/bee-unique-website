@@ -8,12 +8,25 @@ import ProgramCard from "../components/ProgramCard.astro";
 import CTABand from "../components/CTABand.astro";
 import Photo from "../components/Photo.astro";
 import Icon from "../components/Icon.astro";
-import HeroMosaic from "../components/HeroMosaic.astro";
+import VideoCard from "../components/VideoCard.astro";
 import SponsorBand from "../components/SponsorBand.astro";
 import GalleryGrid from "../components/GalleryGrid.astro";
 import Testimonials from "../components/Testimonials.astro";
+import ImpactStats from "../components/ImpactStats.astro";
 import Lightbox from "../components/Lightbox.astro";
 import { site, programIncludes } from "../site";
+
+/**
+ * Quick links under the hero buttons, so Donate, Volunteer, Sponsor and Get
+ * Involved are all reachable within the first screen, per Mike's feedback
+ * (Aug 2026). Donate and Get Involved are the two hero buttons; these three
+ * cover the rest without a second row of equally weighted buttons.
+ */
+const heroQuickLinks = [
+  { href: "/get-involved#volunteer", label: "Volunteer", icon: "volunteer" as const },
+  { href: "/get-involved#partner", label: "Sponsor", icon: "partner" as const },
+  { href: "/programs", label: "Explore Programs", icon: "campus" as const },
+];
 
 const programs = [
   {
@@ -92,16 +105,46 @@ const steps = [
           goals.
         </p>
         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Button href="/get-involved" size="lg">Get Involved</Button>
-          <Button href="/programs" variant="outline" size="lg">Explore Our Programs</Button>
+          <Button href="/donate" size="lg">Donate</Button>
+          <Button href="/get-involved" variant="outline" size="lg">Get Involved</Button>
         </div>
-        <p class="mt-7 flex items-center gap-2.5 text-sm font-semibold text-brand-deep">
+        <ul class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+          {
+            heroQuickLinks.map((l) => (
+              <li>
+                <a
+                  href={l.href}
+                  class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-strong hover:text-brand-deep"
+                >
+                  <Icon name={l.icon} size={16} class="shrink-0" />
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-6 flex items-center gap-2.5 text-sm font-semibold text-brand-deep">
           <Icon name="check" size={19} class="shrink-0" />
           Every program is offered at no cost to participating students.
         </p>
       </div>
 
-      <HeroMosaic />
+      <div class="relative mx-auto w-full max-w-[26rem] sm:max-w-[30rem] lg:max-w-[34rem]">
+        <VideoCard
+          src="/video/elevate-youth.mp4"
+          poster="/images/elevate-youth-poster.webp"
+          label="Bee Unique at the Elevate Youth Bastrop County education conference: Monique Grant presenting to a full room of students on the energy and reach of the program"
+          preload="auto"
+          class="aspect-[3/4] w-full rounded-[2rem] shadow-xl shadow-brand/10"
+        />
+        <p class="mt-4 flex items-center justify-center gap-2 text-xs font-semibold text-ink-soft lg:justify-start">
+          <svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <path d="M4.5 3.5 8.5 6l-4 2.5Z" stroke-linejoin="round"></path>
+            <circle cx="6" cy="6" r="4.9"></circle>
+          </svg>
+          A moment from a Bee Unique event: the energy, and Mo with the students
+        </p>
+      </div>
     </Container>
   </section>
 
@@ -127,6 +170,8 @@ const steps = [
       </ul>
     </Container>
   </section>
+
+  <ImpactStats class="border-b border-line" />
 
   <!-- ── Mission ────────────────────────────────────────────────────── -->
   <section class="py-16 sm:py-24">

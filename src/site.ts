@@ -89,6 +89,18 @@ export const sponsors = [
  */
 export const testimonials: { quote: string; name: string; role: string }[] = [];
 
+/**
+ * Verified impact numbers only: students served, tours hosted, scholarships
+ * awarded, volunteer hours, and so on. Deliberately empty. `ImpactStats.astro`
+ * renders nothing at all while this list is empty, rather than showing a
+ * placeholder number, because an estimate presented as fact is worse than no
+ * number. The moment Monique supplies real, verified figures, add them here
+ * and the section appears on Home, Programs and About with no other change.
+ *
+ * Shape: { value, label }, e.g. { value: "500+", label: "Students served" }
+ */
+export const impactStats: { value: string; label: string }[] = [];
+
 /** What the College Readiness Program includes, taken from the program flyer. */
 export const programIncludes = [
   "Campus visits to top colleges & universities",

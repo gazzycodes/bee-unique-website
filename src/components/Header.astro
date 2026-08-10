@@ -36,8 +36,14 @@ const isActive = (href: string) =>
         }
       </nav>
 
-      <div class="flex items-center gap-3">
-        <Button href="/donate" variant="primary" class="hidden sm:inline-flex">Donate</Button>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <Button
+          href="/donate"
+          variant="primary"
+          class="!px-4 !py-2 !text-xs sm:!px-6 sm:!py-2.5 sm:!text-sm"
+        >
+          Donate
+        </Button>
         <button
           id="mobile-menu-toggle"
           class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink lg:hidden"

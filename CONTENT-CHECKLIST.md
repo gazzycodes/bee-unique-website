@@ -19,7 +19,10 @@ Monique's own bio:
   generation."
 - 501(c)(3) nonprofit status
 - Bastrop County Cares granted **$35,000** to the Bee-lieve & Achieve Tour on **June 2, 2025**
-- Cash App donations at `$BeeUnique17`
+- Cash App donations at `$BeeUnique17`, confirmed as a **Business account** (Monique, via Gazzy, Aug 2026), so the
+  $1,000/30 day personal-account cap does not apply
+- Board of Directors: two names confirmed, **Gloria Grant** and **Jonathan Johnson** (Gazzy, Aug 2026). Titles
+  still needed, currently shown as "Board Member"
 
 ## Blocking, resolve before promoting the site publicly
 
@@ -28,11 +31,52 @@ Monique's own bio:
 - [ ] **Privacy policy legal review**, especially the children's information section. Not optional
       for an organization working with minors.
 - [ ] **Photo permissions.** Confirm written permission, and parent or guardian consent for minors,
-      for every student photo on the site. There are now 13 items in the gallery plus 7 in the hero
-      mosaic.
-- [ ] **Cash App account type.** A personal Cash App account caps at $1,000 per 30 days, so a busy
-      month of giving would silently start failing. Confirm `$BeeUnique17` is a Business account.
-      Business accounts pay 2.75% on card-funded payments; bank and debit transfers are free.
+      for every student photo on the site. There are 13 items in the gallery. The seven hero mosaic
+      photos are among them; the home hero itself now plays a video instead (see "Home hero video"
+      below), but the mosaic photos still appear in the gallery grid.
+
+## Mike's feedback, Aug 2026
+
+Mike (Monique's partner) reviewed the site and called it about 95% done. Two items from that review
+need a decision from Monique or Mike rather than more building:
+
+- [ ] **Home hero video.** Mike asked for "the 20 second video we talked about" in the hero, in place
+      of the honeycomb photo mosaic. Two clips were candidates: `elevate-youth.mp4` (Elevate Youth
+      Bastrop County, runs 20.7 seconds) and `back2school-day.mp4` (Back2School day, runs 25.8
+      seconds). The hero now plays `elevate-youth.mp4`, on the strength of the near exact 20 second
+      match. If Mike meant the Back2School clip instead, that is a one line swap of `src`, `poster`
+      and the caption text in the hero section of `src/pages/index.astro`. The honeycomb mosaic
+      component (`HeroMosaic.astro`) was not deleted, only unhooked from the homepage, so the old
+      look is one import away if anyone wants to compare it against the video again.
+- [ ] **Sponsor logos.** No sponsor has ever sent an actual logo file. Only Bastrop County Cares is
+      documented at all. The site now shows a monogram badge (initials in a circle) next to each
+      sponsor's name and grant amount, styled to read as a credibility strip rather than a sentence,
+      right under the hero on every page. That is the strongest honest treatment possible without
+      real artwork: it is a lettermark, not a logo. Get an actual SVG or PNG logo file, plus written
+      permission to use it, from each sponsor, and it drops straight into `SponsorBand.astro` in
+      place of the initials.
+
+Also addressed directly, no follow up needed:
+
+- Top of page call to action: the home hero now leads with **Donate** and **Get Involved** buttons,
+  plus **Volunteer**, **Sponsor** and **Explore Programs** as quick links right under them. The header
+  Donate button is now visible on phone screens too, not just from tablet width up.
+- Impact numbers: `impactStats` in `src/site.ts` is wired to `ImpactStats.astro`, which appears on
+  Home, Programs and About. It renders nothing while the list is empty, so nothing estimated ships
+  to a visitor. The moment Monique shares real figures, add them there, e.g.
+  `{ value: "500+", label: "Students served" }`, and the section appears on all three pages at once.
+- Mobile pass: see "Mobile experience" below.
+
+## Mobile experience
+
+Checked after the Aug 2026 round of changes, since most visitors arrive from phone links on social
+media:
+
+- [ ] Re-check on a real device after each round of content changes, not just the simulator width in
+      this checklist. Emulated widths catch layout breaks; they do not catch everything a real phone
+      does (address bar chrome, autoplay policy differences, slow connections).
+- Header Donate button, hero buttons and quick links, sponsor badges, and the gallery filters were all
+  verified at 375px and 414px widths after this round of changes.
 
 ## Donation receipts, the manual process
 

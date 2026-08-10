@@ -20,7 +20,7 @@ Spelling follows US English in visitor facing copy.
 
 | Route                     | What it is                                          |
 | ------------------------- | --------------------------------------------------- |
-| `/`                       | Home: hero mosaic, programs, gallery, testimonials  |
+| `/`                       | Home: hero video, programs, gallery, testimonials   |
 | `/about`                  | Story, values, Monique's bio, board, supporters     |
 | `/programs`               | The six programs in detail, gallery, testimonials   |
 | `/get-involved`           | Mentor, volunteer and partnership forms             |
@@ -84,8 +84,16 @@ printed logo is at `public/images/logo-full.png` for print and social profiles.
   anything with `data-lightbox`.
 - **`GalleryGrid.astro`** the filterable media wall, driven by `src/gallery.ts`.
 - **`Testimonials.astro`** the quote carousel, driven by `testimonials` in `src/site.ts`.
-- **`SponsorBand.astro`** the supporter strip, driven by `sponsors` in `src/site.ts`.
-- **`HeroMosaic.astro`** the honeycomb photo flower on the home hero.
+- **`SponsorBand.astro`** the supporter strip, driven by `sponsors` in `src/site.ts`. Each sponsor gets
+  a monogram badge until a real logo file exists.
+- **`ImpactStats.astro`** the impact number grid, driven by `impactStats` in `src/site.ts`. Renders
+  nothing while that list is empty, so it ships with no visual change until real figures land, then
+  add entries and it appears on Home, Programs and About at once.
+- **`VideoCard.astro`** the shared autoplaying, muted, looping video tile with native controls. Used
+  for the home hero and the sponsor cheque clip on About.
+- **`HeroMosaic.astro`** the honeycomb photo flower, built for the home hero and kept in the codebase
+  but currently unused there. The hero now plays a video instead, per Mike's Aug 2026 feedback; see
+  CONTENT-CHECKLIST.md if that changes back.
 - **`.card-lift`** hover lift and green border, disabled under `prefers-reduced-motion`.
 - **`.reveal`** opts an element into the scroll reveal. The CSS is armed by a `js-reveal` class that
   the observer in `Layout.astro` adds, so if that script never runs the content renders fully
@@ -99,7 +107,8 @@ with no image request. The tile maths is in `global.css`. If you change the tile
 
 Content that appears in more than one place lives in data files, not in pages:
 
-- **`src/site.ts`** contact details, founder, socials, donation methods, sponsors, testimonials.
+- **`src/site.ts`** contact details, founder, socials, donation methods, sponsors, testimonials, impact
+  stats.
 - **`src/gallery.ts`** every photo and clip, with captions and categories. The gallery grid, the
   hero mosaic and the lightbox all read from here.
 

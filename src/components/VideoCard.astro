@@ -13,8 +13,11 @@ interface Props {
   poster: string;
   label: string;
   class?: string;
+  /** "none" keeps a below-the-fold clip off the network until it is in view;
+   * a hero clip wants "metadata" or "auto" so autoplay starts promptly. */
+  preload?: "none" | "metadata" | "auto";
 }
-const { src, poster, label, class: className = "" } = Astro.props;
+const { src, poster, label, class: className = "", preload = "none" } = Astro.props;
 ---
 
 <figure class={`overflow-hidden rounded-2xl border border-line bg-ink ${className}`}>
@@ -26,7 +29,7 @@ const { src, poster, label, class: className = "" } = Astro.props;
     muted
     loop
     playsinline
-    preload="none"
+    preload={preload}
     controls
     aria-label={label}></video>
 </figure>
