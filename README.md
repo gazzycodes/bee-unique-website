@@ -26,7 +26,7 @@ Spelling follows US English in visitor facing copy.
 | `/get-involved`           | Mentor, volunteer and partnership forms             |
 | `/donate`                 | Ways to give, what a gift covers, receipt request   |
 | `/events` `/news`         | Event history and announcements                     |
-| `/contact`                | Contact details and general enquiry form            |
+| `/contact`                | Contact details and general inquiry form            |
 | `/financial-transparency` | Filings and fund use                                |
 | `/privacy-policy`         | What the site collects                              |
 | `/thank-you`              | Post form submission confirmation                   |

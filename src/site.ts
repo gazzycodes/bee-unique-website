@@ -77,6 +77,14 @@ export const sponsors = [
     forProgram: "Bee-lieve & Achieve Tour",
     featured: true,
   },
+  {
+    // Name and amount confirmed by Gazzy, Aug 2026. Program and date not yet
+    // documented, so this entry stays out of the About page featured-sponsor
+    // card (which needs both) and shows in SponsorBand only.
+    name: "Austin Police Department",
+    amount: "$30,000",
+    featured: false,
+  },
 ] as const;
 
 /**

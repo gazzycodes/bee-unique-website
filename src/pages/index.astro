@@ -129,20 +129,46 @@ const steps = [
         </p>
       </div>
 
-      <div class="relative mx-auto w-full max-w-[26rem] sm:max-w-[30rem] lg:max-w-[34rem]">
-        <VideoCard
-          src="/video/elevate-youth.mp4"
-          poster="/images/elevate-youth-poster.webp"
-          label="Bee Unique at the Elevate Youth Bastrop County education conference: Monique Grant presenting to a full room of students on the energy and reach of the program"
-          preload="auto"
-          class="aspect-[3/4] w-full rounded-[2rem] shadow-xl shadow-brand/10"
-        />
+      <div class="mx-auto w-full max-w-[26rem] sm:max-w-[30rem] lg:max-w-[34rem]">
+        <div class="relative">
+          <!--
+            Decorative honeycomb cells behind the video, echoing the logo mark
+            and the mosaic this hero used to be. Purely ornamental: aria-hidden,
+            no interaction, and the video card sits above them (z-10) so they
+            only ever peek out from behind its corners, never cover the footage.
+            This inner wrapper holds only the video, so the offsets below are
+            relative to the video card itself, not the caption underneath it.
+          -->
+          <svg
+            class="pointer-events-none absolute -right-6 -top-7 h-24 w-24 text-brand/25 sm:-right-9 sm:-top-9 sm:h-32 sm:w-32"
+            viewBox="0 0 100 100"
+            aria-hidden="true"
+          >
+            <polygon points="50,3 93,26 93,74 50,97 7,74 7,26" fill="currentColor" />
+          </svg>
+          <svg
+            class="pointer-events-none absolute -bottom-6 -left-5 h-16 w-16 text-brand-strong/40 sm:-bottom-8 sm:-left-7 sm:h-20 sm:w-20"
+            viewBox="0 0 100 100"
+            fill="none"
+            aria-hidden="true"
+          >
+            <polygon points="50,4 92,27 92,73 50,96 8,73 8,27" stroke="currentColor" stroke-width="5" />
+          </svg>
+
+          <VideoCard
+            src="/video/elevate-youth.mp4"
+            poster="/images/elevate-youth-poster.webp"
+            label="Bee Unique at the Elevate Youth Bastrop County education conference: Monique Grant presenting to a full room of students on the energy and reach of the program"
+            preload="auto"
+            class="relative z-10 aspect-[3/4] w-full rounded-[2rem] shadow-xl shadow-brand/10"
+          />
+        </div>
         <p class="mt-4 flex items-center justify-center gap-2 text-xs font-semibold text-ink-soft lg:justify-start">
           <svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
             <path d="M4.5 3.5 8.5 6l-4 2.5Z" stroke-linejoin="round"></path>
             <circle cx="6" cy="6" r="4.9"></circle>
           </svg>
-          A moment from a Bee Unique event: the energy, and Mo with the students
+          A moment from a Bee Unique event: the energy, and Monique with the students
         </p>
       </div>
     </Container>

@@ -31,14 +31,14 @@ Monique's own bio:
 - [ ] **Privacy policy legal review**, especially the children's information section. Not optional
       for an organization working with minors.
 - [ ] **Photo permissions.** Confirm written permission, and parent or guardian consent for minors,
-      for every student photo on the site. There are 13 items in the gallery. The seven hero mosaic
-      photos are among them; the home hero itself now plays a video instead (see "Home hero video"
-      below), but the mosaic photos still appear in the gallery grid.
+      for every student photo on the site. There are 17 items in the gallery as of Aug 2026. The
+      hero mosaic photos are among them; the home hero itself now plays a video instead (see "Home
+      hero video" below), but the mosaic photos still appear in the gallery grid.
 
 ## Mike's feedback, Aug 2026
 
-Mike (Monique's partner) reviewed the site and called it about 95% done. Two items from that review
-need a decision from Monique or Mike rather than more building:
+Mike (Monique's partner) reviewed the site and called it about 95% done. One item from the first
+round of review needs a decision from Monique or Mike rather than more building:
 
 - [ ] **Home hero video.** Mike asked for "the 20 second video we talked about" in the hero, in place
       of the honeycomb photo mosaic. Two clips were candidates: `elevate-youth.mp4` (Elevate Youth
@@ -48,16 +48,15 @@ need a decision from Monique or Mike rather than more building:
       and the caption text in the hero section of `src/pages/index.astro`. The honeycomb mosaic
       component (`HeroMosaic.astro`) was not deleted, only unhooked from the homepage, so the old
       look is one import away if anyone wants to compare it against the video again.
-- [ ] **Sponsor logos.** No sponsor has ever sent an actual logo file. Only Bastrop County Cares is
-      documented at all. The site now shows a monogram badge (initials in a circle) next to each
-      sponsor's name and grant amount, styled to read as a credibility strip rather than a sentence,
-      right under the hero on every page. That is the strongest honest treatment possible without
-      real artwork: it is a lettermark, not a logo. Get an actual SVG or PNG logo file, plus written
-      permission to use it, from each sponsor, and it drops straight into `SponsorBand.astro` in
-      place of the initials.
 
-Also addressed directly, no follow up needed:
+Addressed directly, no follow up needed:
 
+- **Sponsor logos.** No sponsor has ever sent an actual logo file. The site shows a monogram badge
+  (initials in a circle) next to each sponsor's name and grant amount, right under the hero on every
+  page and again on the About page's supporters list. That is the strongest honest treatment
+  possible without real artwork: it is a lettermark, not a logo. Get an actual SVG or PNG logo file,
+  plus written permission to use it, from each sponsor, and it drops straight into
+  `SponsorBand.astro` in place of the initials.
 - Top of page call to action: the home hero now leads with **Donate** and **Get Involved** buttons,
   plus **Volunteer**, **Sponsor** and **Explore Programs** as quick links right under them. The header
   Donate button is now visible on phone screens too, not just from tablet width up.
@@ -66,6 +65,26 @@ Also addressed directly, no follow up needed:
   to a visitor. The moment Monique shares real figures, add them there, e.g.
   `{ value: "500+", label: "Students served" }`, and the section appears on all three pages at once.
 - Mobile pass: see "Mobile experience" below.
+- **Duplicate gallery photo.** Mike flagged that the wide table shot beside the tighter banner photo
+  in "Our Team" was the same picture zoomed out. Removed `founder-banner` from the gallery (it stays
+  as the About page hero portrait, just not in the gallery grid).
+- **Hero video black bar and framing.** The clip had a thin baked in black band across the very top
+  (visible once scaled up in the hero). Re-encoded `elevate-youth.mp4` cropped to remove it. Also
+  added two decorative honeycomb outline shapes peeking from behind the video card's corners, echoing
+  the logo mark and the mosaic this hero replaced, per Mike's "honeycomb mesh or something" note.
+- **"Mo" changed to "Monique"** everywhere on the site.
+- **"Enquiry" changed to "inquiry"** everywhere (US spelling), on Contact, Get Involved, News and the
+  Privacy Policy.
+- **Austin Police Department added as a sponsor**, $30,000, name and amount confirmed by Gazzy. Shows
+  in SponsorBand on every page and in the About page supporters list. Grant date and program are not
+  yet documented, see the Sponsors section below.
+- **Six new photos added to the general gallery** from the Aug 2026 content folder (`more2.jpeg`
+  through `more7.jpeg`, plus `more1.jpeg` which had not been processed before): backpack giveaway
+  volunteers, the backpack staging table, free haircuts at Back2School day, the Bee Unique banner
+  set up in a school gym, a young supporter at the Bee Unique sign, and Houston City College
+  Northeast tabling. `more2.jpeg` was left out, it is nearly the same shot as `more6.jpeg` from a
+  slightly different angle. Monique described this batch as "vendors/volunteers that come out every
+  year to help," so none of them went into the sponsors list, per her note.
 
 ## Mobile experience
 
@@ -132,11 +151,23 @@ Two practical improvements worth making:
 
 ## Sponsors
 
-- [ ] Confirm and name the other supporters. Only Bastrop County Cares is documented, so only
-      Bastrop County Cares is published. Organizations that appear in photos but are **not** yet
-      confirmed as sponsors: Alpha Phi Alpha, HCC North Forest Campus, Lamar University, MCT Credit
-      Union. Say the word and each goes into `sponsors` in `src/site.ts`.
-- [ ] Written permission to use sponsor logos, then add them alongside the names
+**Confirmed:** Bastrop County Cares ($35,000, featured) and Austin Police Department ($30,000,
+name and amount confirmed by Gazzy, Aug 2026). Both are in `sponsors` in `src/site.ts` and show on
+the SponsorBand strip and the About page supporters section. Austin Police Department is not the
+About page's featured card, since its grant date and program are not yet documented, only Bastrop
+County Cares has enough detail for that layout.
+
+- [ ] Austin Police Department: date and program the grant supported, so it can be added if it
+      should ever become the featured card too.
+- [ ] Organizations that appear in photos but are **not** confirmed as sponsors, more of these
+      turned up in the Aug 2026 content folder: Alpha Phi Alpha (backpack giveaway volunteers),
+      Houston City College Northeast (tabling at a community day, matches or replaces the earlier
+      "HCC North Forest Campus" note, worth reconciling which name is current), Lamar University,
+      MCT Credit Union. Monique described the Aug 2026 batch as "vendors/volunteers that come out
+      every year to help", not funders, so they stay in the general gallery, not this list, unless
+      told otherwise.
+- [ ] Written permission to use sponsor logos, then add them alongside the names. `SponsorBand`
+      currently shows a monogram badge (initials in a circle) for each confirmed sponsor instead.
 
 ## Programs and impact
 
